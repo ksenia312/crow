@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/uikit/title.dart';
+import 'package:frontend/uikit/app-bar-children.dart';
 import 'package:frontend/utils/colors.dart';
-import 'package:frontend/utils/theme.dart';
 
 import 'feed/feed.dart';
 import 'game/game.dart';
@@ -23,42 +22,43 @@ class _LandingState extends State<Landing> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: AppTitle.text(),
+        title: appBarTitle(),
+        leading: appBarLeading(),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () {},
-          )
+          ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-
-          showSelectedLabels: false, //selected
-          selectedIconTheme: const IconThemeData(size: 35),
-          selectedItemColor: AppColors.darkBlue(),
-
-          iconSize: 30, //unselected
-          showUnselectedLabels: false,
-          unselectedItemColor: AppColors.lightBlue(),
-
-          backgroundColor: AppColors.extraLight(),
-
-          currentIndex: _current, //toggle
-          onTap: (index) => setState(() => _current = index),
-          items: [
-            _item(Icons.person_outline, 'Профиль'),
-            _item(Icons.play_circle_outline, 'Играть'),
-            _item(Icons.feed_outlined, 'Лента'),
-            _item(Icons.question_answer_outlined, 'Вопросы'),
-          ]),
+      bottomNavigationBar: _bar(),
       body: Center(
         child: _screens.elementAt(_current),
       ),
     );
   }
+
   BottomNavigationBarItem _item(icon, text) =>
       BottomNavigationBarItem(icon: Icon(icon), label: text);
 
-
+  BottomNavigationBar _bar() => BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: AppColors.extraLight(),
+          currentIndex: _current,
+          //selected
+          showSelectedLabels: false,
+          selectedIconTheme: const IconThemeData(size: 35),
+          selectedItemColor: AppColors.darkBlue(),
+          iconSize: 30,
+          //unselected
+          showUnselectedLabels: false,
+          unselectedItemColor: AppColors.lightBlue(),
+          //toggle
+          onTap: (index) => setState(() => _current = index),
+          items: [
+            _item(Icons.person_outline, 'Профиль'),
+            _item(Icons.play_circle_outline, 'Играть'),
+            _item(Icons.burst_mode_outlined, 'Лента'),
+            _item(Icons.question_mark_outlined, 'Вопросы'),
+          ]);
 }

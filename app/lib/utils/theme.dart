@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/utils/colors.dart';
-import 'package:frontend/utils/text_style.dart';
+import 'package:frontend/utils/text-style.dart';
 
 class AppTheme {
   static ThemeData get blue {

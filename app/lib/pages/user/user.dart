@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/uikit/title.dart';
+import 'package:frontend/uikit/app-bar-children.dart';
 import 'package:frontend/utils/theme.dart';
 
 class User extends StatefulWidget {
