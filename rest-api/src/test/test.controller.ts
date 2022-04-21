@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   HttpCode,
   HttpStatus,
   Param,
@@ -10,14 +11,26 @@ import {
 } from '@nestjs/common';
 import { CreateSmtDto } from './dto/create-smt.dto';
 import { UpdateSmtDto } from './dto/update-smt.dto';
+import { TestService } from './test.service';
 
-@Controller('test')
+@Controller('test') // запросы перенаправления параметры
 export class TestController {
+  constructor(private readonly TestService: TestService) {}
+
+  @Get()
+  getAll() {
+    return this.TestService.getAll();
+  }
+
+  @Get(':id')
+  getOne(@Param('id') id: string) {
+    return this.TestService.getByID(id);
+  }
+
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  //@Header('Cache-Control', None)
   create(@Body() CreateSmtDto: CreateSmtDto) {
-    return `title = ${CreateSmtDto.title} d = ${CreateSmtDto.description}`;
+    return this.TestService.create(CreateSmtDto);
   }
 
   @Delete(':id')

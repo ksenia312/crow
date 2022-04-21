@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/pages/questions/questions.dart';
+import 'package:frontend/pages/settings_page/settings_page.dart';
+import 'package:frontend/pages/splash_page/splash_page.dart';
+import 'package:frontend/pages/statistics_page/statistics_page.dart';
 import 'package:frontend/utils/theme.dart';
 
-import 'pages/feed/feed.dart';
-import 'pages/game/game.dart';
-import 'pages/landing.dart';
-import 'pages/user/user.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,12 +20,11 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.blue,
       initialRoute: '/',
       routes: {
-        '/': (context) => const Landing(),
-        '/user': (context) => const User(),
-        '/game': (context) => const Game(),
-        '/feed': (context) => const Feed(),
-        '/questions': (context) => const Questions(),
+        '/': (context) => SplashPage(),
+        '/statistics': (context) => const StatisticsPage(),
+        '/settings': (context) => const SettingsPage(),
       },
     );
   }
 }
+

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/uikit/app-bar-children.dart';
+import 'package:frontend/pages/feed_page/feed-page.dart';
+import 'package:frontend/pages/game_page/game_page.dart';
+import 'package:frontend/pages/questions_page/questions_page.dart';
+import 'package:frontend/pages/user_page/user_page.dart';
+import 'package:frontend/uikit/app_bar_children.dart';
 import 'package:frontend/utils/colors.dart';
-
-import 'feed/feed.dart';
-import 'game/game.dart';
-import 'questions/questions.dart';
-import 'user/user.dart';
 
 class Landing extends StatefulWidget {
   const Landing({Key? key}) : super(key: key);
@@ -16,18 +15,25 @@ class Landing extends StatefulWidget {
 
 class _LandingState extends State<Landing> {
   int _current = 0;
-  final List<Widget> _screens = const [User(), Game(), Feed(), Questions()];
+  final List<Widget> _screens = const [
+    UserPage(),
+    GamePage(),
+    FeedPage(),
+    QuestionsPage()
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: appBarTitle(),
-        leading: appBarLeading(),
+        title: const AppBarTitle(),
+        leading: AppBarLeading(),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, '/settings');
+            },
           ),
         ],
       ),
@@ -43,16 +49,16 @@ class _LandingState extends State<Landing> {
 
   BottomNavigationBar _bar() => BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          backgroundColor: AppColors.extraLight(),
+          backgroundColor: AppColors.basicLight(),
           currentIndex: _current,
           //selected
           showSelectedLabels: false,
           selectedIconTheme: const IconThemeData(size: 35),
-          selectedItemColor: AppColors.darkBlue(),
+          selectedItemColor: AppColors.primary(),
           iconSize: 30,
           //unselected
           showUnselectedLabels: false,
-          unselectedItemColor: AppColors.lightBlue(),
+          unselectedItemColor: AppColors.scaffold(),
           //toggle
           onTap: (index) => setState(() => _current = index),
           items: [

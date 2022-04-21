@@ -1,0 +1,45 @@
+<svg width="80" height="130" viewBox="0 0 80 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="paint0_linear_38_570" x1="74.9998" y1="13.5036" x2="-22.5001" y2="218.504"
+                        gradientUnits="userSpaceOnUse">
+            <stop stop-color="#070574"/>
+            <stop offset="0.589583" stop-color="#9B00E4"/>
+        </linearGradient>
+        <linearGradient id="paint1_linear_38_570" x1="-66" y1="86" x2="65.7105" y2="-12.8656"
+                        gradientUnits="userSpaceOnUse">
+            <stop offset="0.313542" stop-color="#E400B2"/>
+            <stop offset="0.671875" stop-color="#9E004C"/>
+        </linearGradient>
+        <linearGradient id="paint2_linear_38_570" x1="75.629" y1="28.3982" x2="24.4219" y2="59.8639"
+                        gradientUnits="userSpaceOnUse">
+            <stop stop-color="#070574"/>
+            <stop offset="0.40672" stop-color="#9B00E4"/>
+            <stop offset="1" stop-color="#070574"/>
+        </linearGradient>
+        <linearGradient id="paint3_linear_38_570" x1="64" y1="38" x2="38.5515" y2="57.2986"
+                        gradientUnits="userSpaceOnUse">
+            <stop offset="0.313542" stop-color="#E400B2"/>
+            <stop offset="1" stop-color="#9E004C"/>
+        </linearGradient>
+    </defs>
+    <mask id="mask0_38_570" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="80" height="130">
+        <rect width="80" height="130" fill="#DFDFDF"/>
+    </mask>
+    <g mask="url(#mask0_38_570)">
+        <path d="M99 171.004H-19C-10 151 2.50031 143.5 6.5 96.5037C10.8404 45.5037 5 0.503683 39.5 0.00368297C74 -0.496317 71 50.0037 74 96.5037C77 143.004 90.5 152.504 99 171.004Z"
+              fill="url(#paint0_linear_38_570)"/>
+        <path d="M99 171.004H-19C-10 151 2.50031 143.5 6.5 96.5037C10.8404 45.5037 5 0.503683 39.5 0.00368297C74 -0.496317 71 50.0037 74 96.5037C77 143.004 90.5 152.504 99 171.004Z"
+              fill="url(#paint1_linear_38_570)"/>
+        <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M22 42.6183C41 26 38 26 57 42.6183C54.1774 74.8524 24.8226 74.8525 22 42.6183ZM57 42.6183C57 42.6183 47.4032 40.0505 39.5 43C32.1613 40.0505 22 42.6183 22 42.6183C22 42.6183 28.2097 46.5 39.5 46.5C52.4862 46.5 57 42.6183 57 42.6183Z"
+              fill="url(#paint2_linear_38_570)"/>
+        <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M22 42.6183C41 26 38 26 57 42.6183C54.1774 74.8524 24.8226 74.8525 22 42.6183ZM57 42.6183C57 42.6183 47.4032 40.0505 39.5 43C32.1613 40.0505 22 42.6183 22 42.6183C22 42.6183 28.2097 46.5 39.5 46.5C52.4862 46.5 57 42.6183 57 42.6183Z"
+              fill="url(#paint3_linear_38_570)"/>
+        <path d="M22 42.6183C41 26 38 26 57 42.6183M22 42.6183C24.8226 74.8525 54.1774 74.8524 57 42.6183M22 42.6183C22 42.6183 28.2097 46.5 39.5 46.5C52.4862 46.5 57 42.6183 57 42.6183M22 42.6183C22 42.6183 32.1613 40.0505 39.5 43C47.4032 40.0505 57 42.6183 57 42.6183"
+              stroke="#DFDFDF" stroke-width="0.1"/>
+        <circle cx="52.5" cy="24.5" r="4.5" transform="rotate(180 52.5 24.5)" fill="#DFDFDF"/>
+        <circle cx="27.5" cy="24.5" r="4.5" transform="rotate(180 27.5 24.5)" fill="#DFDFDF"/>
+    </g>
+
+</svg>
