@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/uikit/cards/image-card.dart';
-
+import 'package:frontend/widgets/cards/image_card.dart';
 import 'widgets/statistics.dart';
 
 class UserPage extends StatefulWidget {
@@ -13,16 +12,14 @@ class UserPage extends StatefulWidget {
 class _UserPageState extends State<UserPage> {
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: const [
-        ImageCard(
-          headline2: 'Василиса',
-          bodyText: 'статус: дикая львица',
-          imageHeight: 150,
-          listTileHeight: 100,
-        ),
-        Statistics(),
-      ]
-    );
+    return ListView(children: const [
+      ImageCard(
+        headline2: 'Василиса',
+        bodyText: 'статус: дикая львица',
+        imageHeight: 150,
+        listTileHeight: 100,
+      ),
+      Statistics(),
+    ]);
   }
 }

@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/utils/shadow.dart';
-
-import 'colors.dart';
 
 class AppFontSize {
   static extraLarge() => 36.0;
@@ -16,23 +13,21 @@ class AppFontSize {
 }
 
 class AppTextStyle {
-  static _text(size, {shadow = false, bold = true, dark = false}) => TextStyle(
+  static _text(size, {shadow = false, bold = true}) => TextStyle(
         fontWeight: bold ? FontWeight.bold : FontWeight.normal,
-        color: dark ? AppColors.basicDark() : AppColors.basicLight(),
         fontSize: size,
-        shadows: shadow ? [AppShadow.title()] : null,
         letterSpacing: 1.1,
       );
 
-  static headline1() => _text(AppFontSize.extraLarge(), shadow: true); //welcome
+  static get headline1 => _text(AppFontSize.extraLarge(), shadow: true); //welcome
 
-  static headline2() => _text(AppFontSize.normal(), dark: false); //headline2
+  static get headline2 => _text(AppFontSize.normal()); //headline2
 
-  static title() => _text(AppFontSize.normal(), shadow: true);
+  static get title => _text(AppFontSize.normal(), shadow: true);
 
-  static button() => _text(AppFontSize.normal(), dark: false);
+  static get button => _text(AppFontSize.normal());
 
-  static bodyText() => _text(AppFontSize.small(), bold: false, dark: false);
+  static get bodyText => _text(AppFontSize.small(), bold: false);
 
-  static subtitle() => _text(AppFontSize.small(), bold: false);
+  static get subtitle => _text(AppFontSize.small(), bold: false);
 }

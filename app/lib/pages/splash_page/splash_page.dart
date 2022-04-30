@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/utils/assets_variables.dart';
 import 'package:splashscreen/splashscreen.dart';
-
-import '../../utils/colors.dart';
 import '../landing.dart';
 
 class SplashPage extends StatelessWidget {
@@ -13,11 +11,11 @@ class SplashPage extends StatelessWidget {
     return SplashScreen(
       seconds: 5,
       navigateAfterSeconds: const Landing(),
-      backgroundColor: AppColors.scaffold(),
+      backgroundColor: Theme.of(context).colorScheme.background,
       title: Text('crow', style: Theme.of(context).textTheme.headline1),
       image: Image.asset(_image),
       photoSize: 50.0,
-      loaderColor: AppColors.secondary(),
+      loaderColor: Theme.of(context).colorScheme.secondary,
     );
   }
 }

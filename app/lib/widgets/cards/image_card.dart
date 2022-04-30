@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:frontend/utils/assets_variables.dart';
 import '../../utils/indents.dart';
 import '../list_tile.dart';
@@ -67,8 +66,9 @@ class ImageCardState extends State<ImageCard> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: AppIndents.basicMargin(),
+      margin: AppIndents.cardMargin,
       elevation: 2,
+      color: Theme.of(context).colorScheme.secondary,
       child: ClipRRect(
           borderRadius: BorderRadius.circular(4), child: _drawContent()),
     );
@@ -95,6 +95,8 @@ class ImageCardState extends State<ImageCard> with TickerProviderStateMixin {
               headline2: widget.headline2,
               bodyText: widget.bodyText,
               height: widget.listTileHeight,
+              color: Theme.of(context).colorScheme.secondary,
+              textColor: Theme.of(context).colorScheme.onSecondary,
             ),
           ],
         ),

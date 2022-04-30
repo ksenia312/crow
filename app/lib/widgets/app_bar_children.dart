@@ -15,12 +15,18 @@ class AppBarLeading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
+        style: ButtonStyle(
+            backgroundColor:
+                overrideButtonStyle<Color>(Theme.of(context).colorScheme.surface)),
         onPressed: () {
           Navigator.of(context).pop();
         },
-        style: AppButtonStyle.transparent(),
-        child:
-            iconBack ? const Icon(Icons.arrow_back) : SvgPicture.asset(_icon));
+        child: iconBack
+            ? Icon(
+                Icons.arrow_back,
+                color: Theme.of(context).colorScheme.onSurface,
+              )
+            : SvgPicture.asset(_icon));
   }
 }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/widgets/cards/announcement_card.dart';
 
 class FeedPage extends StatefulWidget {
   const FeedPage({Key? key}) : super(key: key);
@@ -10,7 +11,9 @@ class FeedPage extends StatefulWidget {
 class _FeedPageState extends State<FeedPage> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: Text('feed', style: Theme.of(context).textTheme.bodyText1));
+    return const AnnouncementCard(
+      headline2: 'Бесконечная лента',
+      bodyText: "Листай сколько хочешь",
+    );
   }
 }

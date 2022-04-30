@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frontend/utils/assets_variables.dart';
-import '../../uikit/buttons.dart';
+import 'package:frontend/widgets/buttons.dart';
 
 class GamePage extends StatefulWidget {
   const GamePage({Key? key}) : super(key: key);
@@ -35,7 +35,6 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     _addListeners(_controllerPurple);
     _controllerPink.forward();
     _controllerPurple.forward();
-    //_awaitForwardController(_controllerPurple, 100);
   }
 
   _initializeController() {
@@ -74,7 +73,9 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  onPressed() {}
+  onPressed(context) {
+    Navigator.pushNamed(context, '/game-home');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +94,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
                 buttonText: 'Играть',
                 type: AppTextButtonType.primary,
                 size: AppTextButtonSize.small,
-                onPressed: onPressed,
+                onPressed: (){onPressed(context);},
               ),
             ],
           );

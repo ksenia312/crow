@@ -3,8 +3,7 @@ import 'package:frontend/pages/feed_page/feed-page.dart';
 import 'package:frontend/pages/game_page/game_page.dart';
 import 'package:frontend/pages/questions_page/questions_page.dart';
 import 'package:frontend/pages/user_page/user_page.dart';
-import 'package:frontend/uikit/app_bar_children.dart';
-import 'package:frontend/utils/colors.dart';
+import 'package:frontend/widgets/app_bar_children.dart';
 
 class Landing extends StatefulWidget {
   const Landing({Key? key}) : super(key: key);
@@ -22,15 +21,31 @@ class _LandingState extends State<Landing> {
     QuestionsPage()
   ];
 
+  _getTitle() {
+    switch (_current) {
+      case 0:
+        return 'Личный кабинет';
+      case 1:
+        return 'Сломай мозг';
+      case 2:
+        return 'Бесконечная лента';
+      case 3:
+        return 'Вопросы';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const AppBarTitle(),
+        title: AppBarTitle(text: _getTitle()),
         leading: AppBarLeading(),
         actions: [
           IconButton(
-            icon: const Icon(Icons.settings),
+            icon: Icon(
+              Icons.settings,
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
             onPressed: () {
               Navigator.pushNamed(context, '/settings');
             },
@@ -48,23 +63,24 @@ class _LandingState extends State<Landing> {
       BottomNavigationBarItem(icon: Icon(icon), label: text);
 
   BottomNavigationBar _bar() => BottomNavigationBar(
+
           type: BottomNavigationBarType.fixed,
-          backgroundColor: AppColors.basicLight(),
+          backgroundColor: Theme.of(context).colorScheme.secondary,
           currentIndex: _current,
           //selected
           showSelectedLabels: false,
           selectedIconTheme: const IconThemeData(size: 35),
-          selectedItemColor: AppColors.primary(),
+          selectedItemColor: Theme.of(context).colorScheme.onSecondary,
           iconSize: 30,
           //unselected
           showUnselectedLabels: false,
-          unselectedItemColor: AppColors.scaffold(),
-          //toggle
+          unselectedItemColor: Theme.of(context).colorScheme.onTertiary,
+          //tap
           onTap: (index) => setState(() => _current = index),
           items: [
-            _item(Icons.person_outline, 'Профиль'),
-            _item(Icons.play_circle_outline, 'Играть'),
-            _item(Icons.burst_mode_outlined, 'Лента'),
-            _item(Icons.question_mark_outlined, 'Вопросы'),
+            _item(Icons.person_outline, ''),
+            _item(Icons.play_circle_outline, ''),
+            _item(Icons.burst_mode_outlined, ''),
+            _item(Icons.question_mark_outlined, ''),
           ]);
 }

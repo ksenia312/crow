@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/utils/colors.dart';
 import 'package:loading_animations/loading_animations.dart';
 
 class AppLoading extends StatelessWidget {
@@ -8,7 +7,7 @@ class AppLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.secondary(),
+      color: Theme.of(context).colorScheme.secondary,
       child: Center(
         child: LoadingFlipping.square(
           borderColor: Colors.cyan,
