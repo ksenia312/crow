@@ -6,14 +6,10 @@ class AppLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Theme.of(context).colorScheme.secondary,
-      child: Center(
-        child: LoadingFlipping.square(
-          borderColor: Colors.cyan,
-          size: 30.0,
-        ),
-      ),
+    return LoadingFlipping.circle(
+      borderColor: Theme.of(context).colorScheme.primary,
+      size: 30.0,
+      backgroundColor: Theme.of(context).colorScheme.primary,
     );
   }
 }

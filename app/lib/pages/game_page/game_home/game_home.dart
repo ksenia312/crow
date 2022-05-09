@@ -80,7 +80,7 @@ class _GameHomeState extends State<GameHome> with TickerProviderStateMixin {
     _list.addAll(List.generate(12, (int n) => n + 1).map(
       (n) => AppTextButton(
         buttonText: 'уровень $n',
-        type: AppTextButtonType.outlined,
+        type: AppTextButtonType.tertiary,
         onPressed: () {
           Navigator.pushNamed(context, '/level', arguments: {"id": n - 1});
         },

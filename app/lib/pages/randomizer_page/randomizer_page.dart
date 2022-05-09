@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/pages/questions_page/widgets/question.dart';
+import 'package:frontend/pages/randomizer_page/widgets/question.dart';
 import 'package:frontend/widgets/cards/announcement_card.dart';
 
-class QuestionsPage extends StatefulWidget {
-  const QuestionsPage({Key? key}) : super(key: key);
+class RandomizerPage extends StatefulWidget {
+  const RandomizerPage({Key? key}) : super(key: key);
 
   @override
-  State<QuestionsPage> createState() => _QuestionsPageState();
+  State<RandomizerPage> createState() => _RandomizerPageState();
 }
 
-class _QuestionsPageState extends State<QuestionsPage> {
+class _RandomizerPageState extends State<RandomizerPage> {
   @override
   Widget build(BuildContext context) {
     return ListView(
       children: [
         const AnnouncementCard(
             headline2: ''
-                'Вопросы',
-            bodyText: 'Здесь будут рандомные вопросы и ответы на них'),
+                'Рандомайзер',
+            bodyText: 'Мы не знаем, что тут будет, но что-то точно будет'),
         Question(
           headline2: 'Почему небо голубое',
           bodyText1: 'Потому что ты дебил голубой блять',

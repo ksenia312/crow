@@ -3,10 +3,11 @@ import 'package:frontend/utils/button_style.dart';
 import 'package:frontend/utils/color_schemes.dart';
 import 'package:frontend/utils/text_style.dart';
 
-enum ColorfulThemeType { pink, green, orange }
+enum ColorfulThemeType { blue, pink, green, orange }
 
 class AppTheme with ChangeNotifier {
   static bool _isDarkTheme = false;
+  static ColorfulThemeType colorMode = ColorfulThemeType.blue;
 
   ThemeMode get currentTheme {
     return _isDarkTheme ? ThemeMode.dark : ThemeMode.light;
@@ -17,9 +18,12 @@ class AppTheme with ChangeNotifier {
     notifyListeners();
   }
 
-  static _basicThemeData(
-          ColorScheme colorScheme) =>
-      ThemeData(
+  void toggleColorMode(ColorfulThemeType color) {
+    colorMode = color;
+    notifyListeners();
+  }
+
+  static _basicThemeData(ColorScheme colorScheme) => ThemeData(
         elevatedButtonTheme: _elevatedButtonThemeData(),
         textTheme: _textTheme(),
         primaryTextTheme: _textTheme(),
@@ -48,18 +52,35 @@ class AppTheme with ChangeNotifier {
 
   static _appBarTheme(backgroundColor) {
     return AppBarTheme(
-      titleTextStyle: AppTextStyle.title,
-      elevation: 3,
-      backgroundColor: backgroundColor
-    );
+        titleTextStyle: AppTextStyle.title,
+        elevation: 3,
+        backgroundColor: backgroundColor);
   }
 
   static ThemeData get light {
-    return _basicThemeData(AppColorScheme.light);
+    switch (colorMode) {
+      case ColorfulThemeType.blue:
+        return _basicThemeData(AppColorScheme.lightBlue);
+      case ColorfulThemeType.pink:
+        return _basicThemeData(AppColorScheme.lightPink);
+      case ColorfulThemeType.green:
+        return _basicThemeData(AppColorScheme.lightGreen);
+      case ColorfulThemeType.orange:
+        return _basicThemeData(AppColorScheme.lightOrange);
+    }
   }
 
   static ThemeData get dark {
-    return _basicThemeData(AppColorScheme.dark);
+    switch (colorMode) {
+      case ColorfulThemeType.blue:
+        return _basicThemeData(AppColorScheme.darkBlue);
+      case ColorfulThemeType.pink:
+        return _basicThemeData(AppColorScheme.darkPink);
+      case ColorfulThemeType.green:
+        return _basicThemeData(AppColorScheme.darkGreen);
+      case ColorfulThemeType.orange:
+        return _basicThemeData(AppColorScheme.darkOrange);
+    }
   }
 }
 

@@ -9,6 +9,7 @@ class ImageCard extends StatefulWidget {
   final String bodyText;
   final double imageHeight;
   final double listTileHeight;
+  final int initImageNum;
 
   const ImageCard({
     Key? key,
@@ -16,6 +17,7 @@ class ImageCard extends StatefulWidget {
     required this.bodyText,
     this.imageHeight = 150,
     this.listTileHeight = 120,
+    this.initImageNum = 1,
   }) : super(key: key);
 
   @override
@@ -26,14 +28,17 @@ class ImageCard extends StatefulWidget {
 
 class ImageCardState extends State<ImageCard> with TickerProviderStateMixin {
   int _imgNum = 1;
-  String _imageURL = getAsset(AppAssets.images, 'basic_card_bg__1.jpg');
+  late String _imageURL;
   late AnimationController _controllerOpacity;
   late Timer _timer;
 
   @override
   void initState() {
     super.initState();
-
+    setState(() {
+      _imageURL = getAsset(
+          AppAssets.images, 'basic_card_bg__${widget.initImageNum}.jpg');
+    });
     _controllerOpacity =
         AnimationController(duration: const Duration(seconds: 2), vsync: this);
 

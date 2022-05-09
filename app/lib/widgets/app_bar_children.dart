@@ -5,21 +5,23 @@ import 'package:frontend/utils/button_style.dart';
 
 class AppBarLeading extends StatelessWidget {
   final bool iconBack;
+  final Function? onPressed;
   final String _icon = getAsset(AppAssets.icons, 'icon_small.svg');
 
   AppBarLeading({
     Key? key,
     this.iconBack = false,
+    this.onPressed()?,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
         style: ButtonStyle(
-            backgroundColor:
-                overrideButtonStyle<Color>(Theme.of(context).colorScheme.surface)),
+            backgroundColor: overrideButtonStyle<Color>(
+                Theme.of(context).colorScheme.surface)),
         onPressed: () {
-          Navigator.of(context).pop();
+          onPressed == null ? Navigator.of(context).pop() : onPressed!();
         },
         child: iconBack
             ? Icon(

@@ -93,7 +93,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
               AppTextButton(
                 buttonText: 'Играть',
                 type: AppTextButtonType.primary,
-                size: AppTextButtonSize.small,
+                size: AppTextButtonSize.medium,
                 onPressed: (){onPressed(context);},
               ),
             ],

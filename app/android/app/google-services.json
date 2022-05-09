@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "553224046241",
+    "project_id": "crow-2c36b",
+    "storage_bucket": "crow-2c36b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:553224046241:android:8eabf3809f615246d612e0",
+        "android_client_info": {
+          "package_name": "com.xenikii.crow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "553224046241-nen22sakst1c9d7opdupl48t2jgj6uos.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDrPdHZjeT8SSPcICFGdOYEMb5FS5oqNE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "553224046241-nen22sakst1c9d7opdupl48t2jgj6uos.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

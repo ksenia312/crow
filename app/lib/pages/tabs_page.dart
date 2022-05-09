@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/pages/feed_page/feed-page.dart';
 import 'package:frontend/pages/game_page/game_page.dart';
-import 'package:frontend/pages/questions_page/questions_page.dart';
+import 'package:frontend/pages/randomizer_page/randomizer_page.dart';
 import 'package:frontend/pages/user_page/user_page.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
 
-class Landing extends StatefulWidget {
-  const Landing({Key? key}) : super(key: key);
+class TabsPage extends StatefulWidget {
+  const TabsPage({Key? key}) : super(key: key);
 
   @override
-  State<Landing> createState() => _LandingState();
+  State<TabsPage> createState() => _TabsPageState();
 }
 
-class _LandingState extends State<Landing> {
+class _TabsPageState extends State<TabsPage> {
   int _current = 0;
   final List<Widget> _screens = const [
     UserPage(),
     GamePage(),
     FeedPage(),
-    QuestionsPage()
+    RandomizerPage()
   ];
 
   _getTitle() {
@@ -28,10 +28,16 @@ class _LandingState extends State<Landing> {
       case 1:
         return 'Сломай мозг';
       case 2:
-        return 'Бесконечная лента';
+        return 'Медитация';
       case 3:
-        return 'Вопросы';
+        return 'Рандомайзер';
     }
+  }
+
+  void onAppBarIconPressed() {
+    setState(() {
+      _current = 0;
+    });
   }
 
   @override
@@ -39,7 +45,7 @@ class _LandingState extends State<Landing> {
     return Scaffold(
       appBar: AppBar(
         title: AppBarTitle(text: _getTitle()),
-        leading: AppBarLeading(),
+        leading: AppBarLeading(onPressed: onAppBarIconPressed),
         actions: [
           IconButton(
             icon: Icon(
@@ -63,7 +69,6 @@ class _LandingState extends State<Landing> {
       BottomNavigationBarItem(icon: Icon(icon), label: text);
 
   BottomNavigationBar _bar() => BottomNavigationBar(
-
           type: BottomNavigationBarType.fixed,
           backgroundColor: Theme.of(context).colorScheme.secondary,
           currentIndex: _current,

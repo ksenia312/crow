@@ -29,5 +29,5 @@ class AppTextStyle {
 
   static get bodyText => _text(AppFontSize.small(), bold: false);
 
-  static get subtitle => _text(AppFontSize.small(), bold: false);
+  static get subtitle => _text(AppFontSize.normal(), bold: false);
 }
