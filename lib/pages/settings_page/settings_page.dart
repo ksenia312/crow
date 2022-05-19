@@ -82,7 +82,7 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           Expanded(
               child: AppTextButton(
-                  buttonText: 'цвет: выбрать',
+                  buttonText: 'цвет: \nвыбрать',
                   type: _pressed
                       ? AppTextButtonType.tertiary
                       : AppTextButtonType.primary,

@@ -28,26 +28,21 @@ class _AppBarLeadingState extends State<AppBarLeading> {
     return ElevatedButton(
       style: ButtonStyle(
           backgroundColor: overrideButtonStyle<Color>(
-              Theme
-                  .of(context)
-                  .colorScheme
-                  .surface)),
+              Theme.of(context).colorScheme.surface)),
       onPressed: () {
-        widget.onPressed == null ? Navigator.of(context).pop() : widget
-            .onPressed!();
+        widget.onPressed == null
+            ? Navigator.of(context).pop()
+            : widget.onPressed!();
       },
       child: widget.iconBack
           ? Icon(
-        Icons.arrow_back,
-        color: Theme
-            .of(context)
-            .colorScheme
-            .onSurface,
-      )
+              Icons.arrow_back,
+              color: Theme.of(context).colorScheme.onSurface,
+            )
           : Padding(
-        padding: const EdgeInsets.all(8),
-        child: SvgPicture.asset(_icon),
-      ),
+              padding: const EdgeInsets.all(8),
+              child: SvgPicture.asset(_icon),
+            ),
     );
   }
 }
@@ -59,6 +54,12 @@ class AppBarTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(text);
+    return Text(
+      text,
+      style: Theme.of(context)
+          .textTheme
+          .subtitle1!
+          .apply(color: Theme.of(context).colorScheme.onSurface),
+    );
   }
 }
