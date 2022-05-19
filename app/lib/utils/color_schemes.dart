@@ -1,6 +1,45 @@
 import 'package:flutter/material.dart';
 
 class AppColorScheme {
+  static ColorScheme get lightGrey {
+    const Color _light = Color(0xFFF4F4F4);
+    return const ColorScheme(
+        brightness: Brightness.light,
+        primary: Color(0xFF757A8F),
+        surface: Color(0xFF646A80),
+        onPrimary: _light,
+        onSurface: _light,
+        onError: _light,
+        onBackground: _light,
+        secondary: _light,
+        tertiary: Color(0xFFC6BFCC),
+        error: Color(0xFFFD3F55),
+        background: Color(0xFFD2CBDA),
+        onSecondary: Color(0xFF313131),
+        onTertiary: Color(0xFF4E4854),
+        shadow: Color(0x80000000),
+        secondaryContainer: Color(0xCCF4F4F4));
+  }
+  static ColorScheme get darkGrey {
+    const Color _light = Color(0xFFDBDBF3);
+    return const ColorScheme(
+        brightness: Brightness.dark,
+        onPrimary: _light,
+        onSecondary: _light,
+        onSurface: _light,
+        onBackground: _light,
+        onError: _light,
+        primary: Color(0xFF5F5F69),
+        secondary: Color(0xCC34343B),
+        surface: Color(0xFF32323A),
+        background: Color(0xFF434349),
+        tertiary: Color(0xFF6D6B77),
+        onTertiary: Color(0xFFC3C2C7),
+        error: Color(0xFFA92B3A),
+        shadow: Color(0x80000000),
+        secondaryContainer: Color(0xFF6A6A73));
+  }
+
   static ColorScheme get lightBlue {
     const Color _light = Color(0xFFF4F4F4);
     return const ColorScheme(

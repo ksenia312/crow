@@ -12,8 +12,7 @@ class GameHome extends StatefulWidget {
 }
 
 class _GameHomeState extends State<GameHome> with TickerProviderStateMixin {
-  final String _pinkFigure =
-      getAsset(AppAssets.figures, 'purple_face_large_down.svg');
+  late String _bigCrow;
   late AnimationController _controllerPink;
   Animation<double>? _animationPink;
 
@@ -58,8 +57,18 @@ class _GameHomeState extends State<GameHome> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      _bigCrow = getAsset(AppAssets.figures, 'purple_down.svg');
+    });
     return Scaffold(
-        appBar: AppBar(), body: ListView(children: _buildListViewChildren()));
+        appBar: AppBar(
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/tabs');
+              },
+              icon: const Icon(Icons.arrow_back)),
+        ),
+        body: ListView(children: _buildListViewChildren()));
   }
 
   _buildListViewChildren() {
@@ -79,10 +88,11 @@ class _GameHomeState extends State<GameHome> with TickerProviderStateMixin {
 
     _list.addAll(List.generate(12, (int n) => n + 1).map(
       (n) => AppTextButton(
+        disabled: n <= 3 ? false : true,
         buttonText: 'уровень $n',
         type: AppTextButtonType.tertiary,
         onPressed: () {
-          Navigator.pushNamed(context, '/level', arguments: {"id": n - 1});
+          Navigator.pushNamed(context, '/level', arguments: {"id": n});
         },
       ),
     ));
@@ -94,5 +104,5 @@ class _GameHomeState extends State<GameHome> with TickerProviderStateMixin {
       builder: (ctx, ch) => Positioned(
           top: _animationPink?.value,
           right: 50,
-          child: SvgPicture.asset(_pinkFigure)));
+          child: SvgPicture.asset(_bigCrow)));
 }

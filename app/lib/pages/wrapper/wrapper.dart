@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/models/user_model.dart';
-import 'package:frontend/pages/auth_page/sign_in_page.dart';
 import 'package:frontend/pages/home_page/home_page.dart';
 import 'package:frontend/pages/tabs_page.dart';
 import 'package:provider/provider.dart';

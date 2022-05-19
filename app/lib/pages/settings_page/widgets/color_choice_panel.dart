@@ -24,9 +24,12 @@ class _ColorChoicePanelState extends State<ColorChoicePanel> {
         : [dark.primary, dark.onPrimary];
   }
 
-  List _getColorModeParams(context, ColorfulThemeType colorMode) {
+  List _getColorModeParams(ColorfulThemeType colorMode) {
     var _isLight = Theme.of(context).brightness == Brightness.light;
     switch (colorMode) {
+      case ColorfulThemeType.grey:
+        return _listColorModeParams(
+            _isLight, AppColorScheme.lightGrey, AppColorScheme.darkGrey);
       case ColorfulThemeType.blue:
         return _listColorModeParams(
             _isLight, AppColorScheme.lightBlue, AppColorScheme.darkBlue);
@@ -72,7 +75,10 @@ class _ColorChoicePanelState extends State<ColorChoicePanel> {
                           1.fr,
                           1.fr,
                         ],
-                        rowSizes: [(80).px],
+                        rowSizes: [
+                          (80).px,
+                          (80).px,
+                        ],
                         children: _drawBackgroundBoxes(context),
                       ),
                     ],
@@ -86,11 +92,12 @@ class _ColorChoicePanelState extends State<ColorChoicePanel> {
 
   _drawBackgroundBoxes(context) {
     return ColorfulThemeType.values.map((type) {
-      var _buttonParams = _getColorModeParams(context, type);
+      var num = type.index;
+      var _buttonParams = _getColorModeParams(type);
       return AppTextButton(
         buttonText: '',
         onPressed: () {
-          currentTheme.toggleColorMode(type);
+          appTheme.toggleColorMode(num);
         },
         type: AppTextButtonType.custom,
         size: AppTextButtonSize.small,

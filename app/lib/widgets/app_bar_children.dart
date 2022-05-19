@@ -3,10 +3,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:frontend/utils/assets_variables.dart';
 import 'package:frontend/utils/button_style.dart';
 
-class AppBarLeading extends StatelessWidget {
+class AppBarLeading extends StatefulWidget {
   final bool iconBack;
   final Function? onPressed;
-  final String _icon = getAsset(AppAssets.icons, 'icon_small.svg');
 
   AppBarLeading({
     Key? key,
@@ -15,20 +14,41 @@ class AppBarLeading extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<AppBarLeading> createState() => _AppBarLeadingState();
+}
+
+class _AppBarLeadingState extends State<AppBarLeading> {
+  late String _icon;
+
+  @override
   Widget build(BuildContext context) {
+    setState(() {
+      _icon = getAsset(AppAssets.icons);
+    });
     return ElevatedButton(
-        style: ButtonStyle(
-            backgroundColor: overrideButtonStyle<Color>(
-                Theme.of(context).colorScheme.surface)),
-        onPressed: () {
-          onPressed == null ? Navigator.of(context).pop() : onPressed!();
-        },
-        child: iconBack
-            ? Icon(
-                Icons.arrow_back,
-                color: Theme.of(context).colorScheme.onSurface,
-              )
-            : SvgPicture.asset(_icon));
+      style: ButtonStyle(
+          backgroundColor: overrideButtonStyle<Color>(
+              Theme
+                  .of(context)
+                  .colorScheme
+                  .surface)),
+      onPressed: () {
+        widget.onPressed == null ? Navigator.of(context).pop() : widget
+            .onPressed!();
+      },
+      child: widget.iconBack
+          ? Icon(
+        Icons.arrow_back,
+        color: Theme
+            .of(context)
+            .colorScheme
+            .onSurface,
+      )
+          : Padding(
+        padding: const EdgeInsets.all(8),
+        child: SvgPicture.asset(_icon),
+      ),
+    );
   }
 }
 

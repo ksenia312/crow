@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:frontend/services/auth_service.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
 import 'package:frontend/widgets/buttons.dart';
 import 'package:frontend/widgets/label.dart';
+import 'package:frontend/widgets/statuses/toast.dart';
 import 'package:frontend/widgets/statuses/loading.dart';
-import 'package:frontend/widgets/statuses/types.dart';
 import 'package:frontend/widgets/text_field/text_field.dart';
 import 'package:frontend/widgets/text_field/types.dart';
 import 'package:frontend/widgets/text_field/validators.dart';
@@ -21,54 +22,60 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   final AuthService _authService = AuthService();
   final _formKey = GlobalKey<FormState>();
-  final Map<StatusType, bool> _statuses = {
-    StatusType.loading: false,
-    StatusType.error: false
-  };
+  bool _loading = false;
 
   final Map<SignUpFieldType, String> _fieldsValues = {
     SignUpFieldType.email: '',
     SignUpFieldType.password: '',
     SignUpFieldType.repeatedPassword: ''
   };
+  late FToast fToast;
+  bool disabled = true;
+
+  @override
+  void initState() {
+    super.initState();
+    fToast = FToast();
+    fToast.init(context);
+  }
 
   _onFieldChanged(String value, SignUpFieldType type) => setState(() {
         _fieldsValues[type] = value;
       });
 
-  _toggleStatuses(StatusType type, bool value) => setState(() {
-        _statuses[type] = value;
-      });
+  _toggleLoading() {
+    setState(() {
+      _loading = !_loading;
+    });
+  }
 
   void _signUp() async {
-    _toggleStatuses(StatusType.loading, true);
-    if (_fieldsValues[SignUpFieldType.password] !=
-        _fieldsValues[SignUpFieldType.repeatedPassword]) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(
-          'Пароли не совпадают',
-          style: Theme.of(context).textTheme.bodyText1,
-        ),
-        backgroundColor: Theme.of(context).colorScheme.secondary,
-      ));
-    } else if (_formKey.currentState!.validate()) {
+    _toggleLoading();
+    if (validateFields() == null) {
       var res = await _authService.signUpWithEmailAndPassword(
           _fieldsValues[SignUpFieldType.email]!,
           _fieldsValues[SignUpFieldType.password]!);
       if (res == null) {
-        _toggleStatuses(StatusType.error, true);
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text('error')));
       } else {
         Navigator.pushNamed(context, '/tabs');
       }
-      _toggleStatuses(StatusType.loading, false);
     }
-    _toggleStatuses(StatusType.loading, false);
+    _toggleLoading();
   }
 
   @override
   Widget build(BuildContext context) {
+    if (_fieldsValues[SignUpFieldType.email] != '' &&
+        _fieldsValues[SignUpFieldType.password] != '' &&
+        _fieldsValues[SignUpFieldType.repeatedPassword] != '') {
+      setState(() {
+        disabled = false;
+      });
+    } else {
+      setState(() {
+        disabled = true;
+      });
+    }
     return Scaffold(
       appBar: AppBar(
         title: const AppBarTitle(text: 'Создание учетной записи'),
@@ -123,9 +130,39 @@ class _SignUpPageState extends State<SignUpPage> {
             type: AppTextButtonType.primary,
             size: AppTextButtonSize.large,
             onPressed: _signUp,
+            disabled: disabled,
           ),
-          if (_statuses[StatusType.loading] == true)
-            const SizedBox(height: 50, child: AppLoading())
+          if (_loading) SizedBox(height: 50, child: AppLoading())
         ],
       );
+
+  String? validateFields() {
+    var _validateEmail =
+        emailTextFieldValidator(_fieldsValues[SignUpFieldType.email]!);
+    var _validatePassword =
+        passwordTextFieldValidator(_fieldsValues[SignUpFieldType.password]!);
+
+    var _passwordsAreSame = _fieldsValues[SignUpFieldType.password] ==
+        _fieldsValues[SignUpFieldType.repeatedPassword];
+    if (_validatePassword == null &&
+        _validateEmail == null &&
+        _passwordsAreSame) {
+      return null;
+    } else {
+      var _warning = '';
+      if (_validateEmail != null) {
+        _warning += _validateEmail;
+      }
+      if (_validatePassword != null) {
+        if (_warning != '') _warning += '\n';
+        _warning += _validatePassword;
+      }
+      if (!_passwordsAreSame && _validatePassword == null) {
+        if (_warning != '') _warning += '\n';
+        _warning += 'Пароли не совпадают';
+      }
+      AppToast.showWarning(_warning, context);
+    }
+    return '';
+  }
 }

@@ -19,6 +19,8 @@ dependencies:
   cloud_firestore: ^3.1.13
   firebase_core : ^1.10.2
   provider: ^6.0.2
+  shared_preferences: ^2.0.13
+  fluttertoast: ^8.0.9
 
 dev_dependencies:
   flutter_test:
@@ -29,8 +31,10 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/files/icons/
-    - assets/files/figures/
+    - assets/svg/figures_dark_theme/
+    - assets/svg/figures_light_theme/
+    - assets/svg/icons/
+    - assets/svg/loading/
     - assets/images/
   fonts:
     - family: Lexend

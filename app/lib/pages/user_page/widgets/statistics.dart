@@ -24,8 +24,8 @@ class _StatisticsState extends State<Statistics> {
             onPressed: () {
               Navigator.pushNamed(context, '/statistics');
             },
-            child:
-                Stack(children: [_drawGridBackground(context), _drawText()])),
+            child: Stack(
+                children: [_drawGridBackground(context), _drawText(context)])),
       ),
     );
   }
@@ -59,8 +59,16 @@ class _StatisticsState extends State<Statistics> {
         .toList();
   }
 
-  Widget _drawText() => const Positioned(
-        child: Text('Ваша статистика'),
+  Widget _drawText(context) => Positioned(
+        child: Text(
+          'Ваша статистика',
+          style: TextStyle(shadows: [
+            Shadow(
+                offset: const Offset(2, 1),
+                color: Theme.of(context).colorScheme.shadow,
+                blurRadius: 15)
+          ]),
+        ),
         bottom: 30,
         left: 30,
       );

@@ -6,7 +6,7 @@ enum AppTextButtonType { primary, secondary, tertiary, custom, warning }
 enum AppTextButtonSize { large, medium, small }
 enum AppTextButtonShape { basic, circle }
 
-class AppTextButton extends StatelessWidget {
+class AppTextButton extends StatefulWidget {
   final AppTextButtonType type;
   final AppTextButtonSize size;
   final AppTextButtonShape shape;
@@ -14,7 +14,7 @@ class AppTextButton extends StatelessWidget {
   final String buttonText;
   final Color customBackgroundColor;
   final Color customForegroundColor;
-  final bool selected;
+  final bool disabled;
 
   const AppTextButton(
       {Key? key,
@@ -25,84 +25,82 @@ class AppTextButton extends StatelessWidget {
       this.onPressed,
       this.customBackgroundColor = const Color(0xFFFFFFFF),
       this.customForegroundColor = const Color(0xFFFFFFFF),
-      this.selected = false})
+      this.disabled = false})
       : super(key: key);
 
-  bool _isCurrentSmall() => size == AppTextButtonSize.small;
+  @override
+  State<AppTextButton> createState() => _AppTextButtonState();
+}
 
-  bool _isCurrentMedium() => size == AppTextButtonSize.medium;
+class _AppTextButtonState extends State<AppTextButton> {
+  bool _isCurrentSmall() => widget.size == AppTextButtonSize.small;
 
-  bool _isCurrentCircle() => shape == AppTextButtonShape.circle;
+  bool _isCurrentMedium() => widget.size == AppTextButtonSize.medium;
+
+  bool _isCurrentCircle() => widget.shape == AppTextButtonShape.circle;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: _isCurrentMedium() ? 200 : double.infinity,
+      decoration: widget.disabled ? const BoxDecoration() : _activeDecoration(),
       margin: AppIndents.basicMargin,
-      /*decoration: type == AppTextButtonType.pressed
-          ? _outlinedDecoration(context)
-          : const BoxDecoration(),*/
       child: ClipRRect(
         borderRadius: BorderRadius.circular(_isCurrentCircle() ? 30 : 15),
-        child: _drawTextButton(context),
+        child: _drawTextButton(),
       ),
     );
   }
 
-/*  BoxDecoration _outlinedDecoration(context) => BoxDecoration(
+  BoxDecoration _activeDecoration() => BoxDecoration(
+          borderRadius: BorderRadius.circular(_isCurrentCircle() ? 30 : 15),
           boxShadow: [
             BoxShadow(
-                color: Theme.of(context).colorScheme.primary,
-                spreadRadius: 2,
-                blurRadius: 3)
-          ],
-          border: Border.all(
-              color: Theme.of(context).colorScheme.primary, width: 1.5),
-          borderRadius: BorderRadius.circular(20.0));*/
+                offset: Offset(0, 2),
+                color: Theme.of(context).colorScheme.shadow,
+                blurRadius: 3),
+          ]);
 
-  TextButton _drawTextButton(context) => TextButton(
-      onPressed: onPressed,
-      style:
-          AppButtonStyle.basic.merge(getColors(context)).merge(changePadding()),
+  TextButton _drawTextButton() => TextButton(
+      onPressed: widget.disabled ? null : widget.onPressed,
+      style: AppButtonStyle.basic.merge(getColors()),
       child: Text(
-        buttonText,
+        widget.buttonText,
         textAlign: TextAlign.center,
         style: TextStyle(fontSize: _isCurrentSmall() ? 16.0 : null),
       ));
 
-  ButtonStyle changePadding() {
-    return ButtonStyle(
-        padding:
-            overrideButtonStyle<EdgeInsetsGeometry?>(const EdgeInsets.all(20)));
-  }
-
-  ButtonStyle getColors(context) {
-    switch (type) {
+  ButtonStyle getColors() {
+    switch (widget.type) {
       case AppTextButtonType.primary:
         return ButtonStyle(
-          backgroundColor: overrideButtonStyle<Color?>(
-              Theme.of(context).colorScheme.primary),
+          backgroundColor: overrideButtonStyle<Color?>(widget.disabled
+              ? Theme.of(context).colorScheme.primary.withOpacity(0.4)
+              : Theme.of(context).colorScheme.primary),
           foregroundColor: overrideButtonStyle<Color?>(
               Theme.of(context).colorScheme.onPrimary),
         );
       case AppTextButtonType.secondary:
         return ButtonStyle(
-          backgroundColor: overrideButtonStyle<Color?>(
-              Theme.of(context).colorScheme.secondary),
+          backgroundColor: overrideButtonStyle<Color?>(widget.disabled
+              ? Theme.of(context).colorScheme.secondary.withOpacity(0.4)
+              : Theme.of(context).colorScheme.secondary),
           foregroundColor: overrideButtonStyle<Color?>(
               Theme.of(context).colorScheme.onSecondary),
         );
       case AppTextButtonType.tertiary:
         return ButtonStyle(
-          backgroundColor: overrideButtonStyle<Color?>(
-              Theme.of(context).colorScheme.tertiary),
+          backgroundColor: overrideButtonStyle<Color?>(widget.disabled
+              ? Theme.of(context).colorScheme.tertiary.withOpacity(0.4)
+              : Theme.of(context).colorScheme.tertiary),
           foregroundColor: overrideButtonStyle<Color?>(
               Theme.of(context).colorScheme.onTertiary),
         );
       case AppTextButtonType.custom:
         return ButtonStyle(
-          backgroundColor: overrideButtonStyle<Color?>(customBackgroundColor),
-          foregroundColor: overrideButtonStyle<Color?>(customForegroundColor),
+          backgroundColor: overrideButtonStyle<Color?>(widget.disabled
+              ? widget.customBackgroundColor.withOpacity(0.4)
+              : widget.customBackgroundColor),
         );
       case AppTextButtonType.warning:
         return ButtonStyle(

@@ -16,7 +16,7 @@ class AuthService {
           email: email, password: password);
       return _user(res.user);
     } catch (e) {
-      return null;
+      return e;
     }
   }
   Future signUpWithEmailAndPassword(String email, String password) async {

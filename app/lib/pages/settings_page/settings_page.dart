@@ -62,7 +62,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 type: AppTextButtonType.warning,
                 onPressed: _signOut),
             if (_loading == true)
-              const SizedBox(height: 50, child: AppLoading())
+              SizedBox(height: 50, child: AppLoading())
           ],
         ));
   }
@@ -76,7 +76,7 @@ class _SettingsPageState extends State<SettingsPage> {
               type: AppTextButtonType.secondary,
               size: AppTextButtonSize.medium,
               onPressed: () {
-                currentTheme.toggleTheme();
+                appTheme.toggleTheme();
               },
             ),
           ),

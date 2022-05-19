@@ -12,10 +12,8 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
-  final String _pinkFigure =
-      getAsset(AppAssets.figures, 'pink_face_large_up.svg');
-  final String _purpleFigure =
-      getAsset(AppAssets.figures, 'purple_face_large_up.svg');
+  late String _smallCrow;
+  late String _bigCrow;
   late AnimationController _controllerPink;
   late AnimationController _controllerPurple;
   Animation<double>? _animationPink;
@@ -24,6 +22,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+
     _controllerPink = _initializeController();
     _controllerPurple = _initializeController();
 
@@ -79,6 +78,10 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      _smallCrow = getAsset(AppAssets.figures, 'pink_up.svg');
+      _bigCrow = getAsset(AppAssets.figures, 'purple_up.svg');
+    });
     return SizedBox(
         height: 350,
         width: 200,
@@ -87,14 +90,16 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
             alignment: Alignment.center,
             children: [
               _buildAnimation(
-                  _animationPurple!, constraints.maxWidth - 180, _purpleFigure),
+                  _animationPurple!, constraints.maxWidth - 180, _bigCrow),
               _buildAnimation(
-                  _animationPink!, constraints.maxWidth - 105, _pinkFigure),
+                  _animationPink!, constraints.maxWidth - 105, _smallCrow),
               AppTextButton(
                 buttonText: 'Играть',
                 type: AppTextButtonType.primary,
                 size: AppTextButtonSize.medium,
-                onPressed: (){onPressed(context);},
+                onPressed: () {
+                  onPressed(context);
+                },
               ),
             ],
           );

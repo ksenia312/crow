@@ -2,26 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:frontend/utils/button_style.dart';
 import 'package:frontend/utils/color_schemes.dart';
 import 'package:frontend/utils/text_style.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-enum ColorfulThemeType { blue, pink, green, orange }
+enum ColorfulThemeType { grey, blue, pink, green, orange }
 
 class AppTheme with ChangeNotifier {
   static bool _isDarkTheme = false;
-  static ColorfulThemeType colorMode = ColorfulThemeType.blue;
-
-  ThemeMode get currentTheme {
-    return _isDarkTheme ? ThemeMode.dark : ThemeMode.light;
-  }
-
-  void toggleTheme() {
-    _isDarkTheme = !_isDarkTheme;
-    notifyListeners();
-  }
-
-  void toggleColorMode(ColorfulThemeType color) {
-    colorMode = color;
-    notifyListeners();
-  }
+  static int _colorModeNum = 0;
 
   static _basicThemeData(ColorScheme colorScheme) => ThemeData(
         elevatedButtonTheme: _elevatedButtonThemeData(),
@@ -57,8 +44,34 @@ class AppTheme with ChangeNotifier {
         backgroundColor: backgroundColor);
   }
 
-  static ThemeData get light {
-    switch (colorMode) {
+
+  static setTheme({required bool isDark, required int colorNum}) {
+    _isDarkTheme = isDark;
+    _colorModeNum = colorNum;
+  }
+
+  ThemeMode get currentTheme {
+    return _isDarkTheme ? ThemeMode.dark : ThemeMode.light;
+  }
+
+  void toggleTheme() async {
+    final SharedPreferences _prefs = await SharedPreferences.getInstance();
+    _isDarkTheme = !_isDarkTheme;
+    _prefs.setBool('isDarkTheme', _isDarkTheme);
+    notifyListeners();
+  }
+
+  void toggleColorMode(int colorNum) async {
+    final SharedPreferences _prefs = await SharedPreferences.getInstance();
+    _colorModeNum = colorNum;
+    _prefs.setInt('colorModeNum', _colorModeNum);
+    notifyListeners();
+  }
+
+  ThemeData get light {
+    switch (ColorfulThemeType.values[_colorModeNum]) {
+      case ColorfulThemeType.grey:
+        return _basicThemeData(AppColorScheme.lightGrey);
       case ColorfulThemeType.blue:
         return _basicThemeData(AppColorScheme.lightBlue);
       case ColorfulThemeType.pink:
@@ -70,8 +83,10 @@ class AppTheme with ChangeNotifier {
     }
   }
 
-  static ThemeData get dark {
-    switch (colorMode) {
+  ThemeData get dark {
+    switch (ColorfulThemeType.values[_colorModeNum]) {
+      case ColorfulThemeType.grey:
+        return _basicThemeData(AppColorScheme.darkGrey);
       case ColorfulThemeType.blue:
         return _basicThemeData(AppColorScheme.darkBlue);
       case ColorfulThemeType.pink:
@@ -84,4 +99,4 @@ class AppTheme with ChangeNotifier {
   }
 }
 
-AppTheme currentTheme = AppTheme();
+AppTheme appTheme = AppTheme();

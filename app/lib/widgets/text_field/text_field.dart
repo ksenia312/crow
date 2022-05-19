@@ -40,13 +40,6 @@ class _AppTextFieldState extends State<AppTextField> {
           ),
 
           child: TextFormField(
-            validator: (value) {
-              if (widget.validator != null) {
-                return widget.validator!(value);
-              } else {
-                return null;
-              }
-            },
             onChanged: (value) {
               widget.onChanged != null ? widget.onChanged!(value) : null;
             },
