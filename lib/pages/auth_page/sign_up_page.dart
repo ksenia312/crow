@@ -93,7 +93,7 @@ class _SignUpPageState extends State<SignUpPage> {
               const AppLabel(text: 'пароль'),
               _drawTextField('петр1234', true, SignUpFieldType.password,
                   passwordTextFieldValidator),
-              const AppLabel(text: 'опять пароль'),
+              const AppLabel(text: 'повтор пароля'),
               _drawTextField('петр1234', true, SignUpFieldType.repeatedPassword,
                   repeatedPasswordTextFieldValidator),
               _drawSignInButton(),

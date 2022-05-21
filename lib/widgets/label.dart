@@ -29,7 +29,7 @@ class _AppLabelState extends State<AppLabel> {
             decoration: widget.isFieldSubmitted
                 ? TextDecoration.lineThrough
                 : TextDecoration.none,
-        ),
+        ).copyWith(letterSpacing: 5),
         textAlign: widget.textAlign,
       ),
     );

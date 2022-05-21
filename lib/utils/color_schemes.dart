@@ -5,18 +5,18 @@ class AppColorScheme {
     const Color _light = Color(0xFFF4F4F4);
     return const ColorScheme(
         brightness: Brightness.light,
-        primary: Color(0xFF757A8F),
-        surface: Color(0xFF646A80),
+        primary: Color(0xFF606C8D),
+        surface: Color(0xFF49526C),
         onPrimary: _light,
         onSurface: _light,
         onError: _light,
         onBackground: _light,
         secondary: _light,
-        tertiary: Color(0xFFC6BFCC),
+        tertiary: Color(0xFFCBD1E0),
         error: Color(0xFFFD3F55),
-        background: Color(0xFFD2CBDA),
-        onSecondary: Color(0xFF313131),
-        onTertiary: Color(0xFF4E4854),
+        background: Color(0xFFDAE0EF),
+        onSecondary: Color(0xFF363E52),
+        onTertiary: Color(0xFF363E52),
         shadow: Color(0x80000000),
         secondaryContainer: Color(0xCCF4F4F4));
   }
@@ -29,15 +29,15 @@ class AppColorScheme {
         onSurface: _light,
         onBackground: _light,
         onError: _light,
-        primary: Color(0xFF5F5F69),
-        secondary: Color(0xCC34343B),
-        surface: Color(0xFF32323A),
-        background: Color(0xFF434349),
-        tertiary: Color(0xFF6D6B77),
+        primary: Color(0xFF363A54),
+        secondary: Color(0xFF252738),
+        surface: Color(0xFF3F4364),
+        background: Color(0xFF474C70),
+        tertiary: Color(0xFF4D5479),
         onTertiary: Color(0xFFC3C2C7),
         error: Color(0xFFA92B3A),
         shadow: Color(0x80000000),
-        secondaryContainer: Color(0xFF6A6A73));
+        secondaryContainer: Color(0xFF323A4D));
   }
 
   static ColorScheme get lightBlue {

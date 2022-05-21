@@ -44,4 +44,11 @@ flutter:
         - asset: assets/fonts/Lexend-Bold.ttf
           weight: 700
           style: normal
+    - family: Arantxa
+      fonts:
+        - asset: assets/fonts/Arantxa-Regular.ttf
+          style: normal
+        - asset: assets/fonts/Arantxa-Bold.ttf
+          weight: 700
+          style: normal
 
