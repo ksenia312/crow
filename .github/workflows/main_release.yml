@@ -4,10 +4,10 @@ on:
    tags:
      - release-v*
 
-name: Build and Release Apps
+name: Release Apps
 jobs:
   build:
-    name: Build Apps
+    name: Release Apps
     runs-on: macos-latest
     steps:
       - name: Export Release Timestamp
