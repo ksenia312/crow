@@ -93,13 +93,15 @@ class _SignInPageState extends State<SignInPage> {
                 onPressed: () {
                   widget.toggleAuthView!();
                 }),
-            const AppLabel(text: 'email'),
+            const AppLabel(
+              text: 'почта',
+            ),
             _drawTextField('crow@example.com', false, SignInFieldType.email),
             const AppLabel(
-              text: 'password',
+              text: 'пароль',
               textAlign: TextAlign.end,
             ),
-            _drawTextField('password', true, SignInFieldType.password),
+            _drawTextField('петя1234', true, SignInFieldType.password),
             _drawSignInButton(),
           ]),
         ),
@@ -110,12 +112,11 @@ class _SignInPageState extends State<SignInPage> {
   _drawTextField(
           String hintText, bool obscuringCharacter, SignInFieldType type) =>
       AppTextField(
-        hintText: hintText,
-        obscuringCharacter: obscuringCharacter,
-        onChanged: (value) {
-          _onFieldChanged(value, type);
-        },
-      );
+          hintText: hintText,
+          obscuringCharacter: obscuringCharacter,
+          onChanged: (value) {
+            _onFieldChanged(value, type);
+          });
 
   SizedBox _drawSignInButton() => SizedBox(
         height: 80,

@@ -4,12 +4,12 @@ import 'package:frontend/utils/indents.dart';
 class AppLabel extends StatefulWidget {
   final String text;
   final TextAlign textAlign;
-  final bool isFieldFilled;
+  final bool isFieldSubmitted;
 
   const AppLabel(
       {required this.text,
       this.textAlign = TextAlign.start,
-      this.isFieldFilled = false,
+      this.isFieldSubmitted = false,
       Key? key})
       : super(key: key);
 
@@ -26,9 +26,10 @@ class _AppLabelState extends State<AppLabel> {
         widget.text,
         style: Theme.of(context).textTheme.headline1?.apply(
             color: Theme.of(context).colorScheme.secondaryContainer,
-            decoration: widget.isFieldFilled
+            decoration: widget.isFieldSubmitted
                 ? TextDecoration.lineThrough
-                : TextDecoration.none),
+                : TextDecoration.none,
+        ),
         textAlign: widget.textAlign,
       ),
     );

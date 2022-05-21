@@ -87,14 +87,14 @@ class _SignUpPageState extends State<SignUpPage> {
           key: _formKey,
           child: ListView(
             children: [
-              const AppLabel(text: 'email'),
+              const AppLabel(text: 'почта'),
               _drawTextField('crow@example.com', false, SignUpFieldType.email,
                   emailTextFieldValidator),
-              const AppLabel(text: 'password'),
-              _drawTextField('password', true, SignUpFieldType.password,
+              const AppLabel(text: 'пароль'),
+              _drawTextField('петр1234', true, SignUpFieldType.password,
                   passwordTextFieldValidator),
-              const AppLabel(text: 'repeat password'),
-              _drawTextField('password', true, SignUpFieldType.repeatedPassword,
+              const AppLabel(text: 'опять пароль'),
+              _drawTextField('петр1234', true, SignUpFieldType.repeatedPassword,
                   repeatedPasswordTextFieldValidator),
               _drawSignInButton(),
               AppTextButton(
