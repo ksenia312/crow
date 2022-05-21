@@ -54,8 +54,8 @@ jobs:
       - name: Release Apps
         uses: ncipollo/release-action@v1
         with:
-          tag: $LATEST_TAG
-          name: Release $LATEST_TAG
+          tag: ${{$LATEST_TAG}}
+          name: Release ${{$LATEST_TAG}}
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: 'build/app/outputs/apk/release/*.apk, build/web/web-app.zip'
       #    artifacts: 'build/app/outputs/apk/release/*.apk,build/ios/iphoneos/app.ipa,build/web/web-app.zip'
