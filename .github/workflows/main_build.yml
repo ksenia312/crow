@@ -4,14 +4,12 @@ on:
     branches:
       - main
 
-name: Build and Release Apps
+name: Build Apps
 jobs:
   build:
     name: Build Apps
     runs-on: macos-latest
     steps:
-      - name: Export Release Timestamp
-        run: echo "APP_VERSION=v$(date +'%Y.%m.%d.%H.%M.%S')" >> $GITHUB_ENV
       - name: Checkout repository
         uses: actions/checkout@v1
       - name: Set up Java
@@ -43,11 +41,3 @@ jobs:
           flutter build web
           cd build/web
           zip -r web-app.zip .
-      - name: Release Apps
-        uses: ncipollo/release-action@v1
-        with:
-          tag: ${{ github.run_number}}
-          name: ${{ github.run_number }}
-          token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: 'build/app/outputs/apk/release/*.apk, build/web/web-app.zip'
-      #    artifacts: 'build/app/outputs/apk/release/*.apk,build/ios/iphoneos/app.ipa,build/web/web-app.zip'
