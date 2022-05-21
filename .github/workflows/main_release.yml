@@ -1,14 +1,17 @@
+
 on:
   push:
-    tags:
-      - release-v*
+   tags:
+     - release-v*
 
-name: Release Apps
+name: Build and Release Apps
 jobs:
   build:
-    name: Release Apps
+    name: Build Apps
     runs-on: macos-latest
     steps:
+      - name: Export Release Timestamp
+        run: echo "APP_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_ENV
       - name: Checkout repository
         uses: actions/checkout@v1
       - name: Set up Java
@@ -40,22 +43,11 @@ jobs:
           flutter build web
           cd build/web
           zip -r web-app.zip .
-          
-      - name: Checkout
-        uses: actions/checkout@master
-        with:
-          fetch-depth: 0
-
-      - name: Checkout latest release tag
-        run: |
-          LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
-          git checkout $LATEST_TAG
-          
       - name: Release Apps
         uses: ncipollo/release-action@v1
         with:
-          tag: ${{$LATEST_TAG}}
-          name: Release ${{$LATEST_TAG}}
+          tag: ${{ env.APP_VERSION }}
+          name: ${{ env.APP_VERSION }}
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: 'build/app/outputs/apk/release/*.apk, build/web/web-app.zip'
       #    artifacts: 'build/app/outputs/apk/release/*.apk,build/ios/iphoneos/app.ipa,build/web/web-app.zip'
