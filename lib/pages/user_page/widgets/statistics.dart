@@ -44,7 +44,7 @@ class _StatisticsState extends State<Statistics> {
           box2 box3 box5
         ''',
         columnSizes: [1.fr, 1.fr, 1.fr],
-        rowSizes: [(200 / 3).px, (200 / 3).px, (200 / 3).px],
+        rowSizes: [(150 / 3).px, (150 / 3).px, (150 / 3).px],
         columnGap: 10,
         rowGap: 10,
         children: _drawBackgroundBoxes(context),
@@ -69,7 +69,7 @@ class _StatisticsState extends State<Statistics> {
                 blurRadius: 15)
           ]),
         ),
-        bottom: 30,
+        bottom: 20,
         left: 30,
       );
 }

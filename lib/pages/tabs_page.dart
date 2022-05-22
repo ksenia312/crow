@@ -65,27 +65,39 @@ class _TabsPageState extends State<TabsPage> {
     );
   }
 
-  BottomNavigationBarItem _item(icon, text) =>
-      BottomNavigationBarItem(icon: Icon(icon), label: text);
+  Container _bar() => Container(
+        height: 35,
+        color: Theme.of(context).colorScheme.primary,
+        padding: const EdgeInsets.all(0.0),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: _generateItems()
+        ),
+      );
 
-  BottomNavigationBar _bar() => BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: Theme.of(context).colorScheme.secondary,
-          currentIndex: _current,
-          //selected
-          showSelectedLabels: false,
-          selectedIconTheme: const IconThemeData(size: 35),
-          selectedItemColor: Theme.of(context).colorScheme.onSecondary,
-          iconSize: 30,
-          //unselected
-          showUnselectedLabels: false,
-          unselectedItemColor: Theme.of(context).colorScheme.onTertiary,
-          //tap
-          onTap: (index) => setState(() => _current = index),
-          items: [
-            _item(Icons.person_outline, ''),
-            _item(Icons.play_circle_outline, ''),
-            _item(Icons.burst_mode_outlined, ''),
-            _item(Icons.question_mark_outlined, ''),
-          ]);
+  List<Widget> _generateItems() => List.generate(4, (int n) => n)
+      .map((n) => Expanded(
+              child: ElevatedButton(
+            onPressed: () {
+              setState(() {
+                _current = n;
+              });
+            },
+            child: _current == n ? _selectedIcons()[n] : _icons()[n],
+          )))
+      .toList();
+
+  List _icons() => [
+        const Icon(Icons.person_outline),
+        const Icon(Icons.play_circle_outline),
+        const Icon(Icons.burst_mode_outlined),
+        const Icon(Icons.question_mark_outlined),
+      ];
+
+  List _selectedIcons({double size = 30.0}) => [
+        Icon(Icons.person, size: size),
+        Icon(Icons.play_circle, size: size),
+        Icon(Icons.burst_mode, size: size),
+        Icon(Icons.question_mark, size: size),
+      ];
 }

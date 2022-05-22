@@ -20,7 +20,7 @@ class _GameHomeState extends State<GameHome> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _controllerPink = _initializeController();
-    _animationPink = _initializeAnimation(100.0, 30.0, _controllerPink);
+    _animationPink = _initializeAnimation(80.0, 20.0, _controllerPink);
     _addListeners(_controllerPink);
     _controllerPink.forward();
   }

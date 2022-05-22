@@ -16,7 +16,7 @@ class AppListTile extends StatelessWidget {
       required this.bodyText,
       required this.textColor,
       required this.color,
-      this.height = 120,
+      this.height = 80,
       this.softWrap = true,
       this.overflow = TextOverflow.fade,
       this.trailing})

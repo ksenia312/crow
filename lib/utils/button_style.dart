@@ -10,6 +10,6 @@ class AppButtonStyle {
 
         //splashFactory: InkSplash.splashFactory,
         padding:
-            overrideButtonStyle<EdgeInsetsGeometry?>(const EdgeInsets.all(20)));
+            overrideButtonStyle<EdgeInsetsGeometry?>(const EdgeInsets.all(15)));
   }
 }

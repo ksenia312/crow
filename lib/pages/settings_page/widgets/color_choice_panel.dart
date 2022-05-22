@@ -1,9 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 import 'package:frontend/utils/color_schemes.dart';
 import 'package:frontend/utils/indents.dart';
 import 'package:frontend/utils/theme.dart';
-import 'package:frontend/widgets/buttons.dart';
 
 class ColorChoicePanel extends StatefulWidget {
   final void Function()? toggle;
@@ -20,7 +19,7 @@ class ColorChoicePanel extends StatefulWidget {
 class _ColorChoicePanelState extends State<ColorChoicePanel> {
   List _listColorModeParams(bool isLight, ColorScheme light, ColorScheme dark) {
     return isLight
-        ? [light.background, light.onBackground]
+        ? [light.surface, light.onBackground]
         : [dark.primary, dark.onPrimary];
   }
 
@@ -50,14 +49,38 @@ class _ColorChoicePanelState extends State<ColorChoicePanel> {
     return widget.pressed
         ? Center(
             child: SizedBox(
-              height: 240,
+              height: 200,
               child: Card(
                 elevation: 35,
                 margin: AppIndents.basicMargin,
                 color: Theme.of(context).colorScheme.secondary,
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListView(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        CloseButton(
+                            color: Theme.of(context).colorScheme.onSecondary),
+                        Expanded(
+                          child: CustomScrollView(
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            // конте
+                            slivers: <Widget>[
+                              SliverPadding(
+                                padding: const EdgeInsets.all(0.0),
+                                sliver: SliverList(
+                                  delegate: SliverChildListDelegate(
+                                      _drawBackgroundBoxes()),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    )
+/*ListView(
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -82,29 +105,39 @@ class _ColorChoicePanelState extends State<ColorChoicePanel> {
                         children: _drawBackgroundBoxes(context),
                       ),
                     ],
-                  ),
-                ),
+                  ),*/
+                    ),
               ),
             ),
           )
         : Container();
   }
 
-  _drawBackgroundBoxes(context) {
+  _drawBackgroundBoxes() {
     return ColorfulThemeType.values.map((type) {
       var num = type.index;
       var _buttonParams = _getColorModeParams(type);
-      return AppTextButton(
+      return Container(
+        margin: AppIndents.basicMargin,
+        height: double.infinity,
+        width: 50,
+        color: _buttonParams[0],
+        child: GestureDetector(
+          onTap: () {
+            appTheme.toggleColorMode(num);
+          },
+        ),
+      ); /*AppTextButton(
         buttonText: '',
         onPressed: () {
           appTheme.toggleColorMode(num);
         },
         type: AppTextButtonType.custom,
-        size: AppTextButtonSize.small,
+        size: AppTextButtonSize.scrollable,
         //shape: AppTextButtonShape.circle,
         customBackgroundColor: _buttonParams[0],
         customForegroundColor: _buttonParams[1],
-      );
+      );*/
     }).toList();
   }
 }

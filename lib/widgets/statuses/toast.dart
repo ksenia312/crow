@@ -7,9 +7,10 @@ class AppToast {
   static showError(FirebaseAuthException e, context) {
     var text = '';
     for (var err in ErrorType.values) {
-      print(e);
       if (errorsText[err] == e.message) {
         text = errorsPrintText[err]!;
+      } else {
+        text = e.message != null ? e.message! : 'Неизвестная ошибка';
       }
     }
     FToast fToast = FToast();

@@ -16,8 +16,8 @@ class _UserPageState extends State<UserPage> {
       ImageCard(
         headline2: 'Василиса',
         bodyText: 'статус: дикая львица',
-        imageHeight: 150,
-        listTileHeight: 100,
+        imageHeight: 100,
+        listTileHeight: 70,
       ),
       Statistics(),
     ]);

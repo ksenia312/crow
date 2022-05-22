@@ -34,7 +34,7 @@ class _QuestionState extends State<Question> {
             textColor: Theme.of(context).colorScheme.onSecondary,
             softWrap: false,
             overflow: TextOverflow.ellipsis,
-            height: 90,
+            height: 70,
             trailing: _buildTrailing(
                 Theme.of(context).colorScheme.onSecondary, widget.countViews),
           )),

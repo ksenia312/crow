@@ -5,9 +5,9 @@ class AppFontSize {
 
   static large() => 24.0;
 
-  static normal() => 20.0;
+  static normal() => 18.0;
 
-  static small() => 16.0;
+  static small() => 14.0;
 
   static extraSmall() => 12.0;
 }
