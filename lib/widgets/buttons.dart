@@ -3,7 +3,7 @@ import 'package:frontend/utils/button_style.dart';
 import 'package:frontend/utils/indents.dart';
 
 enum AppTextButtonType { primary, secondary, tertiary, custom, warning }
-enum AppTextButtonSize { large, medium, scrollable }
+enum AppTextButtonSize { large, medium }
 enum AppTextButtonShape { basic }
 
 class AppTextButton extends StatefulWidget {
@@ -15,6 +15,7 @@ class AppTextButton extends StatefulWidget {
   final Color customBackgroundColor;
   final Color customForegroundColor;
   final bool disabled;
+  final EdgeInsets? margin;
 
   const AppTextButton(
       {Key? key,
@@ -25,7 +26,8 @@ class AppTextButton extends StatefulWidget {
       this.onPressed,
       this.customBackgroundColor = const Color(0xFFFFFFFF),
       this.customForegroundColor = const Color(0xFFFFFFFF),
-      this.disabled = false})
+      this.disabled = false,
+      this.margin})
       : super(key: key);
 
   @override
@@ -33,8 +35,6 @@ class AppTextButton extends StatefulWidget {
 }
 
 class _AppTextButtonState extends State<AppTextButton> {
-  bool _isCurrentScrollable() => widget.size == AppTextButtonSize.scrollable;
-
   bool _isCurrentMedium() => widget.size == AppTextButtonSize.medium;
 
   @override
@@ -42,7 +42,7 @@ class _AppTextButtonState extends State<AppTextButton> {
     return Container(
       width: _isCurrentMedium() ? 200 : double.infinity,
       decoration: widget.disabled ? const BoxDecoration() : _activeDecoration(),
-      margin: _isCurrentScrollable() ? EdgeInsets.zero : AppIndents.basicMargin,
+      margin: widget.margin ?? AppIndents.basicMargin,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(5),
         child: _drawTextButton(),
@@ -50,14 +50,13 @@ class _AppTextButtonState extends State<AppTextButton> {
     );
   }
 
-  BoxDecoration _activeDecoration() => _isCurrentScrollable()
-      ? const BoxDecoration()
-      : BoxDecoration(borderRadius: BorderRadius.circular(5), boxShadow: [
-          BoxShadow(
-              offset: const Offset(0, 2),
-              color: Theme.of(context).colorScheme.shadow,
-              blurRadius: 3),
-        ]);
+  BoxDecoration _activeDecoration() =>
+      BoxDecoration(borderRadius: BorderRadius.circular(5), boxShadow: [
+        BoxShadow(
+            offset: const Offset(0, 2),
+            color: Theme.of(context).colorScheme.shadow,
+            blurRadius: 3),
+      ]);
 
   TextButton _drawTextButton() => TextButton(
       onPressed: widget.disabled ? null : widget.onPressed,
@@ -65,7 +64,6 @@ class _AppTextButtonState extends State<AppTextButton> {
       child: Text(
         widget.buttonText,
         textAlign: TextAlign.center,
-        style: TextStyle(fontSize: _isCurrentScrollable() ? 8.0 : null),
       ));
 
   ButtonStyle getColors() {

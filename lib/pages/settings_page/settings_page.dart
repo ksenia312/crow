@@ -61,8 +61,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 buttonText: 'выйти из аккаунта',
                 type: AppTextButtonType.warning,
                 onPressed: _signOut),
-            if (_loading == true)
-              SizedBox(height: 50, child: AppLoading())
+            if (_loading == true) const SizedBox(height: 50, child: AppLoading())
           ],
         ));
   }
@@ -87,6 +86,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       ? AppTextButtonType.tertiary
                       : AppTextButtonType.primary,
                   size: AppTextButtonSize.medium,
+                  margin: const EdgeInsets.only(right: 5, top: 5),
                   onPressed: _toggleColorChoice))
         ],
       );

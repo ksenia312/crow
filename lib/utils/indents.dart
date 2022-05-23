@@ -7,4 +7,5 @@ class AppIndents {
       const EdgeInsets.symmetric(vertical: 10, horizontal: 20);
 
   static get labelMargin => const EdgeInsets.symmetric(horizontal: 20);
+  static get allMargin => const EdgeInsets.all(15);
 }

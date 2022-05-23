@@ -73,33 +73,46 @@ class _TabsPageState extends State<TabsPage> {
   Container _bar() => Container(
         height: 50,
         color: Theme.of(context).colorScheme.primary,
-        padding: const EdgeInsets.all(0.0),
-        child: Row(mainAxisSize: MainAxisSize.min, children: _generateItems()),
+        child: Row(mainAxisSize: MainAxisSize.max, children: _generateItems()),
       );
 
   List<Widget> _generateItems() => List.generate(4, (int n) => n)
       .map((n) => Expanded(
-              child: ElevatedButton(
-            onPressed: () {
-              setState(() {
-                _current = n;
-              });
-            },
-            child: _current == n ? _selectedIcons()[n] : _icons()[n],
-          )))
+            child: Container(
+              height: double.infinity,
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _current = n;
+                  });
+                },
+                child: _icons()[n],
+              ),
+            ),
+          ))
       .toList();
 
-  List _icons({double size = 25.0}) => [
-        Icon(Icons.person_outline, size: size),
-        Icon(Icons.play_circle_outline, size: size),
-        Icon(Icons.burst_mode_outlined, size: size),
-        Icon(Icons.question_mark_outlined, size: size),
+  List _iconNames() => [
+        Icons.person_outline,
+        Icons.play_circle_outline,
+        Icons.burst_mode_outlined,
+        Icons.question_mark_outlined,
       ];
 
-  List _selectedIcons({double size = 30.0}) => [
-        Icon(Icons.person, size: size),
-        Icon(Icons.play_circle, size: size),
-        Icon(Icons.burst_mode, size: size),
-        Icon(Icons.question_mark, size: size),
+  List _selectedIconNames() => [
+        Icons.person,
+        Icons.play_circle,
+        Icons.burst_mode,
+        Icons.question_mark,
       ];
+
+  List<Icon> _icons() => List.generate(
+      4,
+      (index) => Icon(
+            _current == index
+                ? _selectedIconNames()[index]
+                : _iconNames()[index],
+            size: _current == index ? 35 : 25,
+            color: Theme.of(context).colorScheme.onSurface,
+          )).toList();
 }

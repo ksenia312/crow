@@ -54,60 +54,34 @@ class _ColorChoicePanelState extends State<ColorChoicePanel> {
                 margin: AppIndents.basicMargin,
                 color: Theme.of(context).colorScheme.secondary,
                 child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        CloseButton(
-                          onPressed: widget.toggle,
-                          color: Theme.of(context).colorScheme.onTertiary,
-                        ),
-                        Expanded(
-                          child: CustomScrollView(
-                            scrollDirection: Axis.horizontal,
-                            shrinkWrap: true,
-                            // конте
-                            slivers: <Widget>[
-                              SliverPadding(
-                                padding: const EdgeInsets.all(0.0),
-                                sliver: SliverList(
-                                  delegate: SliverChildListDelegate(
-                                      _drawBackgroundBoxes()),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    )
-/*ListView(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          CloseButton(
-                            onPressed: widget.toggle,
-                            color: Theme.of(context).colorScheme.onTertiary,
-                          ),
-                        ],
+                      CloseButton(
+                        onPressed: widget.toggle,
+                        color: Theme.of(context).colorScheme.onTertiary,
                       ),
-                      LayoutGrid(
-                        columnSizes: [
-                          1.fr,
-                          1.fr,
-                          1.fr,
-                          1.fr,
-                        ],
-                        rowSizes: [
-                          (80).px,
-                          (80).px,
-                        ],
-                        children: _drawBackgroundBoxes(context),
+                      Expanded(
+                        child: CustomScrollView(
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          // конте
+                          slivers: <Widget>[
+                            SliverPadding(
+                              padding: const EdgeInsets.all(0.0),
+                              sliver: SliverList(
+                                delegate: SliverChildListDelegate(
+                                    _drawBackgroundBoxes()),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
-                  ),*/
-                    ),
+                  ),
+                ),
               ),
             ),
           )

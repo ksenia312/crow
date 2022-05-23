@@ -18,7 +18,7 @@ class AppColorScheme {
         onSecondary: Color(0xFF363E52),
         onTertiary: Color(0xFF363E52),
         shadow: Color(0x80000000),
-        secondaryContainer: Color(0xCCF4F4F4));
+        secondaryContainer: Color(0xFFF7F9FF));
   }
   static ColorScheme get darkGrey {
     const Color _light = Color(0xFFDBDBF3);
@@ -37,7 +37,7 @@ class AppColorScheme {
         onTertiary: Color(0xFFC3C2C7),
         error: Color(0xFFA92B3A),
         shadow: Color(0x80000000),
-        secondaryContainer: Color(0xFF323A4D));
+        secondaryContainer: Color(0xFF4E527C));
   }
 
   static ColorScheme get lightBlue {
@@ -57,7 +57,7 @@ class AppColorScheme {
         onSecondary: Color(0xFF100B2D),
         onTertiary: Color(0xFF0C0C36),
         shadow: Color(0x80000000),
-        secondaryContainer: Color(0xCCF4F4F4));
+        secondaryContainer: Color(0xFFF7F9FF));
   }
 
   static ColorScheme get darkBlue {
@@ -77,7 +77,7 @@ class AppColorScheme {
         onTertiary: Color(0xFF7270C0),
         error: Color(0xFFA92B3A),
         shadow: Color(0x80000000),
-        secondaryContainer: Color(0xFF26266E));
+        secondaryContainer: Color(0xFF3F3870));
   }
 
   static ColorScheme get lightPink {
@@ -97,7 +97,7 @@ class AppColorScheme {
         onSecondary: Color(0xFF260B2D),
         onTertiary: Color(0xFF2E0C36),
         shadow: Color(0x80000000),
-        secondaryContainer: Color(0xCCF4F4F4));
+        secondaryContainer: Color(0xFFFEF7FF));
   }
 
   static ColorScheme get darkPink {
@@ -117,7 +117,7 @@ class AppColorScheme {
         onTertiary: Color(0xFFAC70C0),
         error: Color(0xFFA92B3A),
         shadow: Color(0x80000000),
-        secondaryContainer: Color(0xFF54266E));
+        secondaryContainer: Color(0xFF623870));
   }
 
   static ColorScheme get lightGreen {
@@ -137,7 +137,7 @@ class AppColorScheme {
         onSecondary: Color(0xFF0B2D19),
         onTertiary: Color(0xFF0C361B),
         shadow: Color(0x80000000),
-        secondaryContainer: Color(0xCCF4F4F4));
+        secondaryContainer: Color(0xFFF7FFF8));
   }
 
   static ColorScheme get darkGreen {
@@ -157,7 +157,7 @@ class AppColorScheme {
         onTertiary: Color(0xFF70C089),
         error: Color(0xFFA92B3A),
         shadow: Color(0x80000000),
-        secondaryContainer: Color(0xFF266E3D));
+        secondaryContainer: Color(0xFF38704C));
   }
 
   static ColorScheme get lightOrange {
@@ -177,7 +177,7 @@ class AppColorScheme {
         onSecondary: Color(0xFF2D150B),
         onTertiary: Color(0xFF36170C),
         shadow: Color(0x80000000),
-        secondaryContainer: Color(0xCCF4F4F4));
+        secondaryContainer: Color(0xFFFFFAF7));
   }
 
   static ColorScheme get darkOrange {
@@ -197,6 +197,6 @@ class AppColorScheme {
         onTertiary: Color(0xFFC09170),
         error: Color(0xFFA92B3A),
         shadow: Color(0x80000000),
-        secondaryContainer: Color(0xFF6E4226));
+        secondaryContainer: Color(0xFF704C38));
   }
 }
