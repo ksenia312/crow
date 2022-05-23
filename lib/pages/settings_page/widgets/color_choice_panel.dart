@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/utils/color_schemes.dart';
 import 'package:frontend/utils/indents.dart';
@@ -61,7 +60,9 @@ class _ColorChoicePanelState extends State<ColorChoicePanel> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         CloseButton(
-                            color: Theme.of(context).colorScheme.onSecondary),
+                          onPressed: widget.toggle,
+                          color: Theme.of(context).colorScheme.onTertiary,
+                        ),
                         Expanded(
                           child: CustomScrollView(
                             scrollDirection: Axis.horizontal,

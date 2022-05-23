@@ -33,7 +33,7 @@ class _AnnouncementCardState extends State<AnnouncementCard> {
   Widget build(BuildContext context) {
     if (_show) {
       return Card(
-          margin: AppIndents.cardMargin,
+          margin: AppIndents.basicMargin,
           color: Theme.of(context).colorScheme.primary,
           child: ClipRRect(
               borderRadius: BorderRadius.circular(4),

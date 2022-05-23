@@ -36,7 +36,6 @@ class _AppTextButtonState extends State<AppTextButton> {
   bool _isCurrentScrollable() => widget.size == AppTextButtonSize.scrollable;
 
   bool _isCurrentMedium() => widget.size == AppTextButtonSize.medium;
-  bool _isCurrentCustom() => widget.size == AppTextButtonSize.medium;
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:frontend/utils/assets_variables.dart';
 import 'package:frontend/widgets/statuses/loading.dart';
 
 class SplashPage extends StatefulWidget {
@@ -11,8 +10,6 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  //final String _image = getAsset(AppAssets.icons, 'icon_large.png');
-
   @override
   void initState() {
     super.initState();
@@ -30,10 +27,10 @@ class _SplashPageState extends State<SplashPage> {
           children: [
             Text(
               'crow',
-              style: Theme.of(context)
-                  .textTheme
-                  .headline1!
-                  .apply(color: Theme.of(context).colorScheme.onSecondary),
+              style: Theme.of(context).textTheme.headline1!.apply(
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? const Color(0xFF111111)
+                      : const Color(0xFFDDDCFF)),
             ),
             const Padding(
               padding: EdgeInsets.only(top: 30),

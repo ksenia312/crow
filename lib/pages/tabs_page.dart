@@ -42,37 +42,39 @@ class _TabsPageState extends State<TabsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: AppBarTitle(text: _getTitle()),
-        leading: AppBarLeading(onPressed: onAppBarIconPressed),
-        actions: [
-          IconButton(
-            icon: Icon(
-              Icons.settings,
-              color: Theme.of(context).colorScheme.onSurface,
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: AppBarTitle(text: _getTitle()),
+          leading: AppBarLeading(onPressed: onAppBarIconPressed),
+          actions: [
+            IconButton(
+              icon: Icon(
+                Icons.settings,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, '/settings');
+              },
             ),
-            onPressed: () {
-              Navigator.pushNamed(context, '/settings');
-            },
-          ),
-        ],
-      ),
-      bottomNavigationBar: _bar(),
-      body: Center(
-        child: _screens.elementAt(_current),
+          ],
+        ),
+        bottomNavigationBar: _bar(),
+        body: Center(
+          child: _screens.elementAt(_current),
+        ),
       ),
     );
   }
 
   Container _bar() => Container(
-        height: 35,
+        height: 50,
         color: Theme.of(context).colorScheme.primary,
         padding: const EdgeInsets.all(0.0),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: _generateItems()
-        ),
+        child: Row(mainAxisSize: MainAxisSize.min, children: _generateItems()),
       );
 
   List<Widget> _generateItems() => List.generate(4, (int n) => n)
@@ -87,11 +89,11 @@ class _TabsPageState extends State<TabsPage> {
           )))
       .toList();
 
-  List _icons() => [
-        const Icon(Icons.person_outline),
-        const Icon(Icons.play_circle_outline),
-        const Icon(Icons.burst_mode_outlined),
-        const Icon(Icons.question_mark_outlined),
+  List _icons({double size = 25.0}) => [
+        Icon(Icons.person_outline, size: size),
+        Icon(Icons.play_circle_outline, size: size),
+        Icon(Icons.burst_mode_outlined, size: size),
+        Icon(Icons.question_mark_outlined, size: size),
       ];
 
   List _selectedIcons({double size = 30.0}) => [

@@ -45,8 +45,8 @@ class _StatisticsState extends State<Statistics> {
         ''',
         columnSizes: [1.fr, 1.fr, 1.fr],
         rowSizes: [(150 / 3).px, (150 / 3).px, (150 / 3).px],
-        columnGap: 10,
-        rowGap: 10,
+        columnGap: 5,
+        rowGap: 5,
         children: _drawBackgroundBoxes(context),
       );
 

@@ -71,7 +71,7 @@ class ImageCardState extends State<ImageCard> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: AppIndents.cardMargin,
+      margin: AppIndents.basicMargin,
       elevation: 2,
       color: Theme.of(context).colorScheme.secondary,
       child: ClipRRect(
