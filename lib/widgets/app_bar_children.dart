@@ -49,17 +49,26 @@ class _AppBarLeadingState extends State<AppBarLeading> {
 
 class AppBarTitle extends StatelessWidget {
   final String text;
+  final bool isSmall;
+  final TextAlign textAlign;
 
-  const AppBarTitle({Key? key, this.text = 'crow'}) : super(key: key);
+  const AppBarTitle(
+      {Key? key,
+      this.text = 'crow',
+      this.isSmall = false,
+      this.textAlign = TextAlign.center})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      text, 
-      style: Theme.of(context)
-          .textTheme
-          .subtitle1!
-          .apply(color: Theme.of(context).colorScheme.onSurface),
+      text,
+      style: Theme.of(context).textTheme.subtitle1!.apply(
+          color: Theme.of(context).colorScheme.onSurface,
+          overflow: TextOverflow.fade),
+      softWrap: true,
+      textAlign: textAlign,
+      textScaleFactor: isSmall ? 0.8 : 1.0,
     );
   }
 }

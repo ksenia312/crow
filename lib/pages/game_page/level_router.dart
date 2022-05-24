@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/pages/game_page/widgets/action_text_with_icon.dart';
+import 'package:frontend/widgets/app_bar_children.dart';
 
 import 'levels/level1.dart';
 import 'levels/level2.dart';
@@ -17,7 +19,6 @@ class _LevelRouterState extends State<LevelRouter> {
 
   @override
   Widget build(BuildContext context) {
-    Color _onAppBarColor = Theme.of(context).colorScheme.onSurface;
     Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
     if (arguments['id'] == 3) {
       setState(() {
@@ -26,44 +27,36 @@ class _LevelRouterState extends State<LevelRouter> {
     }
     return Scaffold(
         appBar: AppBar(
-          leading: Row(
-            children: [
-              IconButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/game-home');
-                  },
-                  icon: Icon(
-                    Icons.arrow_back,
-                    color: _onAppBarColor,
-                  )),
-              _navigationText('s', _onAppBarColor)
-            ],
-          ),
+          leadingWidth: 150,
+          leading: ActionTextWithIcon(
+              text: 'Выбор \nуровня',
+              textPos: 1,
+              onPressed: _onBackPressed,
+              iconData: Icons.arrow_back,
+              textAlign: TextAlign.left),
           actions: [
             isLast
                 ? Container()
-                : Row(
-                    children: [
-                      _navigationText('s', _onAppBarColor),
-                      IconButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/level', arguments: {
-                              "id": arguments['id'] + 1,
-                            });
-                          },
-                          icon: Icon(
-                            Icons.arrow_forward,
-                            color: _onAppBarColor,
-                          )),
-                    ],
-                  )
+                : ActionTextWithIcon(
+                    text: 'Следующий \nуровень',
+                    textPos: 0,
+                    onPressed: () {
+                      _onForwardPressed(arguments);
+                    },
+                    iconData: Icons.arrow_forward,
+                    textAlign: TextAlign.right)
           ],
         ),
         body: _levels.elementAt(arguments['id'] - 1));
   }
 
-  Text _navigationText(text, color) => Text(
-        text,
-        style: TextStyle(color: color),
-      );
+  void _onForwardPressed(arguments) {
+    Navigator.pushNamed(context, '/level', arguments: {
+      "id": arguments['id'] + 1,
+    });
+  }
+
+  void _onBackPressed() {
+    Navigator.pushNamed(context, '/game-home');
+  }
 }

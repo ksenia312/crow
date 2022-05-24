@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/pages/feed_page/feed-page.dart';
 import 'package:frontend/pages/game_page/game_page.dart';
+import 'package:frontend/pages/meditation_page/meditation_page.dart';
 import 'package:frontend/pages/randomizer_page/randomizer_page.dart';
 import 'package:frontend/pages/user_page/user_page.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
@@ -17,7 +17,7 @@ class _TabsPageState extends State<TabsPage> {
   final List<Widget> _screens = const [
     UserPage(),
     GamePage(),
-    FeedPage(),
+    MeditationPage(),
     RandomizerPage()
   ];
 
@@ -70,24 +70,23 @@ class _TabsPageState extends State<TabsPage> {
     );
   }
 
-  Container _bar() => Container(
+  SizedBox _bar() => SizedBox(
         height: 50,
-        color: Theme.of(context).colorScheme.primary,
         child: Row(mainAxisSize: MainAxisSize.max, children: _generateItems()),
       );
 
   List<Widget> _generateItems() => List.generate(4, (int n) => n)
       .map((n) => Expanded(
-            child: Container(
-              height: double.infinity,
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _current = n;
-                  });
-                },
-                child: _icons()[n],
-              ),
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  _current = n;
+                });
+              },
+              child: Container(
+                  color: Theme.of(context).colorScheme.primary,
+                  height: double.infinity,
+                  child: _icons()[n]),
             ),
           ))
       .toList();

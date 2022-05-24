@@ -4,6 +4,7 @@ import 'package:frontend/models/user_model.dart';
 import 'package:frontend/pages/auth_page/auth_page.dart';
 import 'package:frontend/pages/game_page/game_home/game_home.dart';
 import 'package:frontend/pages/game_page/level_router.dart';
+import 'package:frontend/pages/game_page/pass_page.dart';
 import 'package:frontend/pages/home_page/home_page.dart';
 import 'package:frontend/pages/settings_page/settings_page.dart';
 import 'package:frontend/pages/splash_page/splash_page.dart';
@@ -54,14 +55,15 @@ class _MyAppState extends State<MyApp> {
         darkTheme: appTheme.dark,
         themeMode: appTheme.currentTheme,
         routes: {
-          '/': (context) => SplashPage(),
+          '/': (context) => const SplashPage(),
           '/home': (context) => HomePage(),
-          '/wrapper': (context) => Wrapper(),
-          '/auth': (context) => AuthPage(),
-          '/tabs': (context) => TabsPage(),
+          '/wrapper': (context) => const Wrapper(),
+          '/auth': (context) => const AuthPage(),
+          '/tabs': (context) => const TabsPage(),
           '/statistics': (context) => const StatisticsPage(),
           '/settings': (context) => const SettingsPage(),
           '/level': (context) => const LevelRouter(),
+          '/pass-page': (context) => const PassPage(),
           '/game-home': (context) => const GameHome()
         },
       ),

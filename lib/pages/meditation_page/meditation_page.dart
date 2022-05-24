@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:frontend/widgets/cards/announcement_card.dart';
 import 'package:frontend/widgets/statuses/loading.dart';
 
-class FeedPage extends StatefulWidget {
+class MeditationPage extends StatefulWidget {
 
 
-  const FeedPage({ Key? key}) : super(key: key);
+  const MeditationPage({ Key? key}) : super(key: key);
 
   @override
-  State<FeedPage> createState() => _FeedPageState();
+  State<MeditationPage> createState() => _MeditationPageState();
 }
 
-class _FeedPageState extends State<FeedPage> {
+class _MeditationPageState extends State<MeditationPage> {
   @override
   Widget build(BuildContext context) {
     return AppLoading(); /*const AnnouncementCard(
