@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppListTile extends StatelessWidget {
   final String headline2;
-  final String bodyText;
+  final String? bodyText;
   final Color textColor;
   final Color color;
   final double height;
@@ -32,8 +32,8 @@ class AppListTile extends StatelessWidget {
         child: ListTile(
           title: _drawListTileText(
               context, headline2, Theme.of(context).textTheme.headline2!),
-          subtitle: _drawListTileText(
-              context, bodyText, Theme.of(context).textTheme.bodyText1!),
+          subtitle: bodyText!=null ? _drawListTileText(
+              context, bodyText, Theme.of(context).textTheme.bodyText1!) : null,
           trailing: trailing,
         ),
       ),

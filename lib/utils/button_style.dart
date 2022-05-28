@@ -7,8 +7,6 @@ overrideButtonStyle<T>(property) {
 class AppButtonStyle {
   static ButtonStyle get basic {
     return ButtonStyle(
-
-        //splashFactory: InkSplash.splashFactory,
         padding:
             overrideButtonStyle<EdgeInsetsGeometry?>(const EdgeInsets.all(15)));
   }

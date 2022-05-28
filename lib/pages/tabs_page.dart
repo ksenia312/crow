@@ -1,9 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/models/user_model.dart';
 import 'package:frontend/pages/game_page/game_page.dart';
 import 'package:frontend/pages/meditation_page/meditation_page.dart';
 import 'package:frontend/pages/randomizer_page/randomizer_page.dart';
 import 'package:frontend/pages/user_page/user_page.dart';
+import 'package:frontend/services/user/database.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
+import 'package:provider/provider.dart';
 
 class TabsPage extends StatefulWidget {
   const TabsPage({Key? key}) : super(key: key);

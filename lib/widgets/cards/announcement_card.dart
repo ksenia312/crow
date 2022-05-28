@@ -4,7 +4,7 @@ import 'package:frontend/widgets/list_tile.dart';
 
 class AnnouncementCard extends StatefulWidget {
   final String headline2;
-  final String bodyText;
+  final String? bodyText;
   final double height;
   final bool showCloseButton;
 

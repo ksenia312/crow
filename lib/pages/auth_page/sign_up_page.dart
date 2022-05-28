@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:frontend/services/auth_service.dart';
+import 'package:frontend/services/user/auth_service.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
 import 'package:frontend/widgets/buttons.dart';
 import 'package:frontend/widgets/label.dart';
