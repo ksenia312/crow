@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
+import 'package:frontend/pages/statistics_page/statistics_page.dart';
 import 'package:frontend/utils/button_style.dart';
 import 'package:frontend/utils/indents.dart';
 
-class Statistics extends StatefulWidget {
-  const Statistics({Key? key}) : super(key: key);
+class StatisticsCard extends StatefulWidget {
+  const StatisticsCard({Key? key}) : super(key: key);
 
   @override
-  State<Statistics> createState() => _StatisticsState();
+  State<StatisticsCard> createState() => _StatisticsCardState();
 }
 
-class _StatisticsState extends State<Statistics> {
+class _StatisticsCardState extends State<StatisticsCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -22,7 +23,12 @@ class _StatisticsState extends State<Statistics> {
         child: ElevatedButton(
             style: _statisticsButtonStyle(),
             onPressed: () {
-              Navigator.pushNamed(context, '/statistics');
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  return const StatisticsPage();
+                }),
+              );
             },
             child: Stack(
                 children: [_drawGridBackground(context), _drawText(context)])),

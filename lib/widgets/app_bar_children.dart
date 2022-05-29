@@ -31,7 +31,7 @@ class _AppBarLeadingState extends State<AppBarLeading> {
               Theme.of(context).colorScheme.surface)),
       onPressed: () {
         widget.onPressed == null
-            ? Navigator.of(context).pop()
+            ? Navigator.pop(context)
             : widget.onPressed!();
       },
       child: widget.iconBack

@@ -9,12 +9,11 @@ class Wrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var user = Provider.of<AuthModel?>(context);
-    if (user == null) {
+    var authResult = Provider.of<AuthModel?>(context);
+    if (authResult == null) {
       return HomePage();
-    }
-    else {
-      return TabsPage();
+    } else {
+      return const TabsPage();
     }
   }
 }

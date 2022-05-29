@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:frontend/models/auth_model.dart';
-import 'package:frontend/services/user/database.dart';
+import 'package:frontend/services/user/user_service.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -8,7 +8,7 @@ class AuthService {
   AuthModel? _user(User? user) =>
       user != null ? AuthModel(uid: user.uid) : null;
 
-  Stream<AuthModel?> get user {
+  Stream<AuthModel?> get authResult {
     return _auth.authStateChanges().map(_user);
   }
 
@@ -27,7 +27,7 @@ class AuthService {
       UserCredential res = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       await UserService(uid: res.user!.uid)
-          .setUserData(name: '', email: res.user!.email, age: 0);
+          .setUserData(name: 'Имя', email: res.user!.email, age: 0);
       return _user(res.user);
     } catch (e) {
       return null;

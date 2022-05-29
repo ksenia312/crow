@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:frontend/pages/wrapper/wrapper.dart';
 import 'package:frontend/widgets/statuses/loading.dart';
 
 class SplashPage extends StatefulWidget {
@@ -14,7 +15,12 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 5), () {
-      Navigator.of(context).pushNamed('/wrapper');
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) {
+          return const Wrapper();
+        }),
+      );
     });
   }
 

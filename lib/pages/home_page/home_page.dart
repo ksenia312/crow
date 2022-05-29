@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/pages/auth_page/auth_page.dart';
 import 'package:frontend/widgets/buttons.dart';
 import 'package:frontend/widgets/cards/announcement_card.dart';
 import 'package:frontend/widgets/cards/image_card.dart';
@@ -24,7 +25,12 @@ class HomePage extends StatelessWidget {
                 buttonText: 'Войти',
                 size: AppTextButtonSize.medium,
                 onPressed: () {
-                  Navigator.pushNamed(context, '/auth');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) {
+                      return const AuthPage();
+                    }),
+                  );
                 },
               )
             ])

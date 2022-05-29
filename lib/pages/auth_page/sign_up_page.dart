@@ -57,7 +57,7 @@ class _SignUpPageState extends State<SignUpPage> {
           _fieldsValues[SignUpFieldType.password]!);
       if (res == null) {
       } else {
-        Navigator.pushNamed(context, '/tabs');
+        Navigator.pushReplacementNamed(context, '/tabs');
       }
     }
     _toggleLoading();

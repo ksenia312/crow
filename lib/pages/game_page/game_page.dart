@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:frontend/pages/game_page/game_home/game_home.dart';
 import 'package:frontend/utils/assets_variables.dart';
 import 'package:frontend/widgets/buttons.dart';
 
@@ -72,8 +73,13 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  onPressed(context) {
-    Navigator.pushNamed(context, '/game-home');
+  onPressed() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) {
+        return const GameHome();
+      }),
+    );
   }
 
   @override
@@ -94,13 +100,10 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
               _buildAnimation(
                   _animationPink!, constraints.maxWidth - 105, _smallCrow),
               AppTextButton(
-                buttonText: 'Играть',
-                type: AppTextButtonType.primary,
-                size: AppTextButtonSize.medium,
-                onPressed: () {
-                  onPressed(context);
-                },
-              ),
+                  buttonText: 'Играть',
+                  type: AppTextButtonType.primary,
+                  size: AppTextButtonSize.medium,
+                  onPressed: onPressed),
             ],
           );
         }));

@@ -14,7 +14,7 @@ class _Level2State extends State<Level2> {
   Widget build(BuildContext context) {
     Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
     _nextLevel() {
-      Navigator.pushNamed(context, '/pass-page',
+      Navigator.pushReplacementNamed(context, '/pass-page',
           arguments: {"id": arguments['id'] + 1});
     }
 

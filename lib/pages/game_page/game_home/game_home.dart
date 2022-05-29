@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:frontend/pages/tabs_page.dart';
 import 'package:frontend/utils/assets_variables.dart';
 import 'package:frontend/widgets/buttons.dart';
 import 'package:frontend/widgets/cards/announcement_card.dart';
@@ -64,7 +65,7 @@ class _GameHomeState extends State<GameHome> with TickerProviderStateMixin {
         appBar: AppBar(
           leading: IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/tabs');
+                Navigator.pushReplacementNamed(context, '/tabs');
               },
               icon: const Icon(Icons.arrow_back)),
         ),
@@ -92,7 +93,8 @@ class _GameHomeState extends State<GameHome> with TickerProviderStateMixin {
         buttonText: 'уровень $n',
         type: AppTextButtonType.tertiary,
         onPressed: () {
-          Navigator.pushNamed(context, '/level', arguments: {"id": n});
+          Navigator.pushReplacementNamed(context, '/level',
+              arguments: {"id": n});
         },
       ),
     ));

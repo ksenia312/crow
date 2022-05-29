@@ -6,6 +6,8 @@ class UserService {
 
   UserService({required this.uid});
 
+  UserService.withoutUID() : uid = '';
+
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('users');
 
@@ -21,7 +23,7 @@ class UserService {
         age: snapshot.get('age') ?? 0);
   }
 
-  Stream<UserModel> get userData {
+  Stream<UserModel>? get userData {
     return userCollection.doc(uid).snapshots().map(_userDataFromSnapshots);
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/pages/game_page/widgets/action_text_with_icon.dart';
-import 'package:frontend/widgets/app_bar_children.dart';
 
 import 'levels/level1.dart';
 import 'levels/level2.dart';
@@ -51,12 +50,12 @@ class _LevelRouterState extends State<LevelRouter> {
   }
 
   void _onForwardPressed(arguments) {
-    Navigator.pushNamed(context, '/level', arguments: {
+    Navigator.pushReplacementNamed(context, '/level', arguments: {
       "id": arguments['id'] + 1,
     });
   }
 
   void _onBackPressed() {
-    Navigator.pushNamed(context, '/game-home');
+    Navigator.pushReplacementNamed(context, '/game-home');
   }
 }

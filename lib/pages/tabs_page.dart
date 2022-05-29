@@ -1,13 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/models/user_model.dart';
 import 'package:frontend/pages/game_page/game_page.dart';
-import 'package:frontend/pages/meditation_page/meditation_page.dart';
+import 'package:frontend/pages/questions_page/questions_page.dart';
 import 'package:frontend/pages/randomizer_page/randomizer_page.dart';
+import 'package:frontend/pages/settings_page/settings_page.dart';
 import 'package:frontend/pages/user_page/user_page.dart';
-import 'package:frontend/services/user/database.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
-import 'package:provider/provider.dart';
 
 class TabsPage extends StatefulWidget {
   const TabsPage({Key? key}) : super(key: key);
@@ -21,8 +18,8 @@ class _TabsPageState extends State<TabsPage> {
   final List<Widget> _screens = const [
     UserPage(),
     GamePage(),
-    MeditationPage(),
-    RandomizerPage()
+    RandomizerPage(),
+    QuestionsPage()
   ];
 
   _getTitle() {
@@ -32,9 +29,9 @@ class _TabsPageState extends State<TabsPage> {
       case 1:
         return 'Сломай мозг';
       case 2:
-        return 'Медитация';
-      case 3:
         return 'Рандомайзер';
+      case 3:
+        return 'Вопрос';
     }
   }
 
@@ -61,7 +58,12 @@ class _TabsPageState extends State<TabsPage> {
                 color: Theme.of(context).colorScheme.onSurface,
               ),
               onPressed: () {
-                Navigator.pushNamed(context, '/settings');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) {
+                    return const SettingsPage();
+                  }),
+                );
               },
             ),
           ],

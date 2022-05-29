@@ -62,7 +62,7 @@ class _SignInPageState extends State<SignInPage> {
         _toggleStatuses(true, StatusesTypes.error);
         AppToast.showError(res, context);
       } else {
-        Navigator.pushNamed(context, '/tabs');
+        Navigator.pushReplacementNamed(context, '/tabs');
       }
     }
     _toggleStatuses(false, StatusesTypes.loading);

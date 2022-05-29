@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:frontend/models/user_model.dart';
 import 'package:frontend/pages/settings_page/widgets/color_choice_panel.dart';
 import 'package:frontend/services/user/auth_service.dart';
-import 'package:frontend/services/user/stream_builder.dart';
 import 'package:frontend/utils/indents.dart';
 import 'package:frontend/utils/theme.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
 import 'package:frontend/widgets/buttons.dart';
 import 'package:frontend/widgets/list_tile.dart';
 import 'package:frontend/widgets/statuses/loading.dart';
+import 'package:provider/provider.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -33,7 +33,10 @@ class _SettingsPageState extends State<SettingsPage> {
       _loading = true;
     });
     await _auth.signOut();
-    Navigator.pushNamed(context, '/home');
+    Navigator.pushNamedAndRemoveUntil(
+        context,
+        '/home',
+        (Route<dynamic> route) => false);
     setState(() {
       _loading = false;
     });
@@ -41,28 +44,26 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return UserStreamBuilder(
-        drawChild: (context, AsyncSnapshot<UserModel> snapshot) {
-      var email = snapshot.data?.email != null ? snapshot.data!.email : null;
-      return Scaffold(
-          appBar: AppBar(
-            title: const AppBarTitle(text: 'Настройки'),
-            leading: AppBarLeading(iconBack: true),
-          ),
-          body: ListView(
-            children: <Widget>[
-              _drawEmailEdit(email),
-              _drawButtons(),
-              ColorChoicePanel(pressed: _pressed, toggle: _toggleColorChoice),
-              AppTextButton(
-                  buttonText: 'выйти из аккаунта',
-                  type: AppTextButtonType.warning,
-                  onPressed: _signOut),
-              if (_loading == true)
-                const SizedBox(height: 50, child: AppLoading())
-            ],
-          ));
-    });
+    var user = Provider.of<UserModel?>(context);
+    var email = user?.email;
+    return Scaffold(
+        appBar: AppBar(
+          title: const AppBarTitle(text: 'Настройки'),
+          leading: AppBarLeading(iconBack: true),
+        ),
+        body: ListView(
+          children: <Widget>[
+            _drawEmailEdit(email),
+            _drawButtons(),
+            ColorChoicePanel(pressed: _pressed, toggle: _toggleColorChoice),
+            AppTextButton(
+                buttonText: 'выйти из аккаунта',
+                type: AppTextButtonType.warning,
+                onPressed: _signOut),
+            if (_loading == true)
+              const SizedBox(height: 50, child: AppLoading())
+          ],
+        ));
   }
 
   Row _drawButtons() => Row(
@@ -96,7 +97,7 @@ class _SettingsPageState extends State<SettingsPage> {
       color: Theme.of(context).colorScheme.primary,
       child: email != null
           ? AppListTile(
-              headline2: 'email: $email',
+              headline2: '$email',
               bodyText: null,
               height: 60,
               textColor: Theme.of(context).colorScheme.onPrimary,

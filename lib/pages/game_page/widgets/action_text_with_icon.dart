@@ -6,7 +6,7 @@ class ActionTextWithIcon extends StatelessWidget {
   final String text;
   final TextAlign textAlign;
   final IconData iconData;
-  final Function onPressed;
+  final Function() onPressed;
 
   const ActionTextWithIcon(
       {required this.textPos,
@@ -21,7 +21,7 @@ class ActionTextWithIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> _rowChildren = [
       IconButton(
-          onPressed: (){onPressed();},
+          onPressed:onPressed,
           icon: Icon(
             iconData,
             color: Theme.of(context).colorScheme.onSurface,
