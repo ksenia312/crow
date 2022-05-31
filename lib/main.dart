@@ -37,6 +37,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
   @override
   void initState() {
     super.initState();
@@ -48,12 +49,10 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     var authResult = Provider.of<AuthModel?>(context);
-    print('from main authData ${authResult?.uid}');
     return StreamProvider<UserModel?>.value(
         initialData: null,
-        value: UserService(
-                  uid: authResult?.uid != null ? authResult!.uid : '')
-              .userData,
+        value: UserService(uid: authResult?.uid != null ? authResult!.uid : '')
+            .userData,
         child: MaterialApp(
           title: 'Flutter Demo',
           debugShowCheckedModeBanner: false,

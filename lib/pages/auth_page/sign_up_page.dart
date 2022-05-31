@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:frontend/pages/auth_page/widgets/signUpDialog.dart';
+import 'package:frontend/pages/auth_page/widgets/sign_up_dialog.dart';
+import 'package:frontend/services/user/auth_service.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
 import 'package:frontend/widgets/statuses/dialog.dart';
+import 'package:frontend/widgets/statuses/loading.dart';
 import 'package:frontend/widgets/text_buttons.dart';
 import 'package:frontend/widgets/label.dart';
 import 'package:frontend/widgets/statuses/toast.dart';
@@ -20,8 +23,11 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  final AuthService _authService = AuthService();
   final _formKey = GlobalKey<FormState>();
   bool disabled = true;
+  bool _loading = false;
+  late FToast fToast;
 
   final Map<SignUpFieldType, String> _fieldsValues = {
     SignUpFieldType.email: '',
@@ -30,7 +36,6 @@ class _SignUpPageState extends State<SignUpPage> {
     SignUpFieldType.name: '',
     SignUpFieldType.age: ''
   };
-  late FToast fToast;
 
   @override
   void initState() {
@@ -39,16 +44,32 @@ class _SignUpPageState extends State<SignUpPage> {
     fToast.init(context);
   }
 
+  _toggleLoading() {
+    setState(() {
+      _loading = !_loading;
+    });
+  }
+
   _onFieldChanged(String value, SignUpFieldType type) => setState(() {
         _fieldsValues[type] = value;
       });
 
   void _continue() async {
+    _toggleLoading();
     if (validateFields() == null) {
-      AppDialog.showCustomDialog(context,
-          child: SignUpDialog(
-              onFieldChanged: _onFieldChanged, fieldsValues: _fieldsValues));
+      var res = await _authService.signUpWithEmailAndPassword(
+        _fieldsValues[SignUpFieldType.email]!,
+        _fieldsValues[SignUpFieldType.password]!,
+      );
+      if (res is FirebaseAuthException) {
+        AppToast.showError(res, context);
+      } else {
+        await AppDialog.showCustomDialog(context,
+            barrierDismissible: false,
+            child: SignUpDialog());
+      }
     }
+    _toggleLoading();
   }
 
   @override
@@ -84,7 +105,7 @@ class _SignUpPageState extends State<SignUpPage> {
               const AppLabel(text: 'повтор пароля'),
               _drawTextField('петр1234', true, SignUpFieldType.repeatedPassword,
                   repeatedPasswordTextFieldValidator),
-              _drawSignInButton(),
+              _drawSignUpButton(),
               AppTextButton(
                 buttonText: 'Вернуться к входу в аккаунт',
                 type: AppTextButtonType.tertiary,
@@ -111,7 +132,7 @@ class _SignUpPageState extends State<SignUpPage> {
             return validator(value);
           });
 
-  Column _drawSignInButton() => Column(
+  Column _drawSignUpButton() => Column(
         children: [
           AppTextButton(
             buttonText: 'Продолжить',
@@ -120,6 +141,7 @@ class _SignUpPageState extends State<SignUpPage> {
             onPressed: _continue,
             disabled: disabled,
           ),
+          if (_loading) const SizedBox(height: 50, child: AppLoading()),
         ],
       );
 

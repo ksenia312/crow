@@ -15,6 +15,10 @@ class UserService {
     userCollection.doc(uid).set({'name': name, 'age': age, 'email': email});
   }
 
+  Future updateUserData({name, email, age}) async {
+    userCollection.doc(uid).update({'name': name, 'age': age, 'email': email});
+  }
+
   UserModel _userDataFromSnapshots(DocumentSnapshot snapshot) {
     return UserModel(
         uid: uid,
@@ -24,7 +28,6 @@ class UserService {
   }
 
   Stream<UserModel>? get userData {
-    print('getUserData $uid');
     return uid != ''
         ? userCollection.doc(uid).snapshots().map(_userDataFromSnapshots)
         : null;
@@ -32,9 +35,10 @@ class UserService {
 }
 
 String getAge(int age) {
-  if (age % 10 == 0 || (age % 10 >= 5 && age % 10 <= 9)) {
+  var endNum = age % 10;
+  if (endNum == 0 || (endNum >= 5 && endNum <= 9) || (age >= 11 && age <= 15)) {
     return '$age лет';
-  } else if (age % 10 == 1) {
+  } else if (endNum == 1) {
     return '$age год';
   } else {
     return '$age года';

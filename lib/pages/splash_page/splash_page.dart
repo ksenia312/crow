@@ -48,16 +48,5 @@ class _SplashPageState extends State<SplashPage> {
         ),
       ),
     );
-
-    /*  SplashScreen(
-      seconds: 5,
-      navigateAfterSeconds: const Wrapper(),
-      backgroundColor: Theme.of(context).colorScheme.background,
-      title: Text('crow', style: Theme.of(context).textTheme.headline1),
-      image: Image.asset(_image),
-      useLoader: true,
-      photoSize: 50.0,
-      loaderColor: Theme.of(context).colorScheme.surface,
-    );*/
   }
 }

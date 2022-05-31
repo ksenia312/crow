@@ -34,9 +34,7 @@ class _SettingsPageState extends State<SettingsPage> {
     });
     await _auth.signOut();
     Navigator.pushNamedAndRemoveUntil(
-        context,
-        '/home',
-        (Route<dynamic> route) => false);
+        context, '/home', (Route<dynamic> route) => false);
     setState(() {
       _loading = false;
     });
@@ -56,12 +54,12 @@ class _SettingsPageState extends State<SettingsPage> {
             _drawEmailEdit(email),
             _drawButtons(),
             ColorChoicePanel(pressed: _pressed, toggle: _toggleColorChoice),
-            AppTextButton(
-                buttonText: 'выйти из аккаунта',
-                type: AppTextButtonType.warning,
-                onPressed: _signOut),
-            if (_loading == true)
-              const SizedBox(height: 50, child: AppLoading())
+            _loading == true
+                ? const SizedBox(height: 60, child: AppLoading())
+                : AppTextButton(
+                    buttonText: 'выйти из аккаунта',
+                    type: AppTextButtonType.warning,
+                    onPressed: _signOut),
           ],
         ));
   }
@@ -94,7 +92,6 @@ class _SettingsPageState extends State<SettingsPage> {
   _drawEmailEdit(email) {
     return Container(
       margin: AppIndents.basicMargin,
-      color: Theme.of(context).colorScheme.primary,
       child: email != null
           ? AppListTile(
               headline2: '$email',

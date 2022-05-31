@@ -12,6 +12,13 @@ class InitDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
+        title: Text(
+          title,
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.headline2!.apply(
+                color: Theme.of(context).colorScheme.onSecondary,
+              ),
+        ),
         backgroundColor: Theme.of(context).colorScheme.secondary,
         children: _drawChildren(
             context,
@@ -20,16 +27,6 @@ class InitDialog extends StatelessWidget {
   }
 
   List<Widget> _drawChildren(context, color, textColor) => [
-        Center(
-          child: SizedBox(
-              height: 100,
-              child: Center(
-                  child: Text(title,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headline2!.apply(
-                            color: textColor,
-                          )))),
-        ),
         _drawItem(context, 'Хочу играть', textColor, 1),
         _drawItem(context, 'Хочу почитать', textColor, 3),
         _drawItem(context, 'Я не знаю..', textColor, 2),

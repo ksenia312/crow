@@ -22,13 +22,12 @@ class AuthService {
     }
   }
 
-  Future signUpWithEmailAndPassword(
-      String email, String password, String name, int age) async {
+  Future signUpWithEmailAndPassword(String email, String password) async {
     try {
       UserCredential res = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       await UserService(uid: res.user!.uid)
-          .setUserData(name: name, email: res.user!.email, age: age);
+          .setUserData(name: 'Мариночька', email: res.user!.email, age: 47);
       return _user(res.user);
     } catch (e) {
       return null;

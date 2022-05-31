@@ -5,7 +5,7 @@ import 'package:frontend/pages/tabs_page/tabs_page.dart';
 import 'package:provider/provider.dart';
 
 class Wrapper extends StatelessWidget {
-  const Wrapper({Key? key}) : super(key: key);
+  const Wrapper({ Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
