@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/widgets/buttons.dart';
+import 'package:frontend/widgets/text_buttons.dart';
 import 'package:frontend/widgets/cards/announcement_card.dart';
 
 class Level1 extends StatefulWidget {

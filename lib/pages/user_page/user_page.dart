@@ -14,9 +14,11 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
+
   @override
   Widget build(BuildContext context) {
     var user = Provider.of<UserModel?>(context);
+    print('from userPage userData ${user?.uid}');
     return ListView(children: [
       user != null
           ? ImageCard(

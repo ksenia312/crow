@@ -3,11 +3,20 @@ import 'package:frontend/pages/game_page/game_page.dart';
 import 'package:frontend/pages/questions_page/questions_page.dart';
 import 'package:frontend/pages/randomizer_page/randomizer_page.dart';
 import 'package:frontend/pages/settings_page/settings_page.dart';
+import 'package:frontend/pages/tabs_page/widgets/init_dialog.dart';
 import 'package:frontend/pages/user_page/user_page.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
+import 'package:frontend/widgets/statuses/dialog.dart';
 
 class TabsPage extends StatefulWidget {
-  const TabsPage({Key? key}) : super(key: key);
+  final bool showInitDialog;
+  final String dialogTitle;
+
+  const TabsPage(
+      {this.dialogTitle = 'Что вы хотите?',
+      this.showInitDialog = false,
+      Key? key})
+      : super(key: key);
 
   @override
   State<TabsPage> createState() => _TabsPageState();
@@ -15,12 +24,19 @@ class TabsPage extends StatefulWidget {
 
 class _TabsPageState extends State<TabsPage> {
   int _current = 0;
+  bool showDialog = false;
   final List<Widget> _screens = const [
     UserPage(),
     GamePage(),
     RandomizerPage(),
     QuestionsPage()
   ];
+
+  void setCurrent(current) {
+    setState(() {
+      _current = current;
+    });
+  }
 
   _getTitle() {
     switch (_current) {
@@ -35,43 +51,54 @@ class _TabsPageState extends State<TabsPage> {
     }
   }
 
-  void onAppBarIconPressed() {
-    setState(() {
-      _current = 0;
-    });
+  @override
+  void initState() {
+    if (widget.showInitDialog) {
+      AppDialog.showCustomDialog(context,
+          child: InitDialog(title: widget.dialogTitle, setCurrent: setCurrent));
+      super.initState();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        return false;
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          title: AppBarTitle(text: _getTitle()),
-          leading: AppBarLeading(onPressed: onAppBarIconPressed),
-          actions: [
-            IconButton(
-              icon: Icon(
-                Icons.settings,
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) {
-                    return const SettingsPage();
-                  }),
-                );
-              },
+    return Scaffold(
+      appBar: AppBar(
+        title: AppBarTitle(text: _getTitle()),
+        leading: AppBarLeading(onPressed: () {
+          setCurrent(0);
+        }),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.keyboard_double_arrow_down,
+              color: Theme.of(context).colorScheme.onSurface,
             ),
-          ],
-        ),
-        bottomNavigationBar: _bar(),
-        body: Center(
-          child: _screens.elementAt(_current),
-        ),
+            onPressed: () {
+              AppDialog.showCustomDialog(context,
+                  child: InitDialog(
+                      title: 'Что вы хотите?', setCurrent: setCurrent));
+            },
+          ),
+          IconButton(
+            icon: Icon(
+              Icons.settings,
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  return const SettingsPage();
+                }),
+              );
+            },
+          ),
+        ],
+      ),
+      bottomNavigationBar: _bar(),
+      body: Center(
+        child: _screens.elementAt(_current),
       ),
     );
   }
@@ -85,9 +112,7 @@ class _TabsPageState extends State<TabsPage> {
       .map((n) => Expanded(
             child: GestureDetector(
               onTap: () {
-                setState(() {
-                  _current = n;
-                });
+                setCurrent(n);
               },
               child: Container(
                   color: Theme.of(context).colorScheme.primary,

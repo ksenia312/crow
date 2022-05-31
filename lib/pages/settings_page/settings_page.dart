@@ -5,7 +5,7 @@ import 'package:frontend/services/user/auth_service.dart';
 import 'package:frontend/utils/indents.dart';
 import 'package:frontend/utils/theme.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
-import 'package:frontend/widgets/buttons.dart';
+import 'package:frontend/widgets/text_buttons.dart';
 import 'package:frontend/widgets/list_tile.dart';
 import 'package:frontend/widgets/statuses/loading.dart';
 import 'package:provider/provider.dart';

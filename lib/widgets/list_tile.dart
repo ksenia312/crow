@@ -31,7 +31,7 @@ class AppListTile extends StatelessWidget {
       child: Center(
         child: ListTile(
           title: headline2!=null ? _drawListTileText(
-              context, headline2, Theme.of(context).textTheme.headline2!) : null,
+              context, headline2, Theme.of(context).textTheme.subtitle1!) : null,
           subtitle: bodyText!=null ? _drawListTileText(
               context, bodyText, Theme.of(context).textTheme.bodyText1!) : null,
           trailing: trailing,

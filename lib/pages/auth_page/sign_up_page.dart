@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:frontend/services/user/auth_service.dart';
+import 'package:frontend/pages/auth_page/widgets/signUpDialog.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
-import 'package:frontend/widgets/buttons.dart';
+import 'package:frontend/widgets/statuses/dialog.dart';
+import 'package:frontend/widgets/text_buttons.dart';
 import 'package:frontend/widgets/label.dart';
 import 'package:frontend/widgets/statuses/toast.dart';
-import 'package:frontend/widgets/statuses/loading.dart';
 import 'package:frontend/widgets/text_field/text_field.dart';
 import 'package:frontend/widgets/text_field/types.dart';
 import 'package:frontend/widgets/text_field/validators.dart';
@@ -20,17 +20,17 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  final AuthService _authService = AuthService();
   final _formKey = GlobalKey<FormState>();
-  bool _loading = false;
+  bool disabled = true;
 
   final Map<SignUpFieldType, String> _fieldsValues = {
     SignUpFieldType.email: '',
     SignUpFieldType.password: '',
-    SignUpFieldType.repeatedPassword: ''
+    SignUpFieldType.repeatedPassword: '',
+    SignUpFieldType.name: '',
+    SignUpFieldType.age: ''
   };
   late FToast fToast;
-  bool disabled = true;
 
   @override
   void initState() {
@@ -43,24 +43,12 @@ class _SignUpPageState extends State<SignUpPage> {
         _fieldsValues[type] = value;
       });
 
-  _toggleLoading() {
-    setState(() {
-      _loading = !_loading;
-    });
-  }
-
-  void _signUp() async {
-    _toggleLoading();
+  void _continue() async {
     if (validateFields() == null) {
-      var res = await _authService.signUpWithEmailAndPassword(
-          _fieldsValues[SignUpFieldType.email]!,
-          _fieldsValues[SignUpFieldType.password]!);
-      if (res == null) {
-      } else {
-        Navigator.pushReplacementNamed(context, '/tabs');
-      }
+      AppDialog.showCustomDialog(context,
+          child: SignUpDialog(
+              onFieldChanged: _onFieldChanged, fieldsValues: _fieldsValues));
     }
-    _toggleLoading();
   }
 
   @override
@@ -126,13 +114,12 @@ class _SignUpPageState extends State<SignUpPage> {
   Column _drawSignInButton() => Column(
         children: [
           AppTextButton(
-            buttonText: 'Зарегистрироваться',
+            buttonText: 'Продолжить',
             type: AppTextButtonType.primary,
             size: AppTextButtonSize.large,
-            onPressed: _signUp,
+            onPressed: _continue,
             disabled: disabled,
           ),
-          if (_loading) SizedBox(height: 50, child: AppLoading())
         ],
       );
 

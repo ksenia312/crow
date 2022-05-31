@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:frontend/pages/tabs_page.dart';
+import 'package:frontend/pages/tabs_page/tabs_page.dart';
 import 'package:frontend/utils/assets_variables.dart';
-import 'package:frontend/widgets/buttons.dart';
+import 'package:frontend/widgets/text_buttons.dart';
 import 'package:frontend/widgets/cards/announcement_card.dart';
 
 class GameHome extends StatefulWidget {

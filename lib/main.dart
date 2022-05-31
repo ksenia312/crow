@@ -4,9 +4,9 @@ import 'package:frontend/models/auth_model.dart';
 import 'package:frontend/pages/game_page/game_home/game_home.dart';
 import 'package:frontend/pages/game_page/level_router.dart';
 import 'package:frontend/pages/game_page/pass_page.dart';
-import 'package:frontend/pages/home_page/home_page.dart';
+import 'package:frontend/pages/home_page.dart';
 import 'package:frontend/pages/splash_page/splash_page.dart';
-import 'package:frontend/pages/tabs_page.dart';
+import 'package:frontend/pages/tabs_page/tabs_page.dart';
 import 'package:frontend/services/user/auth_service.dart';
 import 'package:frontend/services/user/user_service.dart';
 import 'package:frontend/utils/theme.dart';
@@ -48,11 +48,12 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     var authResult = Provider.of<AuthModel?>(context);
-    var userService =
-        UserService(uid: authResult?.uid != null ? authResult!.uid : '');
-    return StreamProvider<UserModel?>(
+    print('from main authData ${authResult?.uid}');
+    return StreamProvider<UserModel?>.value(
         initialData: null,
-        create: (_) => userService.userData,
+        value: UserService(
+                  uid: authResult?.uid != null ? authResult!.uid : '')
+              .userData,
         child: MaterialApp(
           title: 'Flutter Demo',
           debugShowCheckedModeBanner: false,

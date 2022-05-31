@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 String? emailTextFieldValidator(String value) {
   final _emailTemplate = RegExp(
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
@@ -36,4 +34,21 @@ String? repeatedPasswordTextFieldValidator(String value) {
   } else {
     return 'Что-то пошло не так';
   }
+}
+
+String? ageTextFieldValidator(String value) {
+  try {
+    int.parse(value);
+    return null;
+  } catch (e) {
+    return 'Некорректный возраст';
+  }
+}
+
+
+String? nameTextFieldValidator(String value) {
+  if (value.isEmpty) {
+    return 'Пожалуйста, повторите пароль';
+  }
+  return null;
 }

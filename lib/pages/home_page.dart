@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/pages/auth_page/auth_page.dart';
-import 'package:frontend/widgets/buttons.dart';
+import 'package:frontend/widgets/text_buttons.dart';
 import 'package:frontend/widgets/cards/announcement_card.dart';
 import 'package:frontend/widgets/cards/image_card.dart';
 
@@ -43,8 +43,8 @@ class HomePage extends StatelessWidget {
   final List<List<String>> _items = [
     ['Развлекайтесь каждый день', 'Ну или не каждый, как хотите'],
     ['Игра, которая сломает тебе мозг', 'Попробуй пройти (:'],
-    ['Бесконечная лента для медитации', 'Листай сколько хочешь'],
-    ['Уникальный раздел “Рандомайзер”', 'От него неизвестно, что ожидать'],
+    ['Уникальный раздел “Рандомайзер', 'От него неизвестно, что ожидать'],
+    ['Ответы на самые странные вопросы', 'Вы не ждали, а мы пришла'],
   ];
 
   CarouselSlider _drawCarousel() => CarouselSlider(

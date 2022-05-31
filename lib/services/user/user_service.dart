@@ -24,7 +24,10 @@ class UserService {
   }
 
   Stream<UserModel>? get userData {
-    return userCollection.doc(uid).snapshots().map(_userDataFromSnapshots);
+    print('getUserData $uid');
+    return uid != ''
+        ? userCollection.doc(uid).snapshots().map(_userDataFromSnapshots)
+        : null;
   }
 }
 

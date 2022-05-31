@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frontend/pages/game_page/game_home/game_home.dart';
 import 'package:frontend/utils/assets_variables.dart';
-import 'package:frontend/widgets/buttons.dart';
+import 'package:frontend/widgets/text_buttons.dart';
 
 class GamePage extends StatefulWidget {
   const GamePage({Key? key}) : super(key: key);
