@@ -60,6 +60,7 @@ class _SignUpDialogState extends State<SignUpDialog> {
       if (res is FirebaseAuthException) {
         AppToast.showError(res, context);
       } else {
+        Navigator.pop(context);
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) {

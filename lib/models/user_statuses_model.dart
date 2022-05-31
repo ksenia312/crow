@@ -1,5 +1,5 @@
 class UserStatusesModel {
-  final List data;
+  final List statuses;
 
-  UserStatusesModel({required this.data});
+  UserStatusesModel({required this.statuses});
 }

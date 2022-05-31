@@ -25,16 +25,16 @@ class _UserPageState extends State<UserPage> {
         stream: UserStatusesService().userStatuses,
         builder:
             (BuildContext context, AsyncSnapshot<UserStatusesModel> snapshot) {
-          List _statusesData = snapshot.data?.data ?? ['дикая львица'];
+          List _statuses = snapshot.data?.statuses ?? ['дикая львица'];
           String _status =
-              _statusesData[Random().nextInt(_statusesData.length)];
+              _statuses[Random().nextInt(_statuses.length)];
           return ListView(children: [
             user != null
                 ? ImageCard(
                     headline2: '${user.name}, ${getAge(user.age)}',
                     bodyText: 'статус: $_status',
                     imageHeight: 100,
-                    listTileHeight: 70,
+                    listTileHeight: 100,
                   )
                 : Container(
                     color: Theme.of(context).colorScheme.tertiary,

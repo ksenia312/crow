@@ -93,7 +93,7 @@ class _GameHomeState extends State<GameHome> with TickerProviderStateMixin {
         buttonText: 'уровень $n',
         type: AppTextButtonType.tertiary,
         onPressed: () {
-          Navigator.pushReplacementNamed(context, '/level',
+          Navigator.pushNamed(context, '/level',
               arguments: {"id": n});
         },
       ),

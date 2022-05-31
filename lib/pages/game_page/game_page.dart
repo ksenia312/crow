@@ -74,7 +74,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
   }
 
   onPressed() {
-    Navigator.pushReplacement(
+    Navigator.push(
       context,
       MaterialPageRoute(builder: (context) {
         return const GameHome();

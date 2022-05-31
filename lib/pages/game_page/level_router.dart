@@ -48,7 +48,6 @@ class _LevelRouterState extends State<LevelRouter> {
         ),
         body: _levels.elementAt(arguments['id'] - 1));
   }
-
   void _onForwardPressed(arguments) {
     Navigator.pushReplacementNamed(context, '/level', arguments: {
       "id": arguments['id'] + 1,

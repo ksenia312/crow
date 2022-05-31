@@ -9,7 +9,7 @@ class PassPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
     _nextLevel() {
-      Navigator.pushReplacementNamed(context, '/level',
+      Navigator.pushNamed(context, '/level',
           arguments: {"id": arguments['id']});
     }
 
