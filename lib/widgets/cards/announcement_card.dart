@@ -5,14 +5,14 @@ import 'package:frontend/widgets/list_tile.dart';
 class AnnouncementCard extends StatefulWidget {
   final String headline2;
   final String? bodyText;
-  final double height;
+  final double? height;
   final bool showCloseButton;
 
   const AnnouncementCard(
       {Key? key,
       required this.headline2,
       required this.bodyText,
-      this.height = 90,
+      this.height,
       this.showCloseButton = true})
       : super(key: key);
 

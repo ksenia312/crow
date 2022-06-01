@@ -8,7 +8,7 @@ class ImageCard extends StatefulWidget {
   final String headline2;
   final String bodyText;
   final double imageHeight;
-  final double listTileHeight;
+  final double? listTileHeight;
   final int initImageNum;
 
   const ImageCard({
@@ -16,7 +16,7 @@ class ImageCard extends StatefulWidget {
     required this.headline2,
     required this.bodyText,
     this.imageHeight = 150,
-    this.listTileHeight = 120,
+    this.listTileHeight,
     this.initImageNum = 1,
   }) : super(key: key);
 
@@ -70,12 +70,17 @@ class ImageCardState extends State<ImageCard> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: AppIndents.basicMargin,
-      elevation: 2,
-      color: Theme.of(context).colorScheme.secondary,
-      child: ClipRRect(
-          borderRadius: BorderRadius.circular(4), child: _drawContent()),
+    return SizedBox(
+      height: widget.listTileHeight != null
+          ? (widget.imageHeight + widget.listTileHeight!)
+          : null,
+      child: Card(
+        margin: AppIndents.basicMargin,
+        elevation: 2,
+        color: Theme.of(context).colorScheme.secondary,
+        child: ClipRRect(
+            borderRadius: BorderRadius.circular(4), child: _drawContent()),
+      ),
     );
   }
 
@@ -90,20 +95,15 @@ class ImageCardState extends State<ImageCard> with TickerProviderStateMixin {
   Container _drawContent() => Container(
         width: double.infinity,
         decoration: _decoration(),
-        child: Column(
-          children: [
-            SizedBox(
-              child: null,
-              height: widget.imageHeight,
-            ),
-            AppListTile(
-              headline2: widget.headline2,
-              bodyText: widget.bodyText,
-              height: widget.listTileHeight,
-              color: Theme.of(context).colorScheme.secondary,
-              textColor: Theme.of(context).colorScheme.onSecondary,
-            ),
-          ],
+        child: Padding(
+          padding: EdgeInsets.only(top: widget.imageHeight),
+          child: AppListTile(
+            headline2: widget.headline2,
+            bodyText: widget.bodyText,
+            height: widget.listTileHeight,
+            color: Theme.of(context).colorScheme.secondary,
+            textColor: Theme.of(context).colorScheme.onSecondary,
+          ),
         ),
       );
 }

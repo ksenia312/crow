@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/pages/auth_page/auth_page.dart';
+import 'package:frontend/widgets/app_bar_children.dart';
 import 'package:frontend/widgets/text_buttons.dart';
 import 'package:frontend/widgets/cards/announcement_card.dart';
 import 'package:frontend/widgets/cards/image_card.dart';
@@ -11,29 +12,36 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const AppBarTitle(text: 'Добро пожаловать!!'),
+      ),
       body: Center(
         child: ListView(
           children: [
-            const AnnouncementCard(
-              headline2: 'Добро пожаловать!',
-              bodyText: 'Пожалуйста, войдите в аккаунт',
-              showCloseButton: false,
-            ),
             _drawCarousel(),
-            Row(children: [
-              AppTextButton(
-                buttonText: 'Войти',
-                size: AppTextButtonSize.medium,
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) {
-                      return const AuthPage();
-                    }),
-                  );
-                },
-              )
-            ])
+
+            AppTextButton(
+              buttonText: 'Войти',
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) {
+                    return const AuthPage();
+                  }),
+                );
+              },
+            ),
+            SizedBox(
+              height: 50,
+              child: Center(
+                child: Text(
+                  'Пожалуйста, войдите в аккаунт',
+                  style: Theme.of(context).textTheme.subtitle1!.apply(
+                    color: Theme.of(context).colorScheme.onSecondary,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -50,7 +58,7 @@ class HomePage extends StatelessWidget {
   CarouselSlider _drawCarousel() => CarouselSlider(
         options: CarouselOptions(
             height: 400.0,
-            autoPlayInterval: const Duration(seconds: 5),
+            autoPlayInterval: const Duration(seconds: 2),
             viewportFraction: 0.9,
             autoPlay: true,
             autoPlayCurve: Curves.fastOutSlowIn,
@@ -62,7 +70,6 @@ class HomePage extends StatelessWidget {
               return ImageCard(
                   headline2: i.value.first,
                   bodyText: i.value.last,
-                  listTileHeight: 150,
                   initImageNum: i.key + 1 //Random().nextInt(4)+1,
                   );
             },

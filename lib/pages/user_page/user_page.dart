@@ -18,6 +18,7 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
+
   @override
   Widget build(BuildContext context) {
     var user = Provider.of<UserModel?>(context);
@@ -34,7 +35,6 @@ class _UserPageState extends State<UserPage> {
                     headline2: '${user.name}, ${getAge(user.age)}',
                     bodyText: 'статус: $_status',
                     imageHeight: 100,
-                    listTileHeight: 100,
                   )
                 : Container(
                     color: Theme.of(context).colorScheme.tertiary,

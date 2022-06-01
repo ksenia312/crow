@@ -5,7 +5,7 @@ class AppListTile extends StatelessWidget {
   final String? bodyText;
   final Color textColor;
   final Color color;
-  final double height;
+  final double? height;
   final bool softWrap;
   final TextOverflow overflow;
   final Widget? trailing;
@@ -16,7 +16,7 @@ class AppListTile extends StatelessWidget {
       required this.bodyText,
       required this.textColor,
       required this.color,
-      this.height = 80,
+      this.height,
       this.softWrap = true,
       this.overflow = TextOverflow.fade,
       this.trailing})
@@ -26,7 +26,7 @@ class AppListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: height,
-      padding: const EdgeInsets.symmetric(horizontal: 8),
+      padding: const EdgeInsets.all(8),
       color: color,
       child: Center(
         child: ListTile(
