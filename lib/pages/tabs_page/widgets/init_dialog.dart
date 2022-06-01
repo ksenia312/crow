@@ -40,10 +40,11 @@ class InitDialog extends StatelessWidget {
           Navigator.pop(context);
         },
         child: AppListTile(
-            headline2: text,
-            bodyText: null,
-            textColor: Theme.of(context).colorScheme.onSecondary,
-            color: Colors.transparent,
-            trailing: const Icon(Icons.double_arrow)),
+          headline2: text,
+          bodyText: null,
+          textColor: textColor,
+          color: Colors.transparent,
+          trailing: Icon(Icons.double_arrow, color: textColor),
+        ),
       );
 }

@@ -12,7 +12,7 @@ class AnnouncementCard extends StatefulWidget {
       {Key? key,
       required this.headline2,
       required this.bodyText,
-      this.height,
+      this.height = 78,
       this.showCloseButton = true})
       : super(key: key);
 
@@ -44,6 +44,7 @@ class _AnnouncementCardState extends State<AnnouncementCard> {
                         onPressed: close,
                       )
                     : null,
+                padding: 4.0,
                 headline2: widget.headline2,
                 bodyText: widget.bodyText,
                 height: widget.height,

@@ -16,30 +16,23 @@ class HomePage extends StatelessWidget {
         title: const AppBarTitle(text: 'Добро пожаловать!!'),
       ),
       body: Center(
-        child: ListView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            _drawCarousel(),
-
-            AppTextButton(
-              buttonText: 'Войти',
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) {
-                    return const AuthPage();
-                  }),
-                );
-              },
-            ),
-            SizedBox(
-              height: 50,
-              child: Center(
-                child: Text(
-                  'Пожалуйста, войдите в аккаунт',
-                  style: Theme.of(context).textTheme.subtitle1!.apply(
-                    color: Theme.of(context).colorScheme.onSecondary,
-                  ),
-                ),
+            Expanded(child: _drawCarousel()),
+            Padding(
+              padding: const EdgeInsets.all(30.0),
+              child: AppTextButton(
+                margin: EdgeInsets.zero,
+                buttonText: 'Войти',
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) {
+                      return const AuthPage();
+                    }),
+                  );
+                },
               ),
             ),
           ],
@@ -68,6 +61,7 @@ class HomePage extends StatelessWidget {
           return Builder(
             builder: (BuildContext context) {
               return ImageCard(
+                imageHeight: 200,
                   headline2: i.value.first,
                   bodyText: i.value.last,
                   initImageNum: i.key + 1 //Random().nextInt(4)+1,

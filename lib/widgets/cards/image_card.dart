@@ -103,6 +103,7 @@ class ImageCardState extends State<ImageCard> with TickerProviderStateMixin {
             height: widget.listTileHeight,
             color: Theme.of(context).colorScheme.secondary,
             textColor: Theme.of(context).colorScheme.onSecondary,
+            padding:4.0
           ),
         ),
       );

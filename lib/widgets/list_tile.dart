@@ -6,6 +6,7 @@ class AppListTile extends StatelessWidget {
   final Color textColor;
   final Color color;
   final double? height;
+  final double padding;
   final bool softWrap;
   final TextOverflow overflow;
   final Widget? trailing;
@@ -19,6 +20,7 @@ class AppListTile extends StatelessWidget {
       this.height,
       this.softWrap = true,
       this.overflow = TextOverflow.fade,
+      this.padding = 0.0,
       this.trailing})
       : super(key: key);
 
@@ -26,14 +28,18 @@ class AppListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: height,
-      padding: const EdgeInsets.all(8),
       color: color,
+      padding: EdgeInsets.all(padding),
       child: Center(
         child: ListTile(
-          title: headline2!=null ? _drawListTileText(
-              context, headline2, Theme.of(context).textTheme.subtitle1!) : null,
-          subtitle: bodyText!=null ? _drawListTileText(
-              context, bodyText, Theme.of(context).textTheme.bodyText1!) : null,
+          title: headline2 != null
+              ? _drawListTileText(
+                  context, headline2, Theme.of(context).textTheme.subtitle1!)
+              : null,
+          subtitle: bodyText != null
+              ? _drawListTileText(
+                  context, bodyText, Theme.of(context).textTheme.bodyText1!)
+              : null,
           trailing: trailing,
         ),
       ),

@@ -92,7 +92,7 @@ class _SettingsPageState extends State<SettingsPage> {
   _drawEmailEdit(email) {
     return Container(
       margin: AppIndents.basicMargin,
-      child: email != null
+      child: email!=null
           ? AppListTile(
               headline2: '$email',
               bodyText: null,

@@ -21,23 +21,21 @@ class Question extends StatefulWidget {
 class _QuestionState extends State<Question> {
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return Container(
       margin: AppIndents.basicMargin,
-      elevation: 0,
-      color: Theme.of(context).colorScheme.secondary,
       child: ClipRRect(
-          borderRadius: BorderRadius.circular(4),
-          child: AppListTile(
-            headline2: widget.headline2,
-            bodyText: widget.bodyText1,
-            color: Theme.of(context).colorScheme.secondary,
-            textColor: Theme.of(context).colorScheme.onSecondary,
-            softWrap: false,
-            overflow: TextOverflow.ellipsis,
-            height: 70,
-            trailing: _buildTrailing(
-                Theme.of(context).colorScheme.onSecondary, widget.countViews),
-          )),
+        borderRadius: BorderRadius.circular(4.0),
+        child: AppListTile(
+          headline2: widget.headline2,
+          bodyText: widget.bodyText1,
+          color: Theme.of(context).colorScheme.secondary,
+          textColor: Theme.of(context).colorScheme.onSecondary,
+          softWrap: false,
+          overflow: TextOverflow.ellipsis,
+          trailing: _buildTrailing(
+              Theme.of(context).colorScheme.onSecondary, widget.countViews),
+        ),
+      ),
     );
   }
 

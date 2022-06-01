@@ -21,7 +21,6 @@ class _QuestionsPageState extends State<QuestionsPage> {
               'Топ вопросов',
           bodyText: 'Самые просматриваемые',
           showCloseButton: false,
-          height: 70,
         ),
         Padding(
           padding: AppIndents.allMargin,

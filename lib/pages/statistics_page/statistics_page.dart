@@ -18,8 +18,8 @@ class _StatisticsPageState extends State<StatisticsPage> {
           leading: AppBarLeading(iconBack: true),
         ),
         body: const AnnouncementCard(
-          headline2: 'Ваша статистика',
-          bodyText: 'Уникальные параметры вашей активности',
+          headline2: 'Уникальные параметры вашей активности',
+          bodyText: null,
           showCloseButton: false
         ));
   }
