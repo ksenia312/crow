@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/models/auth_model.dart';
 import 'package:frontend/models/user_model.dart';
 import 'package:frontend/pages/settings_page/widgets/color_choice_panel.dart';
 import 'package:frontend/services/user/auth_service.dart';
+import 'package:frontend/services/user/user_database.dart';
 import 'package:frontend/utils/indents.dart';
 import 'package:frontend/utils/theme.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
@@ -42,26 +44,31 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    var user = Provider.of<UserModel?>(context);
-    var email = user?.email;
-    return Scaffold(
-        appBar: AppBar(
-          title: const AppBarTitle(text: 'Настройки'),
-          leading: AppBarLeading(iconBack: true),
-        ),
-        body: ListView(
-          children: <Widget>[
-            _drawEmailEdit(email),
-            _drawButtons(),
-            ColorChoicePanel(pressed: _pressed, toggle: _toggleColorChoice),
-            _loading == true
-                ? const SizedBox(height: 60, child: AppLoading())
-                : AppTextButton(
-                    buttonText: 'выйти из аккаунта',
-                    type: AppTextButtonType.warning,
-                    onPressed: _signOut),
-          ],
-        ));
+    var auth = Provider.of<AuthModel?>(context);
+    return StreamBuilder<UserModel?>(
+        stream: UserDatabase(uid: auth?.uid ?? '').userData,
+        builder: (context, userSnapshot) {
+          var email = userSnapshot.data?.email;
+          return Scaffold(
+              appBar: AppBar(
+                title: const AppBarTitle(text: 'Настройки'),
+                leading: AppBarLeading(iconBack: true),
+              ),
+              body: ListView(
+                children: <Widget>[
+                  _drawEmailEdit(email),
+                  _drawButtons(),
+                  ColorChoicePanel(
+                      pressed: _pressed, toggle: _toggleColorChoice),
+                  _loading == true
+                      ? const SizedBox(height: 60, child: AppLoading())
+                      : AppTextButton(
+                          buttonText: 'выйти из аккаунта',
+                          type: AppTextButtonType.warning,
+                          onPressed: _signOut),
+                ],
+              ));
+        });
   }
 
   Row _drawButtons() => Row(
@@ -92,19 +99,16 @@ class _SettingsPageState extends State<SettingsPage> {
   _drawEmailEdit(email) {
     return Container(
       margin: AppIndents.basicMargin,
-      child: email!=null
+      child: email != null
           ? AppListTile(
               headline2: '$email',
               bodyText: null,
               height: 60,
               textColor: Theme.of(context).colorScheme.onPrimary,
               color: Theme.of(context).colorScheme.primary,
-              trailing: IconButton(
-                icon: Icon(
-                  Icons.edit,
-                  color: Theme.of(context).colorScheme.onPrimary,
-                ),
-                onPressed: () {},
+              trailing: Icon(
+                Icons.edit,
+                color: Theme.of(context).colorScheme.onPrimary,
               ),
             )
           : const AppLoading(

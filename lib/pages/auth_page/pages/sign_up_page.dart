@@ -1,10 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:frontend/pages/auth_page/widgets/sign_up_dialog.dart';
+import 'package:frontend/pages/auth_page/pages/verify_email_page.dart';
 import 'package:frontend/services/user/auth_service.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
-import 'package:frontend/widgets/statuses/dialog.dart';
 import 'package:frontend/widgets/statuses/loading.dart';
 import 'package:frontend/widgets/text_buttons.dart';
 import 'package:frontend/widgets/label.dart';
@@ -37,12 +36,6 @@ class _SignUpPageState extends State<SignUpPage> {
     SignUpFieldType.age: ''
   };
 
-  @override
-  void initState() {
-    super.initState();
-    fToast = FToast();
-    fToast.init(context);
-  }
 
   _toggleLoading() {
     setState(() {
@@ -50,8 +43,9 @@ class _SignUpPageState extends State<SignUpPage> {
     });
   }
 
-  _onFieldChanged(String value, SignUpFieldType type) => setState(() {
-        _fieldsValues[type] = value;
+  _onFieldChanged(String value, SignUpFieldType type) =>
+      setState(() {
+        _fieldsValues[type] = value.trim();
       });
 
   void _continue() async {
@@ -64,9 +58,9 @@ class _SignUpPageState extends State<SignUpPage> {
       if (res is FirebaseAuthException) {
         AppToast.showError(res, context);
       } else {
-        await AppDialog.showCustomDialog(context,
-            barrierDismissible: false,
-            child: SignUpDialog());
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const VerifyEmailDialog()));
       }
     }
     _toggleLoading();
@@ -74,6 +68,8 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
+    fToast = FToast();
+    fToast.init(context);
     if (_fieldsValues[SignUpFieldType.email] != '' &&
         _fieldsValues[SignUpFieldType.password] != '' &&
         _fieldsValues[SignUpFieldType.repeatedPassword] != '') {
@@ -121,7 +117,7 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   _drawTextField(String hintText, bool obscuringCharacter, SignUpFieldType type,
-          Function validator) =>
+      Function validator) =>
       AppTextField(
           obscuringCharacter: obscuringCharacter,
           hintText: hintText,
@@ -132,7 +128,8 @@ class _SignUpPageState extends State<SignUpPage> {
             return validator(value);
           });
 
-  Column _drawSignUpButton() => Column(
+  Column _drawSignUpButton() =>
+      Column(
         children: [
           AppTextButton(
             buttonText: 'Продолжить',
@@ -147,9 +144,9 @@ class _SignUpPageState extends State<SignUpPage> {
 
   String? validateFields() {
     var _validateEmail =
-        emailTextFieldValidator(_fieldsValues[SignUpFieldType.email]!);
+    emailTextFieldValidator(_fieldsValues[SignUpFieldType.email]!);
     var _validatePassword =
-        passwordTextFieldValidator(_fieldsValues[SignUpFieldType.password]!);
+    passwordTextFieldValidator(_fieldsValues[SignUpFieldType.password]!);
 
     var _passwordsAreSame = _fieldsValues[SignUpFieldType.password] ==
         _fieldsValues[SignUpFieldType.repeatedPassword];

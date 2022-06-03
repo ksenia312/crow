@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:frontend/models/auth_model.dart';
 import 'package:frontend/models/user_model.dart';
 import 'package:frontend/pages/tabs_page/tabs_page.dart';
-import 'package:frontend/services/user/user_service.dart';
+import 'package:frontend/services/user/auth_service.dart';
+import 'package:frontend/services/user/user_database.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
 import 'package:frontend/widgets/label.dart';
 import 'package:frontend/widgets/statuses/loading.dart';
@@ -14,14 +16,14 @@ import 'package:frontend/widgets/text_field/types.dart';
 import 'package:frontend/widgets/text_field/validators.dart';
 import 'package:provider/provider.dart';
 
-class SignUpDialog extends StatefulWidget {
-  const SignUpDialog({Key? key}) : super(key: key);
+class AcquaintancePage extends StatefulWidget {
+  const AcquaintancePage({Key? key}) : super(key: key);
 
   @override
-  State<SignUpDialog> createState() => _SignUpDialogState();
+  State<AcquaintancePage> createState() => _AcquaintancePageState();
 }
 
-class _SignUpDialogState extends State<SignUpDialog> {
+class _AcquaintancePageState extends State<AcquaintancePage> {
   final _formKey = GlobalKey<FormState>();
   bool _loading = false;
   bool disabled = true;
@@ -49,16 +51,19 @@ class _SignUpDialogState extends State<SignUpDialog> {
     });
   }
 
-  void _signUp(UserService userDatabase, UserModel? userModel) async {
+  void _updateUserNameAndAge(
+      AuthService authService, UserDatabase userDatabase) async {
     _toggleLoading();
     if (validateFields() == null) {
-      var res = await userDatabase.updateUserData(
-          name: _fieldsValues[SignUpFieldType.name]!,
-          age: int.parse(_fieldsValues[SignUpFieldType.age]!),
-          email: userModel?.name != null ? userModel!.email : 'Add email');
-
-      if (res is FirebaseAuthException) {
-        AppToast.showError(res, context);
+      var nameRes = await authService
+          .updateUserDisplayName(_fieldsValues[SignUpFieldType.name]!);
+      var ageRes = await userDatabase.updateUserAge(
+        age: int.parse(_fieldsValues[SignUpFieldType.age]!),
+      );
+      if (nameRes is FirebaseAuthException || ageRes is FirebaseAuthException) {
+        nameRes is FirebaseAuthException &&
+            AppToast.showError(nameRes, context);
+        ageRes is FirebaseAuthException && AppToast.showError(ageRes, context);
       } else {
         Navigator.pop(context);
         Navigator.pushReplacement(
@@ -77,8 +82,9 @@ class _SignUpDialogState extends State<SignUpDialog> {
 
   @override
   Widget build(BuildContext context) {
-    var userModel = Provider.of<UserModel?>(context);
-    var userDatabase = UserService(uid: userModel?.uid ?? '');
+    var auth = Provider.of<AuthModel?>(context);
+    var userDatabase = UserDatabase(uid: auth?.uid ?? '');
+    AuthService authService = AuthService();
     if (_fieldsValues[SignUpFieldType.name] != '' &&
         _fieldsValues[SignUpFieldType.age] != '') {
       setState(() {
@@ -96,7 +102,7 @@ class _SignUpDialogState extends State<SignUpDialog> {
       ),
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Padding(
-        padding: const EdgeInsets.only(top:50),
+        padding: const EdgeInsets.only(top: 50),
         child: Form(
           key: _formKey,
           child: ListView(
@@ -128,7 +134,7 @@ class _SignUpDialogState extends State<SignUpDialog> {
                             type: AppTextButtonType.primary,
                             size: AppTextButtonSize.large,
                             onPressed: () {
-                              _signUp(userDatabase, userModel);
+                              _updateUserNameAndAge(authService, userDatabase);
                             },
                             disabled: disabled,
                           ),

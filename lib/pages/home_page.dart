@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:frontend/pages/auth_page/auth_page.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
 import 'package:frontend/widgets/text_buttons.dart';
-import 'package:frontend/widgets/cards/announcement_card.dart';
 import 'package:frontend/widgets/cards/image_card.dart';
 
 class HomePage extends StatelessWidget {

@@ -48,7 +48,7 @@ class _ColorChoicePanelState extends State<ColorChoicePanel> {
     return widget.pressed
         ? Center(
             child: SizedBox(
-              height: 200,
+              height: 170,
               child: Card(
                 elevation: 35,
                 margin: AppIndents.basicMargin,
@@ -90,29 +90,29 @@ class _ColorChoicePanelState extends State<ColorChoicePanel> {
 
   _drawBackgroundBoxes() {
     return ColorfulThemeType.values.map((type) {
-      var num = type.index;
+      var _colorModeNum = type.index;
       var _buttonParams = _getColorModeParams(type);
+      bool _focused = appTheme.currentColorModeNum == _colorModeNum;
       return Container(
         margin: AppIndents.basicMargin,
         height: double.infinity,
         width: 50,
-        color: _buttonParams[0],
+        decoration: BoxDecoration(color: _buttonParams[0], boxShadow: [
+          _focused
+              ? BoxShadow(
+                  blurRadius: 5, color: Theme.of(context).colorScheme.shadow)
+              : const BoxShadow()
+        ]),
         child: GestureDetector(
+          child: _focused
+              ? Icon(Icons.check,
+                  size: 30, color: Theme.of(context).colorScheme.onPrimary)
+              : null,
           onTap: () {
-            appTheme.toggleColorMode(num);
+            appTheme.toggleColorMode(_colorModeNum);
           },
         ),
-      ); /*AppTextButton(
-        buttonText: '',
-        onPressed: () {
-          appTheme.toggleColorMode(num);
-        },
-        type: AppTextButtonType.custom,
-        size: AppTextButtonSize.scrollable,
-        //shape: AppTextButtonShape.circle,
-        customBackgroundColor: _buttonParams[0],
-        customForegroundColor: _buttonParams[1],
-      );*/
+      );
     }).toList();
   }
 }

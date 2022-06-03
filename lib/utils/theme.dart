@@ -44,7 +44,6 @@ class AppTheme with ChangeNotifier {
         backgroundColor: backgroundColor);
   }
 
-
   static setTheme({required bool isDark, required int colorNum}) {
     _isDarkTheme = isDark;
     _colorModeNum = colorNum;
@@ -53,6 +52,8 @@ class AppTheme with ChangeNotifier {
   ThemeMode get currentTheme {
     return _isDarkTheme ? ThemeMode.dark : ThemeMode.light;
   }
+
+  int get currentColorModeNum => _colorModeNum;
 
   void toggleTheme() async {
     final SharedPreferences _prefs = await SharedPreferences.getInstance();

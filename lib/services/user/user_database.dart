@@ -1,22 +1,43 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:frontend/models/user_model.dart';
 
-class UserService {
+class UserDatabase {
   final String uid;
 
-  UserService({required this.uid});
+  UserDatabase({required this.uid});
 
-  UserService.withoutUID() : uid = '';
+  UserDatabase.withoutUID() : uid = '';
 
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('users');
 
   Future setUserData({name, email, age}) async {
-    userCollection.doc(uid).set({'name': name, 'age': age, 'email': email});
+    userCollection.doc(uid).set({
+      'name': name,
+      'age': age,
+      'email': email,
+      'startDate': DateTime.now()
+    });
   }
 
-  Future updateUserData({name, email, age}) async {
+  Future updateUserName({name}) async {
+    userCollection.doc(uid).update({'name': name});
+  }
+
+  Future updateUserAge({age}) async {
+    userCollection.doc(uid).update({'age': age});
+  }
+
+  Future updateUserEmail({email}) async {
+    userCollection.doc(uid).update({'email': email});
+  }
+
+  Future updateUserData({name, age, email}) async {
     userCollection.doc(uid).update({'name': name, 'age': age, 'email': email});
+  }
+
+  Future deleteUser() async {
+    userCollection.doc(uid).delete();
   }
 
   UserModel _userDataFromSnapshots(DocumentSnapshot snapshot) {
