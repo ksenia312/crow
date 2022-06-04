@@ -5,7 +5,7 @@ class UserModel {
   final String email;
   final String name;
   final int age;
-  final Timestamp startDate;
+  final Timestamp? startDate;
   final int availableLevels;
 
   UserModel(
