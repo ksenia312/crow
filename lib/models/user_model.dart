@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class UserModel {
   final String uid;
   final String email;
   final String name;
   final int age;
-  final DateTime startDate;
+  final Timestamp startDate;
   final int availableLevels;
 
   UserModel(

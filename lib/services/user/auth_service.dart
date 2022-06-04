@@ -9,7 +9,6 @@ class AuthService {
       user != null ? AuthModel(uid: user.uid) : null;
 
   Stream<AuthModel?> get authResult {
-    _auth.currentUser?.reload();
     return _auth.authStateChanges().map(_user);
   }
 
@@ -52,7 +51,6 @@ class AuthService {
       User? user = _auth.currentUser;
       AuthCredential credentials =
           EmailAuthProvider.credential(email: email, password: password);
-      print(user);
       UserCredential? result =
           await user?.reauthenticateWithCredential(credentials);
       await UserDatabase(uid: result?.user?.uid ?? '')
