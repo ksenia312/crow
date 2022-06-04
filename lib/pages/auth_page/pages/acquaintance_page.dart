@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:frontend/models/auth_model.dart';
-import 'package:frontend/models/user_model.dart';
 import 'package:frontend/pages/tabs_page/tabs_page.dart';
 import 'package:frontend/services/user/auth_service.dart';
 import 'package:frontend/services/user/user_database.dart';
@@ -66,13 +65,13 @@ class _AcquaintancePageState extends State<AcquaintancePage> {
         ageRes is FirebaseAuthException && AppToast.showError(ageRes, context);
       } else {
         Navigator.pop(context);
-        Navigator.pushAndRemoveUntil(context,
+        Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) {
           return const TabsPage(
             showInitDialog: true,
             dialogTitle: 'Вы создали аккаунт! Чем теперь займемся?',
           );
-        }), (Route<dynamic> route) => false);
+        }));
       }
     }
     _toggleLoading();
