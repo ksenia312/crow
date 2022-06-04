@@ -66,15 +66,13 @@ class _AcquaintancePageState extends State<AcquaintancePage> {
         ageRes is FirebaseAuthException && AppToast.showError(ageRes, context);
       } else {
         Navigator.pop(context);
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) {
-            return const TabsPage(
-              showInitDialog: true,
-              dialogTitle: 'Вы создали аккаунт! Чем теперь займемся?',
-            );
-          }),
-        );
+        Navigator.pushAndRemoveUntil(context,
+            MaterialPageRoute(builder: (context) {
+          return const TabsPage(
+            showInitDialog: true,
+            dialogTitle: 'Вы создали аккаунт! Чем теперь займемся?',
+          );
+        }), (Route<dynamic> route) => false);
       }
     }
     _toggleLoading();

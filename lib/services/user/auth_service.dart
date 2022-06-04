@@ -9,6 +9,7 @@ class AuthService {
       user != null ? AuthModel(uid: user.uid) : null;
 
   Stream<AuthModel?> get authResult {
+    _auth.currentUser?.reload();
     return _auth.authStateChanges().map(_user);
   }
 
@@ -37,7 +38,7 @@ class AuthService {
   Future updateUserDisplayName(String name) async {
     try {
       User? user = _auth.currentUser;
-      user?.updateDisplayName(name);
+      await user?.updateDisplayName(name);
       user?.reload();
       await UserDatabase(uid: user!.uid).updateUserName(name: name);
       return _user(user);

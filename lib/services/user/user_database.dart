@@ -16,7 +16,8 @@ class UserDatabase {
       'name': name,
       'age': age,
       'email': email,
-      'startDate': DateTime.now()
+      'startDate': DateTime.now(),
+      'availableLevels': 1
     });
   }
 
@@ -45,7 +46,9 @@ class UserDatabase {
         uid: uid,
         email: snapshot.get('email') ?? '',
         name: snapshot.get('name') ?? '',
-        age: snapshot.get('age') ?? 0);
+        age: snapshot.get('age') ?? 0,
+        startDate: snapshot.get('startDate') ?? DateTime.now(),
+        availableLevels: snapshot.get('availableLevels') ?? 1);
   }
 
   Stream<UserModel>? get userData {

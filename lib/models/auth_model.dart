@@ -1,7 +1,5 @@
 class AuthModel {
   final String uid;
 
-  AuthModel({
-    required this.uid,
-  });
+  AuthModel({required this.uid});
 }
