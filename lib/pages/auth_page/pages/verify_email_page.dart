@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:frontend/pages/auth_page/pages/acquaintance_page.dart';
+import 'package:frontend/services/user/user_database.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
 import 'package:frontend/widgets/cards/announcement_card.dart';
 import 'package:frontend/widgets/statuses/loading.dart';
@@ -66,7 +67,7 @@ class _VerifyEmailDialogState extends State<VerifyEmailDialog> {
     User? user = FirebaseAuth.instance.currentUser;
     user?.reload();
     if (user?.emailVerified == true) {
-      Navigator.pushReplacement(context,
+      Navigator.push(context,
           MaterialPageRoute(builder: (context) => const AcquaintancePage()));
     }
   }

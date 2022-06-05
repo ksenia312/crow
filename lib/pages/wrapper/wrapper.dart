@@ -5,15 +5,28 @@ import 'package:frontend/pages/home_page.dart';
 import 'package:frontend/pages/tabs_page/tabs_page.dart';
 
 class Wrapper extends StatelessWidget {
-  const Wrapper({Key? key}) : super(key: key);
+  final bool showInitDialog;
+  final String dialogTitle;
+
+  const Wrapper({this.showInitDialog = false, this.dialogTitle = '', Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser;
-    if (user != null && user.emailVerified && user.displayName == null) {
+    if (user != null &&
+        user.emailVerified &&
+        (user.displayName == null || user.displayName?.isEmpty == true)) {
       return const AcquaintancePage();
-    } else if (user != null && user.emailVerified) {
-      return const TabsPage();
+    } else if (user != null &&
+        user.emailVerified &&
+        user.displayName?.isNotEmpty == true) {
+      return showInitDialog
+          ? TabsPage(
+              showInitDialog: showInitDialog,
+              dialogTitle: dialogTitle,
+            )
+          : const TabsPage();
     } else {
       return HomePage();
     }

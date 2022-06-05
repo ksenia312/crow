@@ -48,7 +48,7 @@ String? ageTextFieldValidator(String value) {
 
 String? nameTextFieldValidator(String value) {
   if (value.isEmpty) {
-    return 'Пожалуйста, повторите пароль';
+    return 'Пожалуйста, введите имя';
   }
   return null;
 }

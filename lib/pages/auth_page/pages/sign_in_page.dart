@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:frontend/pages/tabs_page/tabs_page.dart';
+import 'package:frontend/pages/wrapper/wrapper.dart';
 import 'package:frontend/services/user/auth_service.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
 import 'package:frontend/widgets/text_buttons.dart';
@@ -63,10 +64,10 @@ class _SignInPageState extends State<SignInPage> {
         _toggleStatuses(true, StatusesTypes.error);
         AppToast.showError(res, context);
       } else {
-        Navigator.pushReplacement(
+        Navigator.push(
           context,
           MaterialPageRoute(builder: (context) {
-            return const TabsPage(
+            return const Wrapper(
               showInitDialog: true,
               dialogTitle: 'Вы вошли в аккаунт! Чем теперь займемся?',
             );

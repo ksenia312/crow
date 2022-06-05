@@ -40,14 +40,13 @@ class UserDatabase {
   Future deleteUser() async {
     userCollection.doc(uid).delete();
   }
-
   UserModel _userDataFromSnapshots(DocumentSnapshot snapshot) {
     return UserModel(
         uid: uid,
         email: snapshot.get('email') ?? '',
         name: snapshot.get('name') ?? '',
         age: snapshot.get('age') ?? 0,
-        startDate: snapshot.get('startDate') ?? DateTime.now(),
+        startDate: snapshot.get('startDate').toDate() ?? DateTime.now(),
         availableLevels: snapshot.get('availableLevels') ?? 1);
   }
 

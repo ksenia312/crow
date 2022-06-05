@@ -30,7 +30,7 @@ class AuthService {
           .setUserData(name: 'Мариночька', email: res.user!.email, age: 47);
       return _user(res.user);
     } catch (e) {
-      return null;
+      return e;
     }
   }
 
@@ -42,7 +42,7 @@ class AuthService {
       await UserDatabase(uid: user!.uid).updateUserName(name: name);
       return _user(user);
     } catch (e) {
-      return null;
+      return e;
     }
   }
 
@@ -58,8 +58,7 @@ class AuthService {
       await result?.user?.delete();
       return true;
     } catch (e) {
-      print(e.toString());
-      return null;
+      return e;
     }
   }
 
