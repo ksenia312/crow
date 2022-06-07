@@ -1,9 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/pages/game_page/utils/levels.dart';
 import 'package:frontend/widgets/text_buttons.dart';
 import 'package:frontend/widgets/cards/announcement_card.dart';
 
-class PassPage extends StatelessWidget {
+class PassPage extends StatefulWidget {
   const PassPage({Key? key}) : super(key: key);
+
+  @override
+  State<PassPage> createState() => _PassPageState();
+}
+
+class _PassPageState extends State<PassPage> {
+  late int maxLevel;
+
+  @override
+  void initState() {
+    maxLevel = Levels().maxLevel;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +37,16 @@ class PassPage extends StatelessWidget {
               headline2: 'Ура!',
               showCloseButton: false,
             ),
-            AppTextButton(
-              buttonText: 'Следующий уровень',
-              onPressed: _nextLevel,
-            ),
+            arguments['id'] <= maxLevel
+                ? AppTextButton(
+                    buttonText: 'Следующий уровень',
+                    onPressed: _nextLevel,
+                  )
+                : const AnnouncementCard(
+                    bodyText: null,
+                    headline2: 'Уровни закончились((',
+                    showCloseButton: false,
+                  ),
           ],
         ),
       ),

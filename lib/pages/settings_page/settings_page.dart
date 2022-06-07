@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/models/auth_model.dart';
-import 'package:frontend/models/user_model.dart';
 import 'package:frontend/pages/settings_page/widgets/color_choice_panel.dart';
 import 'package:frontend/services/user/auth_service.dart';
-import 'package:frontend/services/user/user_database.dart';
+import 'package:frontend/services/user/user_stream_builder.dart';
 import 'package:frontend/utils/indents.dart';
 import 'package:frontend/utils/theme.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
 import 'package:frontend/widgets/text_buttons.dart';
 import 'package:frontend/widgets/list_tile.dart';
 import 'package:frontend/widgets/statuses/loading.dart';
-import 'package:provider/provider.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -44,31 +41,27 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    var auth = Provider.of<AuthModel?>(context);
-    return StreamBuilder<UserModel?>(
-        stream: UserDatabase(uid: auth?.uid ?? '').userData,
-        builder: (context, userSnapshot) {
-          var email = userSnapshot.data?.email;
-          return Scaffold(
-              appBar: AppBar(
-                title: const AppBarTitle(text: 'Настройки'),
-                leading: AppBarLeading(iconBack: true),
-              ),
-              body: ListView(
-                children: <Widget>[
-                  _drawEmailEdit(email),
-                  _drawButtons(),
-                  ColorChoicePanel(
-                      pressed: _pressed, toggle: _toggleColorChoice),
-                  _loading == true
-                      ? const SizedBox(height: 60, child: AppLoading())
-                      : AppTextButton(
-                          buttonText: 'выйти из аккаунта',
-                          type: AppTextButtonType.warning,
-                          onPressed: _signOut),
-                ],
-              ));
-        });
+    return UserStreamBuilder(builder: (context, userSnapshot) {
+      var email = userSnapshot.data?.email;
+      return Scaffold(
+          appBar: AppBar(
+            title: const AppBarTitle(text: 'Настройки'),
+            leading: AppBarLeading(iconBack: true),
+          ),
+          body: ListView(
+            children: <Widget>[
+              _drawEmailEdit(email),
+              _drawButtons(),
+              ColorChoicePanel(pressed: _pressed, toggle: _toggleColorChoice),
+              _loading == true
+                  ? const SizedBox(height: 60, child: AppLoading())
+                  : AppTextButton(
+                      buttonText: 'выйти из аккаунта',
+                      type: AppTextButtonType.warning,
+                      onPressed: _signOut),
+            ],
+          ));
+    });
   }
 
   Row _drawButtons() => Row(

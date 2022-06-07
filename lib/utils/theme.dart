@@ -14,7 +14,7 @@ class AppTheme with ChangeNotifier {
         elevatedButtonTheme: _elevatedButtonThemeData(),
         textTheme: _textTheme(),
         primaryTextTheme: _textTheme(),
-        appBarTheme: _appBarTheme(colorScheme.surface),
+        appBarTheme: _appBarTheme(colorScheme.surface, colorScheme.onSurface),
         fontFamily: "Lexend",
         colorScheme: colorScheme,
         scaffoldBackgroundColor: colorScheme.background,
@@ -37,11 +37,14 @@ class AppTheme with ChangeNotifier {
     );
   }
 
-  static _appBarTheme(backgroundColor) {
+  static _appBarTheme(backgroundColor, foregroundColor) {
     return AppBarTheme(
         titleTextStyle: AppTextStyle.title,
         elevation: 3,
-        backgroundColor: backgroundColor);
+        foregroundColor: foregroundColor,
+        backgroundColor: backgroundColor,
+        iconTheme: IconThemeData(color:foregroundColor),
+    );
   }
 
   static setTheme({required bool isDark, required int colorNum}) {

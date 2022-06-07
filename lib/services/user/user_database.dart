@@ -36,6 +36,9 @@ class UserDatabase {
   Future updateUserData({name, age, email}) async {
     userCollection.doc(uid).update({'name': name, 'age': age, 'email': email});
   }
+  Future updateUserAvailableLevels({levels}) async {
+    userCollection.doc(uid).update({'availableLevels': levels});
+  }
 
   Future deleteUser() async {
     userCollection.doc(uid).delete();
