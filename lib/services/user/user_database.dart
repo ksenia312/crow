@@ -59,14 +59,3 @@ class UserDatabase {
         : null;
   }
 }
-
-String getAge(int age) {
-  var endNum = age % 10;
-  if (endNum == 0 || (endNum >= 5 && endNum <= 9) || (age >= 11 && age <= 15)) {
-    return '$age лет';
-  } else if (endNum == 1) {
-    return '$age год';
-  } else {
-    return '$age года';
-  }
-}

@@ -75,7 +75,7 @@ class ImageCardState extends State<ImageCard> with TickerProviderStateMixin {
           ? (widget.imageHeight + widget.listTileHeight!)
           : null,
       child: Card(
-        margin: AppIndents.basicMargin,
+        margin: AppIndents.all5ExceptBottom,
         elevation: 2,
         color: Theme.of(context).colorScheme.secondary,
         child: ClipRRect(

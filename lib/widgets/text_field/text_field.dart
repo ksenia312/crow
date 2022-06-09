@@ -28,7 +28,7 @@ class _AppTextFieldState extends State<AppTextField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: AppIndents.inputMargin,
+      margin: AppIndents.vertical10Horizontal20,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(5),
         child: Container(

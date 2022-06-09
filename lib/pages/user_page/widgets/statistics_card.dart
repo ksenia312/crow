@@ -5,7 +5,9 @@ import 'package:frontend/utils/button_style.dart';
 import 'package:frontend/utils/indents.dart';
 
 class StatisticsCard extends StatefulWidget {
-  const StatisticsCard({Key? key}) : super(key: key);
+  final DateTime? startDate;
+
+  const StatisticsCard({required this.startDate, Key? key}) : super(key: key);
 
   @override
   State<StatisticsCard> createState() => _StatisticsCardState();
@@ -15,7 +17,7 @@ class _StatisticsCardState extends State<StatisticsCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: AppIndents.basicMargin,
+      margin: AppIndents.all5ExceptBottom,
       elevation: 0,
       color: Theme.of(context).colorScheme.background,
       child: ClipRRect(
@@ -26,7 +28,7 @@ class _StatisticsCardState extends State<StatisticsCard> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) {
-                  return const StatisticsPage();
+                  return StatisticsPage(startDate: widget.startDate);
                 }),
               );
             },

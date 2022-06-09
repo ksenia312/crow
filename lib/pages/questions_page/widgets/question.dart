@@ -22,7 +22,7 @@ class _QuestionState extends State<Question> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: AppIndents.basicMargin,
+      margin: AppIndents.all5ExceptBottom,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(4.0),
         child: AppListTile(

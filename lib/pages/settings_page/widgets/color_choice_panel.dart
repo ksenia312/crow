@@ -51,7 +51,7 @@ class _ColorChoicePanelState extends State<ColorChoicePanel> {
               height: 170,
               child: Card(
                 elevation: 35,
-                margin: AppIndents.basicMargin,
+                margin: AppIndents.all5ExceptBottom,
                 color: Theme.of(context).colorScheme.secondary,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -94,7 +94,7 @@ class _ColorChoicePanelState extends State<ColorChoicePanel> {
       var _buttonParams = _getColorModeParams(type);
       bool _focused = appTheme.currentColorModeNum == _colorModeNum;
       return Container(
-        margin: AppIndents.basicMargin,
+        margin: AppIndents.all5ExceptBottom,
         height: double.infinity,
         width: 50,
         decoration: BoxDecoration(color: _buttonParams[0], boxShadow: [

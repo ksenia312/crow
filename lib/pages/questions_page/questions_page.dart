@@ -23,7 +23,7 @@ class _QuestionsPageState extends State<QuestionsPage> {
           showCloseButton: false,
         ),
         Padding(
-          padding: AppIndents.allMargin,
+          padding: AppIndents.all15,
           child: Container(
             decoration: BoxDecoration(boxShadow: [
               BoxShadow(

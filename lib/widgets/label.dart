@@ -21,7 +21,7 @@ class _AppLabelState extends State<AppLabel> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: AppIndents.labelMargin,
+      margin: AppIndents.horizontal20,
       child: Text(
         widget.text,
         style: Theme.of(context).textTheme.headline1?.apply(

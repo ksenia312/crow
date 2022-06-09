@@ -42,7 +42,7 @@ class _AppTextButtonState extends State<AppTextButton> {
     return Container(
       width: _isCurrentMedium() ? 200 : double.infinity,
       decoration: widget.disabled ? const BoxDecoration() : _activeDecoration(),
-      margin: widget.margin ?? AppIndents.basicMargin,
+      margin: widget.margin ?? AppIndents.all5ExceptBottom,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(5),
         child: _drawTextButton(),

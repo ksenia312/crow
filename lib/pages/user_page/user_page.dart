@@ -5,6 +5,7 @@ import 'package:frontend/models/user_statuses_model.dart';
 import 'package:frontend/services/user/user_database.dart';
 import 'package:frontend/services/user/user_stream_builder.dart';
 import 'package:frontend/services/user_statuses/user_statuses_service.dart';
+import 'package:frontend/utils/count_wrapper.dart';
 import 'package:frontend/widgets/cards/image_card.dart';
 import 'package:frontend/widgets/statuses/loading.dart';
 import 'widgets/statistics_card.dart';
@@ -17,6 +18,8 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
+  final List<String> ageVariants = ['лет', 'год', 'года'];
+
   @override
   Widget build(BuildContext context) {
     return UserStreamBuilder(
@@ -31,7 +34,8 @@ class _UserPageState extends State<UserPage> {
                 userSnapshot.hasData
                     ? ImageCard(
                         headline2:
-                            '${userSnapshot.data!.name}, ${getAge(userSnapshot.data!.age)}',
+                            '${userSnapshot.data!.name}, ${userSnapshot.data!.age} '
+                            '${countWrapper(count: userSnapshot.data!.age, variants: ageVariants)}',
                         bodyText: 'статус: $_status',
                         imageHeight: 100,
                       )
@@ -42,7 +46,7 @@ class _UserPageState extends State<UserPage> {
                           child: AppLoading(),
                         ),
                       ),
-                const StatisticsCard(),
+                StatisticsCard(startDate: userSnapshot.data?.startDate),
               ]);
             });
       },
