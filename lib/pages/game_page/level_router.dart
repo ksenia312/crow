@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/pages/game_page/widgets/action_text_with_icon.dart';
 import 'package:frontend/services/user/user_stream_builder.dart';
+import 'package:frontend/widgets/app_bar_children.dart';
 import 'utils/levels.dart';
 
 class LevelRouter extends StatefulWidget {
@@ -36,23 +36,34 @@ class _LevelRouterState extends State<LevelRouter> {
                   .headline1!
                   .apply(color: Theme.of(context).colorScheme.onSurface),
             ),
-            leading: ActionTextWithIcon(
+            leading: Row(children: [
+              IconButton(
+                  onPressed: _onBackPressed,
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  )),
+              const AppBarTitle(
                 text: 'Выбор \nуровня',
-                textPos: 1,
-                onPressed: _onBackPressed,
-                iconData: Icons.arrow_back,
-                textAlign: TextAlign.left),
+                isSmall: true,
+                textAlign: TextAlign.left,
+              )
+            ]),
             actions: [
+              IconButton(
+                  onPressed: () {
+                    _restartLevel(arguments);
+                  },
+                  icon: const Icon(Icons.refresh_sharp),
+                  color: Theme.of(context).colorScheme.onSurface),
               (arguments['id'] != availableLevels &&
                       arguments['id'] != availableLevels - 1)
-                  ? ActionTextWithIcon(
-                      text: 'Следующий \nуровень',
-                      textPos: 0,
+                  ? IconButton(
                       onPressed: () {
                         _onForwardPressed(arguments);
                       },
-                      iconData: Icons.arrow_forward,
-                      textAlign: TextAlign.right)
+                      icon: const Icon(Icons.arrow_forward),
+                      color: Theme.of(context).colorScheme.onSurface)
                   : Container()
             ],
           ),
@@ -68,5 +79,11 @@ class _LevelRouterState extends State<LevelRouter> {
 
   void _onBackPressed() {
     Navigator.pushReplacementNamed(context, '/game-home');
+  }
+
+  void _restartLevel(arguments) {
+    Navigator.pushReplacementNamed(context, '/level', arguments: {
+      "id": arguments['id'],
+    });
   }
 }

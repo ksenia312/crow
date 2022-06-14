@@ -8,10 +8,10 @@ import '../levels/level2.dart';
 import '../levels/level3.dart';
 
 class Levels {
-  static int _availableLevels = 1;
+  static int _availableLevelsCount = 1;
 
   static void updateAvailableLevels(levels) {
-    _availableLevels = levels;
+    _availableLevelsCount = levels;
   }
 
   final List<Widget> _levels = [const Level1(), const Level2(), const Level3()];
@@ -22,12 +22,15 @@ class Levels {
 
   void nextLevel(context) {
     Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
-    int newLevel = arguments['id'] + 1;
+    int newLevelId = arguments['id'] + 1;
     final auth = Provider.of<AuthModel>(context, listen: false);
-    if (_availableLevels < newLevel) {
-      UserDatabase(uid: auth.uid).updateUserAvailableLevels(levels: newLevel);
-      updateAvailableLevels(newLevel);
+    if (_availableLevelsCount < newLevelId) {
+      UserDatabase(uid: auth.uid).updateUserAvailableLevels(levels: newLevelId);
+      updateAvailableLevels(newLevelId);
     }
-    Navigator.pushNamed(context, '/pass-page', arguments: {"id": newLevel});
+    Navigator.pushReplacementNamed(context, '/level', arguments: {
+      "id": arguments['id'],
+    }); //restart
+    Navigator.pushNamed(context, '/pass-page', arguments: {"id": newLevelId});
   }
 }

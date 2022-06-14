@@ -1,4 +1,4 @@
-String countWrapper({required int count, required List variants}) {
+String countSuffixWrapper({required int count, required List variants}) {
   var endNum = count % 10;
   if (endNum == 0 ||
       (endNum >= 5 && endNum <= 9) ||

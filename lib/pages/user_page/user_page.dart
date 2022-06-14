@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:frontend/models/user_statuses_model.dart';
-import 'package:frontend/services/user/user_database.dart';
 import 'package:frontend/services/user/user_stream_builder.dart';
 import 'package:frontend/services/user_statuses/user_statuses_service.dart';
 import 'package:frontend/utils/count_wrapper.dart';
@@ -35,7 +34,7 @@ class _UserPageState extends State<UserPage> {
                     ? ImageCard(
                         headline2:
                             '${userSnapshot.data!.name}, ${userSnapshot.data!.age} '
-                            '${countWrapper(count: userSnapshot.data!.age, variants: ageVariants)}',
+                            '${countSuffixWrapper(count: userSnapshot.data!.age, variants: ageVariants)}',
                         bodyText: 'статус: $_status',
                         imageHeight: 100,
                       )

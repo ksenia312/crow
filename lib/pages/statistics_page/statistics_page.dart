@@ -18,6 +18,18 @@ class StatisticsPage extends StatefulWidget {
 
 class _StatisticsPageState extends State<StatisticsPage> {
   late Timer _timer;
+  final Map<String, bool> _wrapSuffix = {
+    'month': true,
+    "day": true,
+    "hour": true,
+    "minute": true
+  };
+
+  _setNoWrapping(String duration) {
+    setState(() {
+      _wrapSuffix[duration] = false;
+    });
+  }
 
   @override
   void initState() {
@@ -64,40 +76,49 @@ class _StatisticsPageState extends State<StatisticsPage> {
                   columnSizes: [3.fr, 1.fr, 3.fr],
                   rowSizes: [
                     (90).px,
-                    (45).px,
+                    (30).px,
                     (90).px,
-                    (45).px,
+                    (30).px,
                   ],
                   columnGap: 5,
                   rowGap: 5,
                   children: [
                     _drawDateBlock(
                         isOutline: false,
-                        value: '$months',
-                        unit: countWrapper(
-                            count: months,
-                            variants: ['месяцев', "месяц", "месяца"])),
+                        value: wrapNumValue(months, 'month'),
+                        unit: _wrapSuffix['month'] == true
+                            ? countSuffixWrapper(
+                                count: months,
+                                variants: ['месяцев', "месяц", "месяца"])
+                            : 'месяцев'),
                     _drawOrBlock(),
                     _drawDateBlock(
                         isOutline: true,
-                        value: '$days',
-                        unit: countWrapper(
-                            count: days, variants: ['дней', "день", "дня"])),
+                        value: wrapNumValue(days, 'day'),
+                        unit: _wrapSuffix['day'] == true
+                            ? countSuffixWrapper(
+                                count: days, variants: ['дней', "день", "дня"])
+                            : 'дней'),
                     _drawOrBlock(),
                     Container(),
                     _drawOrBlock(),
                     _drawDateBlock(
                         isOutline: true,
-                        value: '$hours',
-                        unit: countWrapper(
-                            count: hours, variants: ['часов', "час", "часа"])),
+                        value: wrapNumValue(hours, 'hour'),
+                        unit: _wrapSuffix['hour'] == true
+                            ? countSuffixWrapper(
+                                count: hours,
+                                variants: ['часов', "час", "часа"])
+                            : 'часов'),
                     _drawOrBlock(),
                     _drawDateBlock(
                         isOutline: false,
-                        value: '$minutes',
-                        unit: countWrapper(
-                            count: minutes,
-                            variants: ['минут', "минута", "минуты"])),
+                        value: wrapNumValue(minutes, 'minute'),
+                        unit: _wrapSuffix['minute'] == true
+                            ? countSuffixWrapper(
+                                count: minutes,
+                                variants: ['минут', "минуту", "минуты"])
+                            : 'минут'),
                     _drawOrBlock(),
                     Container(),
                     _drawOrBlock(),
@@ -106,9 +127,9 @@ class _StatisticsPageState extends State<StatisticsPage> {
             _drawLargeDateBlock(
                 isOutline: false,
                 value: '${difference.inSeconds}',
-                unit: countWrapper(
+                unit: countSuffixWrapper(
                     count: difference.inSeconds,
-                    variants: ['секунд', "секунда", "секунды"])),
+                    variants: ['секунд', "секунду", "секунды"])),
             _drawHeadline2(text: 'Вы зарегистрировались ↓'),
             _drawLargeDateBlock(
                 isOutline: true,
@@ -133,6 +154,23 @@ class _StatisticsPageState extends State<StatisticsPage> {
 
   String wrapDateMonth(DateTime dateTime) {
     return '${dateTime.month < 10 ? '0' : ''}${dateTime.month}.';
+  }
+
+  String wrapNumValue(int value, String duration) {
+    if (value > 99999) {
+      _setNoWrapping(duration);
+      if (value.toString().length > 9) {
+        return (value ~/ 1000000000).toString() + "B";
+      } else if (value.toString().length > 6) {
+        return (value ~/ 1000000).toString() + "M";
+      } else if (value.toString().length > 3) {
+        return (value ~/ 1000).toString() + "К";
+      } else {
+        return value.toString();
+      }
+    } else {
+      return value.toString();
+    }
   }
 
   Center _drawOrBlock() => Center(
@@ -184,7 +222,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
     required bool isOutline,
     required String value,
     required String? unit,
-    double height = 200,
+    double height = 135,
   }) =>
       Padding(
         padding: AppIndents.horizontal20,
