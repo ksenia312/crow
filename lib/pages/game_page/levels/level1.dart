@@ -31,7 +31,7 @@ class _Level1State extends State<Level1> {
               style: Theme.of(context)
                   .textTheme
                   .headline2!
-                  .apply(color: Theme.of(context).colorScheme.onBackground),
+                  .apply(color: Theme.of(context).colorScheme.onSecondary),
             ),
           ),
           _drawRowOfSquare(),
