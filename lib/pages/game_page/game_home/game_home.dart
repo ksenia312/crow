@@ -83,7 +83,9 @@ class _GameHomeState extends State<GameHome> with TickerProviderStateMixin {
 
   _buildListViewChildren(userSnapshot) {
     int? availableLevels = userSnapshot.data?.availableLevels;
-    Levels.updateAvailableLevels(availableLevels);
+    availableLevels != null
+        ? Levels.updateAvailableLevels(availableLevels)
+        : null;
     var _list = <Widget>[
       SizedBox(
           height: 250,
