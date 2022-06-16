@@ -25,7 +25,7 @@ class _Level1State extends State<Level1> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    squareColors = getNewSquareColors();
+    squareColors = getNewSquareColors(isFirst: true);
     controller = AnimationController(
         duration: const Duration(milliseconds: 300), vsync: this);
     animation =
@@ -39,9 +39,18 @@ class _Level1State extends State<Level1> with TickerProviderStateMixin {
     controller.forward();
   }
 
-  List<Color> getNewSquareColors() => List.generate(4, (i) => i).map((i) {
-        return Color(_random.nextInt(0xfffffff)).withOpacity(1.0);
-      }).toList();
+  List<Color> getNewSquareColors({bool isFirst = false}) {
+    List<Color> _list = List.generate(4, (i) => i).map((i) {
+      return Color(_random.nextInt(0xfffffff)).withOpacity(1.0);
+    }).toList();
+    if (isFirst) {
+      _list = _list.map((c) => isRed(c) ? Colors.black : c).toList();
+    }
+    return _list;
+  }
+
+  bool isRed(Color color) =>
+      color.red > 100 && color.green < 100 && color.blue < 100;
 
   @override
   void dispose() {
@@ -129,7 +138,7 @@ class _Level1State extends State<Level1> with TickerProviderStateMixin {
 
   double _getTop() {
     if (levelProgress == 0) {
-      return -70;
+      return -50;
     } else {
       return _random
           .nextInt(MediaQuery.of(context).size.height ~/ 2)
@@ -139,7 +148,7 @@ class _Level1State extends State<Level1> with TickerProviderStateMixin {
 
   double _getRight() {
     if (levelProgress == 0) {
-      return -120;
+      return -100;
     } else {
       return _random.nextInt(MediaQuery.of(context).size.width ~/ 2).toDouble();
     }
@@ -151,10 +160,7 @@ class _Level1State extends State<Level1> with TickerProviderStateMixin {
           height: 60,
           child: Row(
               children: List.generate(4, (i) => i).map((i) {
-            //Color _color = Color(_random.nextInt(0xfffffff)).withOpacity(1.0);
-            bool _isRed = Color(squareColors[i].value).red > 100 &&
-                Color(squareColors[i].value).green < 100 &&
-                Color(squareColors[i].value).blue < 100;
+            bool _isRed = isRed(squareColors[i]);
             return Expanded(
               child: Container(
                 color: _isRed ? animation.value : squareColors[i],

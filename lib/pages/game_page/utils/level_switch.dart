@@ -57,7 +57,7 @@ class _LevelSwitchState extends State<LevelSwitch> {
                   icon: const Icon(Icons.refresh_sharp),
                   color: Theme.of(context).colorScheme.onSurface),
               (arguments['id'] != availableLevels &&
-                      arguments['id'] != availableLevels - 1)
+                      arguments['id'] != LevelUtils().maxLevel)
                   ? IconButton(
                       onPressed: () {
                         _onForwardPressed(arguments);

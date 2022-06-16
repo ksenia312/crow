@@ -17,7 +17,7 @@ class _Level2State extends State<Level2> with TickerProviderStateMixin {
   double _scaleTopRight = 1.0;
   double _scaleBottomRight = 1.0;
   bool _stopRight = false;
-  bool _hiddenLeft = false;
+  bool _isLeftHidden = false;
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +28,13 @@ class _Level2State extends State<Level2> with TickerProviderStateMixin {
           Padding(
             padding: AppIndents.all15,
             child: Text(
-              _hiddenLeft & _stopRight
-                  ? 'Ой, исчезли \nЛадно, так тоже можно!!'
-                  : 'Крутятся.. \nСделайте так, чтобы \nвсе спиннеры на экране \nбыли остановлены',
+              _isLeftHidden & _stopRight
+                  ? 'Мы победили!'
+                  : _isLeftHidden
+                      ? 'Два слиняли! Какие хитрые!!'
+                      : _stopRight
+                          ? 'А второй сам остановился!'
+                          : 'Какие маленькие.. \nи крутятся… Чтобы увидеть \nспиннеры получше, давайте \nувеличим их и остановим',
               textAlign: TextAlign.center,
               style: Theme.of(context)
                   .textTheme
@@ -39,6 +43,7 @@ class _Level2State extends State<Level2> with TickerProviderStateMixin {
             ),
           ),
           LayoutGrid(
+            gridFit: GridFit.expand,
             columnSizes: [
               (1).fr,
               (1).fr,
@@ -52,15 +57,21 @@ class _Level2State extends State<Level2> with TickerProviderStateMixin {
             children: List.generate(4, (index) => index)
                 .map((index) => index == 1 || index == 3
                     ? _drawScaleSpinner(index: index)
-                    : !_hiddenLeft
-                        ? const Spinner(
-                            size: 100,
-                            color: SpinnerColors.red,
+                    : !_isLeftHidden
+                        ? const SizedBox(
+                            height: 150,
+                            width: double.infinity,
+                            child: Center(
+                              child: Spinner(
+                                size: 30,
+                                color: SpinnerColors.red,
+                              ),
+                            ),
                           )
                         : Container())
                 .toList(),
           ),
-          if (_hiddenLeft & _stopRight)
+          if (_isLeftHidden & _stopRight)
             AppTextButton(
               buttonText: 'Пройти уровень',
               onPressed: () {
@@ -88,16 +99,23 @@ class _Level2State extends State<Level2> with TickerProviderStateMixin {
             _stopRight = true;
           }
           if (_scaleBottomRight > 3.0) {
-            _hiddenLeft = true;
+            _isLeftHidden = true;
           }
           //_controller.forward();
         });
       },
-      child: Transform.scale(
-          scale: index == 1 ? _scaleTopRight : _scaleBottomRight,
-          child: Spinner(
-            size: 100,
-            stop: _stopRight,
-            color: _stopRight ? SpinnerColors.green : SpinnerColors.red,
-          )));
+      child: Container(
+        height: 150,
+        width: double.infinity,
+        color: Colors.transparent,
+        child: Center(
+          child: Transform.scale(
+              scale: index == 1 ? _scaleTopRight : _scaleBottomRight,
+              child: Spinner(
+                size: 30,
+                stop: _stopRight,
+                color: _stopRight ? SpinnerColors.green : SpinnerColors.red,
+              )),
+        ),
+      ));
 }

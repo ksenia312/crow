@@ -55,7 +55,7 @@ class _SpinnerState extends State<Spinner> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     if (widget.stop) _controller.stop();
-    return Center(child: _buildAnimation());
+    return _buildAnimation();
   }
 
   AnimatedBuilder _buildAnimation() => AnimatedBuilder(
