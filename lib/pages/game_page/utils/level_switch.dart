@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/services/user/user_stream_builder.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
-import 'utils/levels.dart';
+import 'level_utils.dart';
 
-class LevelRouter extends StatefulWidget {
-  const LevelRouter({Key? key}) : super(key: key);
+class LevelSwitch extends StatefulWidget {
+  const LevelSwitch({Key? key}) : super(key: key);
 
   @override
-  State<LevelRouter> createState() => _LevelRouterState();
+  State<LevelSwitch> createState() => _LevelSwitchState();
 }
 
-class _LevelRouterState extends State<LevelRouter> {
+class _LevelSwitchState extends State<LevelSwitch> {
   bool lastAvailable = false;
   late List<Widget> levels;
 
   @override
   void initState() {
-    levels = Levels().widgets;
+    levels = LevelUtils().widgets;
     super.initState();
   }
 
@@ -78,7 +78,7 @@ class _LevelRouterState extends State<LevelRouter> {
   }
 
   void _onBackPressed() {
-    Navigator.pushReplacementNamed(context, '/game-home');
+    Navigator.pushReplacementNamed(context, '/levels-preview-page');
   }
 
   void _restartLevel(arguments) {

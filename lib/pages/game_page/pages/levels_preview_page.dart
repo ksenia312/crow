@@ -6,16 +6,16 @@ import 'package:frontend/widgets/statuses/loading.dart';
 import 'package:frontend/widgets/text_buttons.dart';
 import 'package:frontend/widgets/cards/announcement_card.dart';
 
-import '../utils/levels.dart';
+import '../utils/level_utils.dart';
 
-class GameHome extends StatefulWidget {
-  const GameHome({Key? key}) : super(key: key);
+class LevelsPreviewPage extends StatefulWidget {
+  const LevelsPreviewPage({Key? key}) : super(key: key);
 
   @override
-  State<GameHome> createState() => _GameHomeState();
+  State<LevelsPreviewPage> createState() => _LevelsPreviewPageState();
 }
 
-class _GameHomeState extends State<GameHome> with TickerProviderStateMixin {
+class _LevelsPreviewPageState extends State<LevelsPreviewPage> with TickerProviderStateMixin {
   late String _bigCrow;
   late AnimationController _controllerPink;
   late List<Widget> levels;
@@ -29,8 +29,8 @@ class _GameHomeState extends State<GameHome> with TickerProviderStateMixin {
     _animationPink = _initializeAnimation(70.0, 20.0, _controllerPink);
     _addListeners(_controllerPink);
     _controllerPink.forward();
-    levels = Levels().widgets;
-    maxLevel = Levels().maxLevel;
+    levels = LevelUtils().widgets;
+    maxLevel = LevelUtils().maxLevel;
   }
 
   _initializeController() {
@@ -84,7 +84,7 @@ class _GameHomeState extends State<GameHome> with TickerProviderStateMixin {
   _buildListViewChildren(userSnapshot) {
     int? availableLevels = userSnapshot.data?.availableLevels;
     availableLevels != null
-        ? Levels.updateAvailableLevels(availableLevels)
+        ? LevelUtils.updateAvailableLevels(availableLevels)
         : null;
     var _list = <Widget>[
       SizedBox(

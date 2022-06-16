@@ -3,11 +3,12 @@ import 'package:frontend/models/auth_model.dart';
 import 'package:frontend/services/user/user_database.dart';
 import 'package:provider/provider.dart';
 
-import '../levels/level1.dart';
-import '../levels/level2.dart';
-import '../levels/level3.dart';
+import '../pages/levels/level1.dart';
+import '../pages/levels/level2.dart';
+import '../pages/levels/level3.dart';
 
-class Levels {
+
+class LevelUtils {
   static int _availableLevelsCount = 1;
 
   static void updateAvailableLevels(levels) {

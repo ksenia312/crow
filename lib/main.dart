@@ -1,9 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/models/auth_model.dart';
-import 'package:frontend/pages/game_page/game_home/game_home.dart';
-import 'package:frontend/pages/game_page/level_router.dart';
-import 'package:frontend/pages/game_page/pass_page.dart';
+import 'package:frontend/pages/game_page/pages/levels_preview_page.dart';
+import 'package:frontend/pages/game_page/utils/level_switch.dart';
+import 'package:frontend/pages/game_page/pages/pass_page.dart';
 import 'package:frontend/pages/home_page.dart';
 import 'package:frontend/pages/splash_page/splash_page.dart';
 import 'package:frontend/pages/tabs_page/tabs_page.dart';
@@ -54,9 +54,9 @@ class _MyAppState extends State<MyApp> {
         '/': (context) => const SplashPage(),
         '/home': (context) => HomePage(),
         '/tabs': (context) => const TabsPage(),
-        '/level': (context) => const LevelRouter(),
+        '/level': (context) => const LevelSwitch(),
         '/pass-page': (context) => const PassPage(),
-        '/game-home': (context) => const GameHome()
+        '/levels-preview-page': (context) => const LevelsPreviewPage()
       },
     );
   }

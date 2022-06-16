@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/widgets/text_buttons.dart';
 
-import '../utils/levels.dart';
+import '../../utils/level_utils.dart';
+
 
 class Level3 extends StatefulWidget {
   const Level3({Key? key}) : super(key: key);
@@ -19,7 +20,7 @@ class _Level3State extends State<Level3> {
         AppTextButton(
             buttonText: 'пройти уровень',
             onPressed: () {
-              Levels().nextLevel(context);
+              LevelUtils().nextLevel(context);
             }),
       ],
     );

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:frontend/pages/game_page/game_home/game_home.dart';
+import 'package:frontend/pages/game_page/pages/levels_preview_page.dart';
 import 'package:frontend/utils/assets_variables.dart';
 import 'package:frontend/widgets/text_buttons.dart';
 
@@ -77,7 +77,7 @@ class _GamePageState extends State<GamePage> with TickerProviderStateMixin {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) {
-        return const GameHome();
+        return const LevelsPreviewPage();
       }),
     );
   }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/utils/indents.dart';
 import 'package:frontend/widgets/text_buttons.dart';
 
-import '../utils/levels.dart';
+import '../../utils/level_utils.dart';
 
 class Level1 extends StatefulWidget {
   const Level1({Key? key}) : super(key: key);
@@ -62,7 +62,7 @@ class _Level1State extends State<Level1> with TickerProviderStateMixin {
             child: AppTextButton(
               buttonText: 'Пройти уровень',
               onPressed: () {
-                Levels().nextLevel(context);
+                LevelUtils().nextLevel(context);
               },
               size: AppTextButtonSize.medium,
               type: AppTextButtonType.custom,
