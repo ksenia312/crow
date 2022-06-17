@@ -37,10 +37,9 @@ jobs:
       #    cd ..
       #    zip -r app.ipa Payload
       - name: Build Web App
-        run: |
-          flutter build web.
+        run: flutter build web.
       - name: Host web app
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
               repoToken: '${{ secrets.GITHUB_TOKEN }}'
               firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_CROW_2C36B }}'
