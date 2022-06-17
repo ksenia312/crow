@@ -37,7 +37,7 @@ class AppColorScheme {
         onTertiary: Color(0xFFC3C2C7),
         error: Color(0xFFA92B3A),
         shadow: Color(0x80000000),
-        secondaryContainer: Color(0xFF4E527C));
+        secondaryContainer: Color(0xFF5C6193));
   }
 
   static ColorScheme get lightBlue {
@@ -77,7 +77,7 @@ class AppColorScheme {
         onTertiary: Color(0xFF7270C0),
         error: Color(0xFFA92B3A),
         shadow: Color(0x80000000),
-        secondaryContainer: Color(0xFF3F3870));
+        secondaryContainer: Color(0xFF463A75));
   }
 
   static ColorScheme get lightPink {
@@ -117,7 +117,7 @@ class AppColorScheme {
         onTertiary: Color(0xFFAC70C0),
         error: Color(0xFFA92B3A),
         shadow: Color(0x80000000),
-        secondaryContainer: Color(0xFF623870));
+        secondaryContainer: Color(0xFF6F3A75));
   }
 
   static ColorScheme get lightGreen {
@@ -157,7 +157,7 @@ class AppColorScheme {
         onTertiary: Color(0xFF70C089),
         error: Color(0xFFA92B3A),
         shadow: Color(0x80000000),
-        secondaryContainer: Color(0xFF38704C));
+        secondaryContainer: Color(0xFF3A7542));
   }
 
   static ColorScheme get lightOrange {
@@ -197,6 +197,6 @@ class AppColorScheme {
         onTertiary: Color(0xFFC09170),
         error: Color(0xFFA92B3A),
         shadow: Color(0x80000000),
-        secondaryContainer: Color(0xFF704C38));
+        secondaryContainer: Color(0xFF75513A));
   }
 }

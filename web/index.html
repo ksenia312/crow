@@ -104,7 +104,8 @@
   <script src="https://www.gstatic.com/firebasejs/9.8.3/firebase-analytics.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.8.3/firebase-auth.js"></script>
   <script>
-      const firebaseConfig = {
+     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js";
+    const firebaseConfig = {
     apiKey: "AIzaSyBiRJHz71YLGqOMtM0AKoJoPydWMb-WTHw",
     authDomain: "crow-2c36b.firebaseapp.com",
     projectId: "crow-2c36b",
@@ -114,7 +115,7 @@
     measurementId: "G-DFM71JQ0M1"
   };
 
-    firebase.initializeApp(firebaseConfig);
+    initializeApp(firebaseConfig);
     firebase.analytics();
   </script>
   <script>window.flutterfire_web_sdk_version = '8.10.1';</script>

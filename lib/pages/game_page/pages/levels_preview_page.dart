@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:frontend/models/user_model.dart';
 import 'package:frontend/services/user/user_stream_builder.dart';
 import 'package:frontend/utils/assets_variables.dart';
 import 'package:frontend/widgets/statuses/loading.dart';
@@ -15,7 +16,8 @@ class LevelsPreviewPage extends StatefulWidget {
   State<LevelsPreviewPage> createState() => _LevelsPreviewPageState();
 }
 
-class _LevelsPreviewPageState extends State<LevelsPreviewPage> with TickerProviderStateMixin {
+class _LevelsPreviewPageState extends State<LevelsPreviewPage>
+    with TickerProviderStateMixin {
   late String _bigCrow;
   late AnimationController _controllerPink;
   late List<Widget> levels;
@@ -69,7 +71,7 @@ class _LevelsPreviewPageState extends State<LevelsPreviewPage> with TickerProvid
       _bigCrow = getAsset(AppAssets.figures, 'purple_down.svg');
     });
     return UserStreamBuilder(
-      builder: (context, userSnapshot) => Scaffold(
+      builder: (context, AsyncSnapshot<UserModel?> userSnapshot) => Scaffold(
           appBar: AppBar(
             leading: IconButton(
                 onPressed: () {
@@ -81,20 +83,18 @@ class _LevelsPreviewPageState extends State<LevelsPreviewPage> with TickerProvid
     );
   }
 
-  _buildListViewChildren(userSnapshot) {
-    int? availableLevels = userSnapshot.data?.availableLevels;
-    availableLevels != null
-        ? LevelUtils.updateAvailableLevels(availableLevels)
-        : null;
+  _buildListViewChildren(AsyncSnapshot<UserModel?> userSnapshot) {
+    int availableLevels = userSnapshot.data?.availableLevels ?? 1;
+    LevelUtils.updateAvailableLevels(availableLevels);
     var _list = <Widget>[
       SizedBox(
           height: 250,
           width: double.infinity,
           child: Stack(children: [
-            availableLevels != null
+            userSnapshot.hasData
                 ? _buildAnimation(_animationPink)
                 : Container(),
-            availableLevels != null
+            userSnapshot.hasData
                 ? AnnouncementCard(
                     headline2: 'Выбери уровень',
                     bodyText: availableLevels <= maxLevel
@@ -105,18 +105,16 @@ class _LevelsPreviewPageState extends State<LevelsPreviewPage> with TickerProvid
                 : const AppLoading()
           ]))
     ];
-    availableLevels != null
-        ? _list.addAll(List.generate(maxLevel, (int n) => n + 1).map(
-            (n) => AppTextButton(
-              disabled: n <= availableLevels ? false : true,
-              buttonText: 'уровень $n',
-              type: AppTextButtonType.tertiary,
-              onPressed: () {
-                Navigator.pushNamed(context, '/level', arguments: {"id": n});
-              },
-            ),
-          ))
-        : null;
+    _list.addAll(List.generate(maxLevel, (int n) => n + 1).map(
+      (n) => AppTextButton(
+        disabled: n <= availableLevels ? false : true,
+        buttonText: 'уровень $n',
+        type: AppTextButtonType.tertiary,
+        onPressed: () {
+          Navigator.pushNamed(context, '/level', arguments: {"id": n});
+        },
+      ),
+    ));
     return _list;
   }
 
