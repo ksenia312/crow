@@ -14,7 +14,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+      apiKey: "AIzaSyBiRJHz71YLGqOMtM0AKoJoPydWMb-WTHw",
+      appId: "1:553224046241:web:42e6467edc525cbbd612e0",
+      messagingSenderId: "553224046241",
+      projectId: "crow-2c36b",
+    ),
+  );
   final SharedPreferences _prefs = await SharedPreferences.getInstance();
   AppTheme.setTheme(
       isDark: _prefs.getBool('isDarkTheme') ?? false,
