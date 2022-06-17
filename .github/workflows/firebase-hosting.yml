@@ -12,7 +12,6 @@ jobs:
       - name: Build Web App
         run: |
             flutter build web
-      - name: Host
       - uses: actions/checkout@v2
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
