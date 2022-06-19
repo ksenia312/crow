@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frontend/models/user_model.dart';
+import 'package:frontend/pages/game_page/widgets/level_introduction_dialog.dart';
 import 'package:frontend/services/user/user_stream_builder.dart';
 import 'package:frontend/utils/assets_variables.dart';
+import 'package:frontend/widgets/statuses/dialog.dart';
 import 'package:frontend/widgets/statuses/loading.dart';
 import 'package:frontend/widgets/text_buttons.dart';
 import 'package:frontend/widgets/cards/announcement_card.dart';
@@ -111,6 +113,10 @@ class _LevelsPreviewPageState extends State<LevelsPreviewPage>
         buttonText: 'уровень $n',
         type: AppTextButtonType.tertiary,
         onPressed: () {
+          if (availableLevels == 1) {
+            AppDialog.showCustomDialog(context,
+                child: const LevelIntroductionDialog());
+          }
           Navigator.pushNamed(context, '/level', arguments: {"id": n});
         },
       ),

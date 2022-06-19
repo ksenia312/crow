@@ -36,43 +36,44 @@ class _Level3State extends State<Level3> {
 
   @override
   Widget build(BuildContext context) {
-    if (_counter.toString() == _value.trim()) {
-      _showPassButton = true;
-    } else {
-      _showPassButton = false;
-    }
+    setState(() {
+      if (_counter.toString() == _value.trim()) {
+        _showPassButton = true;
+      } else {
+        _showPassButton = false;
+      }
+    });
     return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
+          LevelTitle(
+            text: _showPassButton
+                ? 'Ушла.. Гордая!'
+                : _counter == 20
+                    ? 'Что-то не так.. Как сложно выполнить желание этой женщины..'
+                    : 'Какая красивая кнопочка. Интересно, что произойдет, если мы выполним ее желание',
+            textAlign: TextAlign.center,
+            padding: false,
+          ),
           Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-            const LevelTitle(
-              text: 'Нажмите на кнопку',
-              padding: false,
-            ),
-            SizedBox(
-              width: 90,
-              child: TextFormField(
-                initialValue: '21',
-                onChanged: (value) {
-                  setValue(value);
-                },
-                style: Theme.of(context).textTheme.headline2!.apply(
-                      color: Theme.of(context).colorScheme.onBackground,
-                    ),
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  suffixText: 'раз',
-                  suffixStyle: Theme.of(context)
-                      .textTheme
-                      .headline2!
-                      .apply(color: Theme.of(context).colorScheme.onBackground),
-                  fillColor: Theme.of(context).colorScheme.background,
-                  filled: true,
-                ),
-                cursorColor: Theme.of(context).colorScheme.onBackground,
-              ),
-            )
+            _showPassButton
+                ? const LevelTitle(
+                    text: ' - Я устала, и я ухожу!',
+                    textAlign: TextAlign.right,
+                    padding: false)
+                : _drawTextField(),
+            _showPassButton
+                ? AppTextButton(
+                    buttonText: 'Пройти уровень',
+                    onPressed: () {
+                      LevelUtils().nextLevel(context);
+                    },
+                    size: AppTextButtonSize.medium,
+                    type: AppTextButtonType.custom,
+                    customBackgroundColor: Colors.blue,
+                  )
+                : _drawMainButton()
           ]),
           Text(
             'Нажато: $_counter',
@@ -81,71 +82,84 @@ class _Level3State extends State<Level3> {
                 .headline1!
                 .apply(color: Theme.of(context).colorScheme.onBackground),
           ),
-          _showPassButton
-              ? AppTextButton(
-                  buttonText: 'Пройти уровень',
-                  onPressed: () {
-                    LevelUtils().nextLevel(context);
-                  },
-                  size: AppTextButtonSize.medium,
-                  type: AppTextButtonType.custom,
-                  customBackgroundColor: Colors.blue,
-                )
-              : Padding(
-                  padding: EdgeInsets.symmetric(vertical: _pressed ? 10 : 0),
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 10),
-                    child: GestureDetector(
-                      onTapDown: (v) {
-                        setState(() {
-                          if (!_disabled) {
-                            _pressed = true;
-                          }
-                        });
-                      },
-                      onTapUp: (v) {
-                        setState(() {
-                          if (!_disabled) {
-                            _pressed = false;
-                          }
-                        });
-                      },
-                      onTap: () {
-                        setState(() {
-                          if (!_disabled) {
-                            _counter++;
-                          }
-                          if (_counter == 20) {
-                            _disabled = true;
-                          }
-                        });
-                      },
-                      child: Container(
-                        height: _pressed ? 180 : 200,
-                        width: _pressed ? 180 : 200,
-                        decoration: BoxDecoration(
-                            color: _pressed
-                                ? _buttonColor.withOpacity(0.8)
-                                : _buttonColor,
-                            boxShadow: [
-                              _pressed
-                                  ? BoxShadow(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .background)
-                                  : BoxShadow(
-                                      blurRadius: 10,
-                                      color:
-                                          Theme.of(context).colorScheme.shadow)
-                            ],
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(100))),
-                      ),
-                    ),
-                  ),
-                )
         ],
       ),
     );
   }
+
+  _drawTextField() => SizedBox(
+        width: 240,
+        child: TextFormField(
+          initialValue: _value,
+          onChanged: (value) {
+            setValue(value);
+          },
+          style: Theme.of(context).textTheme.headline2!.apply(
+                color: Theme.of(context).colorScheme.onBackground,
+              ),
+          decoration: InputDecoration(
+            border:  InputBorder.none,
+            prefixText: '- Нажми на меня ',
+            prefixStyle:Theme.of(context)
+                .textTheme
+                .headline2!
+                .apply(color: Theme.of(context).colorScheme.onBackground),
+            suffixText: 'раз',
+            suffixStyle: Theme.of(context)
+                .textTheme
+                .headline2!
+                .apply(color: Theme.of(context).colorScheme.onBackground),
+          ),
+          cursorColor: Theme.of(context).colorScheme.onBackground,
+        ),
+      );
+
+  _drawMainButton() => Padding(
+        padding: EdgeInsets.symmetric(vertical: _pressed ? 10 : 0),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 10),
+          child: GestureDetector(
+            onTapDown: (v) {
+              setState(() {
+                if (!_disabled) {
+                  _pressed = true;
+                }
+              });
+            },
+            onTapUp: (v) {
+              setState(() {
+                if (!_disabled) {
+                  _pressed = false;
+                }
+              });
+            },
+            onTap: () {
+              setState(() {
+                if (!_disabled) {
+                  _counter++;
+                }
+                if (_counter == 20) {
+                  _disabled = true;
+                }
+              });
+            },
+            child: Container(
+              height: _pressed ? 180 : 200,
+              width: _pressed ? 180 : 200,
+              decoration: BoxDecoration(
+                  color:
+                      _pressed ? _buttonColor.withOpacity(0.8) : _buttonColor,
+                  boxShadow: [
+                    _pressed
+                        ? BoxShadow(
+                            color: Theme.of(context).colorScheme.background)
+                        : BoxShadow(
+                            blurRadius: 10,
+                            color: Theme.of(context).colorScheme.shadow)
+                  ],
+                  borderRadius: const BorderRadius.all(Radius.circular(100))),
+            ),
+          ),
+        ),
+      );
 }

@@ -82,10 +82,10 @@ class _Level1State extends State<Level1> with TickerProviderStateMixin {
           ),
           LevelTitle(
               text: (isFakeButtonHidden == true && isPassButtonHidden == true)
-                  ? 'Вам нужно найти кнопку \n"Пройти уровень".\nВы убили красный кубик.. Придумайте что-нибудь)'
+                  ? 'Я потеряла кнопку \n"Пройти уровень".\nВы убили мой красный кубик.. \nСделайте что-нибудь!'
                   : (isFakeButtonHidden == true && isPassButtonHidden == false)
-                      ? 'Осталось только нажать..'
-                      : 'Вам нужно найти кнопку \n"Пройти уровень".\nПоможет красный цвет'),
+                      ? 'Ура ура это точно она!'
+                      : 'Я потеряла кнопку \n"Пройти уровень".\nПомню только, что с ней \nкак-то связан красный цвет..'),
           _drawRowOfSquare(),
           AnimatedPositioned(
               width: _getWidth(),
