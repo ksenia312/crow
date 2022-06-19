@@ -3,12 +3,12 @@ import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 
 enum SpinnerColors { red, blue, green }
 
-class Spinner extends StatefulWidget {
+class LevelSpinner extends StatefulWidget {
   final double size;
   final SpinnerColors color;
   final bool stop;
 
-  const Spinner(
+  const LevelSpinner(
       {Key? key,
       this.size = 70.0,
       this.color = SpinnerColors.red,
@@ -16,10 +16,10 @@ class Spinner extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<Spinner> createState() => _SpinnerState();
+  State<LevelSpinner> createState() => _LevelSpinnerState();
 }
 
-class _SpinnerState extends State<Spinner> with TickerProviderStateMixin {
+class _LevelSpinnerState extends State<LevelSpinner> with TickerProviderStateMixin {
   late AnimationController _controller;
   final Tween<double> turnsTween = Tween<double>(
     begin: 0,

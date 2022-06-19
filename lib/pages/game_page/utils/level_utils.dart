@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import '../pages/levels/level1.dart';
 import '../pages/levels/level2.dart';
 import '../pages/levels/level3.dart';
-
+import '../pages/levels/level4.dart';
 
 class LevelUtils {
   static int _availableLevelsCount = 1;
@@ -15,7 +15,12 @@ class LevelUtils {
     _availableLevelsCount = levels;
   }
 
-  final List<Widget> _levels = [const Level1(), const Level2(), const Level3()];
+  final List<Widget> _levels = [
+    const Level1(),
+    const Level2(),
+    const Level3(),
+    const Level4()
+  ];
 
   List<Widget> get widgets => _levels;
 

@@ -32,7 +32,7 @@ class _AppTextFieldState extends State<AppTextField> {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(5),
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 3),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
           //color: Theme.of(context).colorScheme.tertiary,
           decoration: BoxDecoration(
             //borderRadius: BorderRadius.circular(5),

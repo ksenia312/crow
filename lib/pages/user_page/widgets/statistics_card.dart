@@ -42,7 +42,7 @@ class _StatisticsCardState extends State<StatisticsCard> {
         backgroundColor: overrideButtonStyle<Color>(
             Theme.of(context).colorScheme.background),
         foregroundColor: overrideButtonStyle<Color>(
-            Theme.of(context).colorScheme.onBackground),
+            Theme.of(context).colorScheme.onPrimary),
       );
 
   _drawGridBackground(context) => LayoutGrid(

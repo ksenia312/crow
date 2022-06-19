@@ -47,8 +47,6 @@ class _StatisticsPageState extends State<StatisticsPage> {
 
   @override
   Widget build(BuildContext context) {
-    Color onSecondary = Theme.of(context).colorScheme.onSecondary;
-    TextStyle headline1 = Theme.of(context).textTheme.headline1!;
     DateTime now = DateTime.now();
     Duration difference = now.difference(widget.startDate!);
     int months = (difference.inDays / 30).round();
@@ -68,7 +66,10 @@ class _StatisticsPageState extends State<StatisticsPage> {
                 showCloseButton: false),
             Text('Вы с нами',
                 textAlign: TextAlign.center,
-                style: headline1.apply(color: onSecondary)),
+                style: Theme.of(context)
+                    .textTheme
+                    .headline1!
+                    .apply(color: Theme.of(context).colorScheme.onBackground)),
             Padding(
               padding: AppIndents.vertical10Horizontal20,
               child: LayoutGrid(
@@ -176,10 +177,9 @@ class _StatisticsPageState extends State<StatisticsPage> {
   Center _drawOrBlock() => Center(
         child: Text(
           'или',
-          style: Theme.of(context)
-              .textTheme
-              .headline2!
-              .copyWith(fontWeight: FontWeight.w900),
+          style: Theme.of(context).textTheme.headline2!.copyWith(
+              fontWeight: FontWeight.w900,
+              color: Theme.of(context).colorScheme.onBackground),
         ),
       );
 
@@ -188,7 +188,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
     required String value,
     required String? unit,
   }) {
-    Color onSecondary = Theme.of(context).colorScheme.onSecondary;
+    Color onBackground = Theme.of(context).colorScheme.onBackground;
     Color background = Theme.of(context).colorScheme.background;
     return Container(
         height: double.infinity,
@@ -201,21 +201,21 @@ class _StatisticsPageState extends State<StatisticsPage> {
                   style: Theme.of(context)
                       .textTheme
                       .headline1!
-                      .apply(color: isOutline ? onSecondary : background)),
+                      .apply(color: isOutline ? onBackground : background)),
               unit != null
                   ? Text(unit,
                       textAlign: TextAlign.center,
                       style: Theme.of(context)
                           .textTheme
                           .subtitle1!
-                          .apply(color: isOutline ? onSecondary : background))
+                          .apply(color: isOutline ? onBackground : background))
                   : Container()
             ],
           ),
         ),
         decoration: isOutline
-            ? BoxDecoration(border: Border.all(color: onSecondary, width: 3))
-            : BoxDecoration(color: onSecondary));
+            ? BoxDecoration(border: Border.all(color: onBackground, width: 3))
+            : BoxDecoration(color: onBackground));
   }
 
   Padding _drawLargeDateBlock({
@@ -243,7 +243,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
               style: Theme.of(context)
                   .textTheme
                   .headline2!
-                  .apply(color: Theme.of(context).colorScheme.onSecondary)),
+                  .apply(color: Theme.of(context).colorScheme.onBackground)),
         ),
       );
 }

@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:frontend/utils/indents.dart';
+import 'package:frontend/pages/game_page/widgets/level_title.dart';
 import 'package:frontend/widgets/text_buttons.dart';
 
 import '../../utils/level_utils.dart';
@@ -80,21 +80,12 @@ class _Level1State extends State<Level1> with TickerProviderStateMixin {
             duration: const Duration(milliseconds: 100),
             curve: Curves.fastOutSlowIn,
           ),
-          Padding(
-            padding: AppIndents.all15,
-            child: Text(
-              (isFakeButtonHidden == true && isPassButtonHidden == true)
+          LevelTitle(
+              text: (isFakeButtonHidden == true && isPassButtonHidden == true)
                   ? 'Вам нужно найти кнопку \n"Пройти уровень".\nВы убили красный кубик.. Придумайте что-нибудь)'
                   : (isFakeButtonHidden == true && isPassButtonHidden == false)
                       ? 'Осталось только нажать..'
-                      : 'Вам нужно найти кнопку \n"Пройти уровень".\nПоможет красный цвет',
-              textAlign: TextAlign.left,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline2!
-                  .apply(color: Theme.of(context).colorScheme.onSecondary),
-            ),
-          ),
+                      : 'Вам нужно найти кнопку \n"Пройти уровень".\nПоможет красный цвет'),
           _drawRowOfSquare(),
           AnimatedPositioned(
               width: _getWidth(),

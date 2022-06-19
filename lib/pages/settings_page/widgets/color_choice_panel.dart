@@ -18,7 +18,7 @@ class ColorChoicePanel extends StatefulWidget {
 class _ColorChoicePanelState extends State<ColorChoicePanel> {
   List _listColorModeParams(bool isLight, ColorScheme light, ColorScheme dark) {
     return isLight
-        ? [light.surface, light.onBackground]
+        ? [light.primary, light.onPrimary]
         : [dark.primary, dark.onPrimary];
   }
 

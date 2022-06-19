@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
-import 'package:frontend/utils/indents.dart';
+import 'package:frontend/pages/game_page/widgets/level_title.dart';
 import 'package:frontend/widgets/text_buttons.dart';
 
 import '../../utils/level_utils.dart';
-import '../../widgets/spinner.dart';
+import '../../widgets/level_spinner.dart';
 
 class Level2 extends StatefulWidget {
   const Level2({Key? key}) : super(key: key);
@@ -25,23 +25,15 @@ class _Level2State extends State<Level2> with TickerProviderStateMixin {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Padding(
-            padding: AppIndents.all15,
-            child: Text(
-              _isLeftHidden & _stopRight
+          LevelTitle(
+              textAlign: TextAlign.center,
+              text: _isLeftHidden & _stopRight
                   ? 'Мы победили!'
                   : _isLeftHidden
                       ? 'Два слиняли! Какие хитрые!!'
                       : _stopRight
                           ? 'А второй сам остановился!'
-                          : 'Какие маленькие.. \nи крутятся… Чтобы увидеть \nспиннеры получше, давайте \nувеличим их и остановим',
-              textAlign: TextAlign.center,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline2!
-                  .apply(color: Theme.of(context).colorScheme.onSecondary),
-            ),
-          ),
+                          : 'Какие маленькие.. \nи крутятся… Чтобы увидеть \nспиннеры получше, давайте \nувеличим их и остановим'),
           LayoutGrid(
             gridFit: GridFit.expand,
             columnSizes: [
@@ -62,7 +54,7 @@ class _Level2State extends State<Level2> with TickerProviderStateMixin {
                             height: 150,
                             width: double.infinity,
                             child: Center(
-                              child: Spinner(
+                              child: LevelSpinner(
                                 size: 30,
                                 color: SpinnerColors.red,
                               ),
@@ -111,7 +103,7 @@ class _Level2State extends State<Level2> with TickerProviderStateMixin {
         child: Center(
           child: Transform.scale(
               scale: index == 1 ? _scaleTopRight : _scaleBottomRight,
-              child: Spinner(
+              child: LevelSpinner(
                 size: 30,
                 stop: _stopRight,
                 color: _stopRight ? SpinnerColors.green : SpinnerColors.red,

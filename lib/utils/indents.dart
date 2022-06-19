@@ -7,5 +7,6 @@ class AppIndents {
       const EdgeInsets.symmetric(vertical: 10, horizontal: 20);
 
   static get horizontal20 => const EdgeInsets.symmetric(horizontal: 20);
+  static get vertical15 => const EdgeInsets.symmetric(vertical: 15);
   static get all15 => const EdgeInsets.all(15);
 }
