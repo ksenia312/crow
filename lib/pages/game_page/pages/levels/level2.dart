@@ -67,7 +67,7 @@ class _Level2State extends State<Level2> with TickerProviderStateMixin {
             AppTextButton(
               buttonText: 'Пройти уровень',
               onPressed: () {
-                LevelUtils().nextLevel(context);
+                LevelUtils.nextLevel(context);
               },
               size: AppTextButtonSize.medium,
               type: AppTextButtonType.custom,

@@ -8,7 +8,7 @@ class ImageCard extends StatefulWidget {
   final String headline2;
   final String bodyText;
   final double imageHeight;
-  final double? listTileHeight;
+  final double listTileHeight;
   final int initImageNum;
 
   const ImageCard({
@@ -16,7 +16,7 @@ class ImageCard extends StatefulWidget {
     required this.headline2,
     required this.bodyText,
     this.imageHeight = 150,
-    this.listTileHeight,
+    this.listTileHeight = 80,
     this.initImageNum = 1,
   }) : super(key: key);
 
@@ -70,41 +70,42 @@ class ImageCardState extends State<ImageCard> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: widget.listTileHeight != null
-          ? (widget.imageHeight + widget.listTileHeight!)
-          : null,
-      child: Card(
-        margin: AppIndents.all5ExceptBottom,
-        elevation: 2,
-        color: Theme.of(context).colorScheme.secondary,
-        child: ClipRRect(
-            borderRadius: BorderRadius.circular(4), child: _drawContent()),
-      ),
+    return Container(
+      height: widget.listTileHeight + widget.imageHeight,
+      margin: AppIndents.all5ExceptBottom,
+      child: _drawContent(),
     );
   }
 
-  BoxDecoration _decoration() => BoxDecoration(
-        image: DecorationImage(
-          opacity: _controllerOpacity.value,
-          image: AssetImage(_imageURL),
-          fit: BoxFit.cover,
-        ),
-      );
-
-  Container _drawContent() => Container(
-        width: double.infinity,
-        decoration: _decoration(),
-        child: Padding(
-          padding: EdgeInsets.only(top: widget.imageHeight),
-          child: AppListTile(
-            headline2: widget.headline2,
-            bodyText: widget.bodyText,
-            height: widget.listTileHeight,
-            color: Theme.of(context).colorScheme.secondary,
-            textColor: Theme.of(context).colorScheme.onSecondary,
-            padding:4.0
+  Column _drawContent() => Column(
+        children: [
+          ClipRRect(
+            borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(4), topLeft: Radius.circular(4)),
+            child: SizedBox(
+              width: double.infinity,
+              child: Opacity(
+                opacity: _controllerOpacity.value,
+                child: Image.asset(
+                  _imageURL,
+                  height: widget.imageHeight,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
           ),
-        ),
+          ClipRRect(
+            borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(4),
+                bottomRight: Radius.circular(4)),
+            child: AppListTile(
+                headline2: widget.headline2,
+                bodyText: widget.bodyText,
+                height: widget.listTileHeight,
+                color: Theme.of(context).colorScheme.secondary,
+                textColor: Theme.of(context).colorScheme.onSecondary,
+                padding: 4.0),
+          ),
+        ],
       );
 }

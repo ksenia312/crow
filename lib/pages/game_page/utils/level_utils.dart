@@ -17,7 +17,7 @@ class LevelUtils {
     _availableLevelsCount = levels;
   }
 
-  final List<Widget> _levels = [
+   static List<Widget> get levels => [
     const Level1(),
     const Level2(),
     const Level3(),
@@ -26,11 +26,9 @@ class LevelUtils {
     const Level6()
   ];
 
-  List<Widget> get widgets => _levels;
+  static int get maxLevel => levels.length;
 
-  int get maxLevel => _levels.length;
-
-  void nextLevel(context) {
+  static void nextLevel(context) {
     Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
     int newLevelId = arguments['id'] + 1;
     final auth = Provider.of<AuthModel>(context, listen: false);

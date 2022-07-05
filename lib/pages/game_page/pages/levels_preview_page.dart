@@ -33,8 +33,8 @@ class _LevelsPreviewPageState extends State<LevelsPreviewPage>
     _animationPink = _initializeAnimation(70.0, 20.0, _controllerPink);
     _addListeners(_controllerPink);
     _controllerPink.forward();
-    levels = LevelUtils().widgets;
-    maxLevel = LevelUtils().maxLevel;
+    levels = LevelUtils.levels;
+    maxLevel = LevelUtils.maxLevel;
   }
 
   _initializeController() {

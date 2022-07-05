@@ -37,6 +37,7 @@ class _UserPageState extends State<UserPage> {
                             '${countSuffixWrapper(count: userSnapshot.data!.age, variants: ageVariants)}',
                         bodyText: 'статус: $_status',
                         imageHeight: 100,
+                  listTileHeight: 100,
                       )
                     : Container(
                         color: Theme.of(context).colorScheme.tertiary,

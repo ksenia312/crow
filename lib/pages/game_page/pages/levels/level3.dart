@@ -67,7 +67,7 @@ class _Level3State extends State<Level3> {
                 ? AppTextButton(
                     buttonText: 'Пройти уровень',
                     onPressed: () {
-                      LevelUtils().nextLevel(context);
+                      LevelUtils.nextLevel(context);
                     },
                     size: AppTextButtonSize.medium,
                     type: AppTextButtonType.custom,

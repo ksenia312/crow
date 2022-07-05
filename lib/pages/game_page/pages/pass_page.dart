@@ -15,7 +15,7 @@ class _PassPageState extends State<PassPage> {
 
   @override
   void initState() {
-    maxLevel = LevelUtils().maxLevel;
+    maxLevel = LevelUtils.maxLevel;
     super.initState();
   }
 

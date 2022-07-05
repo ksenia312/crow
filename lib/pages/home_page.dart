@@ -49,7 +49,7 @@ class HomePage extends StatelessWidget {
 
   CarouselSlider _drawCarousel() => CarouselSlider(
         options: CarouselOptions(
-            height: 400.0,
+            height: 400,
             autoPlayInterval: const Duration(seconds: 2),
             viewportFraction: 0.9,
             autoPlay: true,
@@ -60,7 +60,7 @@ class HomePage extends StatelessWidget {
           return Builder(
             builder: (BuildContext context) {
               return ImageCard(
-                imageHeight: 200,
+                  listTileHeight: 150,
                   headline2: i.value.first,
                   bodyText: i.value.last,
                   initImageNum: i.key + 1 //Random().nextInt(4)+1,
