@@ -39,8 +39,7 @@ class _Level5State extends State<Level5> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (appTheme.currentColorModeNum == 3 &&
-        Theme.of(context).brightness == Brightness.light) {
+    if (appTheme.currentColorModeNum == 3) {
       setState(() {
         _isColorModeCorrect = true;
       });

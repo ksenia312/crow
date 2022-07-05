@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/utils/theme.dart';
 
-enum AppAssets { images, icons, figures, loading }
+enum AppAssets { images, icons, figures, loading, spinner}
 
 String getAsset(AppAssets folder, [String fileName='']) {
   var theme = AppTheme();
@@ -20,5 +20,9 @@ String getAsset(AppAssets folder, [String fileName='']) {
       return theme.currentTheme == ThemeMode.light
           ? 'assets/svg/loading/loading_circle_light.svg'
           : 'assets/svg/loading/loading_circle_dark.svg';
+    case AppAssets.spinner:
+      return theme.currentTheme == ThemeMode.light
+          ? 'assets/svg/spinners/spinner_light.svg'
+          : 'assets/svg/spinners/spinner_dark.svg';
   }
 }

@@ -36,7 +36,9 @@ flutter:
     - assets/svg/figures_light_theme/
     - assets/svg/icons/
     - assets/svg/loading/
+    - assets/svg/spinners/
     - assets/images/
+
   fonts:
     - family: Lexend
       fonts:
