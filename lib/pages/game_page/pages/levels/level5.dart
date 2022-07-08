@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/pages/game_page/utils/level_utils.dart';
-import 'package:frontend/pages/game_page/widgets/level_title.dart';
 import 'package:frontend/utils/indents.dart';
 import 'package:frontend/widgets/text_buttons.dart';
-import '../../widgets/level_painters.dart';
 import 'package:frontend/utils/theme.dart';
+
+import '../../utils/level_utils.dart';
+import '../../widgets/level_painters.dart';
+import '../../widgets/level_title.dart';
+
 
 class Level5 extends StatefulWidget {
   const Level5({Key? key}) : super(key: key);
@@ -63,11 +65,14 @@ class _Level5State extends State<Level5> with TickerProviderStateMixin {
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            LevelTitle(
+            LevelTitleWithHint(
                 text: _isColorModeCorrect
                     ? 'Ночь... \nТрава зеленая, небо синее, все логично! '
-                    : 'Ночь... \nПрирода, кажется, выглядит странно..',
-                textColor: Colors.white),
+                    : 'Ночь... \nНебо синее, а трава выглядит странно. Нужно изменить это!',
+                hintText:
+                    'Не нужно использовать жесты. Чтобы рисунок выглядел по-другому, нужно воспользоваться какой-то из внешних функций приложения.',
+                textColor: Colors.white,
+                iconColor: Colors.white),
             _isColorModeCorrect
                 ? ScaleTransition(
                     scale: _animation,

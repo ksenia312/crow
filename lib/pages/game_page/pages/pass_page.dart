@@ -20,7 +20,8 @@ class _PassPageState extends State<PassPage> {
   final List _animations = [
     const PassAnimation1(),
     const PassAnimation2(),
-    const PassAnimation3()
+    const PassAnimation3(),
+    const PassAnimation4(),
   ];
 
   @override

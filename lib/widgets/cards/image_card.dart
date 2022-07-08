@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:frontend/utils/assets_variables.dart';
 import '../../utils/indents.dart';
@@ -10,15 +12,17 @@ class ImageCard extends StatefulWidget {
   final double imageHeight;
   final double listTileHeight;
   final int initImageNum;
+  final Widget? trailing;
 
-  const ImageCard({
-    Key? key,
-    required this.headline2,
-    required this.bodyText,
-    this.imageHeight = 150,
-    this.listTileHeight = 80,
-    this.initImageNum = 1,
-  }) : super(key: key);
+  const ImageCard(
+      {Key? key,
+      required this.headline2,
+      required this.bodyText,
+      this.imageHeight = 150,
+      this.listTileHeight = 80,
+      this.initImageNum = 1,
+      this.trailing})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -36,8 +40,8 @@ class ImageCardState extends State<ImageCard> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     setState(() {
-      _imageURL = getAsset(
-          AppAssets.images, 'basic_card_bg__${widget.initImageNum}.jpg');
+      _imageURL = getAsset(AppAssets.images,
+          'card_bg__${widget.initImageNum < 10 ? '0' : ''}${widget.initImageNum}.jpg');
     });
     _controllerOpacity =
         AnimationController(duration: const Duration(seconds: 2), vsync: this);
@@ -48,8 +52,9 @@ class ImageCardState extends State<ImageCard> with TickerProviderStateMixin {
     _controllerOpacity.addStatusListener((status) {
       if (status == AnimationStatus.dismissed) {
         setState(() {
-          _imgNum < 5 ? _imgNum++ : _imgNum = 1;
-          _imageURL = getAsset(AppAssets.images, 'basic_card_bg__') +
+          _imgNum = getRandomImageNum();
+          _imageURL = getAsset(AppAssets.images, 'card_bg__') +
+              (_imgNum < 10 ? '0' : '') +
               _imgNum.toString() +
               '.jpg';
         });
@@ -82,13 +87,14 @@ class ImageCardState extends State<ImageCard> with TickerProviderStateMixin {
           ClipRRect(
             borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(4), topLeft: Radius.circular(4)),
-            child: SizedBox(
+            child: Container(
               width: double.infinity,
+              height: widget.imageHeight,
+              color: Theme.of(context).colorScheme.secondary,
               child: Opacity(
                 opacity: _controllerOpacity.value,
                 child: Image.asset(
                   _imageURL,
-                  height: widget.imageHeight,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -104,6 +110,7 @@ class ImageCardState extends State<ImageCard> with TickerProviderStateMixin {
                 height: widget.listTileHeight,
                 color: Theme.of(context).colorScheme.secondary,
                 textColor: Theme.of(context).colorScheme.onSecondary,
+                trailing: widget.trailing,
                 padding: 4.0),
           ),
         ],

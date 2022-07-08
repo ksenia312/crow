@@ -4,7 +4,7 @@ class AppListTile extends StatelessWidget {
   final String? headline2;
   final String? bodyText;
   final Color textColor;
-  final Color color;
+  final Color? color;
   final double? height;
   final double padding;
   final bool softWrap;
@@ -16,7 +16,7 @@ class AppListTile extends StatelessWidget {
       required this.headline2,
       required this.bodyText,
       required this.textColor,
-      required this.color,
+      this.color,
       this.height,
       this.softWrap = true,
       this.overflow = TextOverflow.fade,

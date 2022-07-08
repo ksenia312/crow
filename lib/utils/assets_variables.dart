@@ -1,9 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:frontend/utils/theme.dart';
 
-enum AppAssets { images, icons, figures, loading, spinner}
+enum AppAssets { images, icons, figures, loading, spinner }
 
-String getAsset(AppAssets folder, [String fileName='']) {
+String getAsset(AppAssets folder, [String fileName = '']) {
   var theme = AppTheme();
   switch (folder) {
     case AppAssets.images:
@@ -26,3 +28,5 @@ String getAsset(AppAssets folder, [String fileName='']) {
           : 'assets/svg/spinners/spinner_dark.svg';
   }
 }
+
+getRandomImageNum() => Random().nextInt(36) + 1;

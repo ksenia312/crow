@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:frontend/pages/game_page/widgets/level_painters.dart';
 import 'package:frontend/utils/assets_variables.dart';
 
 class PassAnimation1 extends StatefulWidget {
@@ -196,6 +197,105 @@ class _PassAnimation3State extends State<PassAnimation3>
                 .headline2!
                 .apply(color: Theme.of(context).colorScheme.onBackground),
           )),
+        ),
+      ),
+    );
+  }
+}
+
+class PassAnimation4 extends StatefulWidget {
+  const PassAnimation4({Key? key}) : super(key: key);
+
+  @override
+  State<PassAnimation4> createState() => _PassAnimation4State();
+}
+
+class _PassAnimation4State extends State<PassAnimation4>
+    with TickerProviderStateMixin {
+  late AnimationController _colorController;
+  late Future<Animation<Color?>> _colorAnimation;
+  late AnimationController _rotationController;
+  late Animation<double> _rotationAnimation;
+  Color _color = Colors.black;
+
+  @override
+  void initState() {
+    _colorController =
+        AnimationController(duration: const Duration(seconds: 1), vsync: this)
+          ..repeat(reverse: true);
+
+    _colorAnimation = getColorTween();
+    _rotationController = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    )..repeat();
+    _rotationAnimation = CurvedAnimation(
+      parent: _rotationController,
+      curve: Curves.fastOutSlowIn,
+    );
+    super.initState();
+  }
+
+  Future<Animation<Color?>> getColorTween() {
+    return Future.delayed(Duration.zero, () {
+      return ColorTween(
+              begin: Theme.of(context).colorScheme.primary,
+              end: Theme.of(context).colorScheme.primary.withAlpha(0))
+          .animate(_colorController)
+        ..addListener(() {
+          setState(() {});
+        });
+    });
+  }
+
+  @override
+  void dispose() {
+    _colorController.dispose();
+    _rotationController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    _colorAnimation.then((color) {
+      setState(() {
+        _color = color.value!;
+      });
+    });
+    return RotationTransition(
+      turns: _rotationAnimation,
+      child: SizedBox(
+        width: 300,
+        height: 350,
+        child: Stack(
+          children: [
+            Positioned(
+              top: 25,
+              right: 25,
+              child: CustomPaint(
+                  size: const Size(250, 225),
+                  painter: TrianglePainter(
+                      strokeColor: _color, paintingStyle: PaintingStyle.fill)),
+            ),
+            Center(
+              child: Container(
+                height: 140,
+                width: 140,
+                decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary,
+                    borderRadius: const BorderRadius.all(Radius.circular(100))),
+                child: Center(
+                  child: Text(
+                    'хорошо!',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline2!
+                        .apply(color: Colors.white.withOpacity(0.8)),
+                  ),
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );

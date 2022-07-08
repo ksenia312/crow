@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/pages/auth_page/auth_page.dart';
+import 'package:frontend/utils/assets_variables.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
 import 'package:frontend/widgets/text_buttons.dart';
 import 'package:frontend/widgets/cards/image_card.dart';
@@ -12,6 +13,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const AppBarTitle(text: 'Добро пожаловать!!'),
       ),
       body: Center(
@@ -63,7 +65,7 @@ class HomePage extends StatelessWidget {
                   listTileHeight: 150,
                   headline2: i.value.first,
                   bodyText: i.value.last,
-                  initImageNum: i.key + 1 //Random().nextInt(4)+1,
+                  initImageNum: getRandomImageNum() //Random().nextInt(4)+1,
                   );
             },
           );

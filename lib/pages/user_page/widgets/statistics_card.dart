@@ -32,8 +32,12 @@ class _StatisticsCardState extends State<StatisticsCard> {
                 }),
               );
             },
-            child: Stack(
-                children: [_drawGridBackground(context), _drawText(context)])),
+            child: Container(
+              color: Theme.of(context).colorScheme.primary.withOpacity(0.3),
+              height: 160,
+              child: Stack(
+                  children: [_drawGridBackground(context), _drawText(context)]),
+            )),
       ),
     );
   }
@@ -41,8 +45,8 @@ class _StatisticsCardState extends State<StatisticsCard> {
   ButtonStyle _statisticsButtonStyle() => ButtonStyle(
         backgroundColor: overrideButtonStyle<Color>(
             Theme.of(context).colorScheme.background),
-        foregroundColor: overrideButtonStyle<Color>(
-            Theme.of(context).colorScheme.onPrimary),
+        foregroundColor:
+            overrideButtonStyle<Color>(Theme.of(context).colorScheme.onPrimary),
       );
 
   _drawGridBackground(context) => LayoutGrid(
@@ -68,16 +72,13 @@ class _StatisticsCardState extends State<StatisticsCard> {
   }
 
   Widget _drawText(context) => Positioned(
-        child: Text(
-          'Ваша статистика',
-          style: TextStyle(shadows: [
-            Shadow(
-                offset: const Offset(2, 1),
-                color: Theme.of(context).colorScheme.shadow,
-                blurRadius: 15)
-          ]),
-        ),
-        bottom: 20,
+        child: Text('Ваша статистика',
+            style: Theme.of(context).textTheme.headline2!.merge(
+                  TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                )),
+        bottom: 30,
         left: 30,
       );
 }

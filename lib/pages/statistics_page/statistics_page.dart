@@ -49,7 +49,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
     Duration difference = now.difference(widget.startDate!);
-    int months = (difference.inDays / 30).round();
+    int months = (difference.inDays / 30).floor();
     int days = difference.inDays;
     int hours = difference.inHours;
     int minutes = difference.inMinutes;

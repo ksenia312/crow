@@ -12,6 +12,7 @@ class LevelSwitch extends StatefulWidget {
 
 class _LevelSwitchState extends State<LevelSwitch> {
   bool lastAvailable = false;
+  final List<int> _hardLevels = [5];
   late List<Widget> levels;
 
   @override
@@ -30,7 +31,7 @@ class _LevelSwitchState extends State<LevelSwitch> {
             leadingWidth: 150,
             centerTitle: true,
             title: Text(
-              '${arguments['id']}',
+              '${arguments['id']}${_hardLevels.contains(arguments['id']) ? '*' : ''}',
               style: Theme.of(context)
                   .textTheme
                   .headline1!

@@ -10,7 +10,10 @@ import 'package:frontend/widgets/statuses/toast.dart';
 import 'package:frontend/widgets/text_buttons.dart';
 
 class VerifyEmailDialog extends StatefulWidget {
-  const VerifyEmailDialog({Key? key}) : super(key: key);
+  final bool isInitPage;
+
+  const VerifyEmailDialog({this.isInitPage = false, Key? key})
+      : super(key: key);
 
   @override
   State<VerifyEmailDialog> createState() => _VerifyEmailDialogState();
@@ -125,7 +128,9 @@ class _VerifyEmailDialogState extends State<VerifyEmailDialog> {
                   buttonText: 'Назад',
                   type: AppTextButtonType.tertiary,
                   onPressed: () {
-                    Navigator.pop(context);
+                    widget.isInitPage
+                        ? Navigator.pushNamed(context, '/home')
+                        : Navigator.pop(context);
                   },
                 )
               ],

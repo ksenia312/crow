@@ -37,7 +37,7 @@ class _Level3State extends State<Level3> {
   @override
   Widget build(BuildContext context) {
     setState(() {
-      if (_counter.toString() == _value.trim()) {
+      if (_counter==20 && _value.trim().contains(_counter.toString())) {
         _showPassButton = true;
       } else {
         _showPassButton = false;
@@ -87,32 +87,20 @@ class _Level3State extends State<Level3> {
     );
   }
 
-  _drawTextField() => SizedBox(
-        width: 240,
-        child: TextFormField(
-          initialValue: _value,
-          onChanged: (value) {
-            setValue(value);
-          },
-          style: Theme.of(context).textTheme.headline2!.apply(
-                color: Theme.of(context).colorScheme.onBackground,
-              ),
-          decoration: InputDecoration(
-            border:  InputBorder.none,
-            prefixText: '- Нажми на меня ',
-            prefixStyle:Theme.of(context)
-                .textTheme
-                .headline2!
-                .apply(color: Theme.of(context).colorScheme.onBackground),
-            suffixText: 'раз',
-            suffixStyle: Theme.of(context)
-                .textTheme
-                .headline2!
-                .apply(color: Theme.of(context).colorScheme.onBackground),
-          ),
-          cursorColor: Theme.of(context).colorScheme.onBackground,
+  _drawTextField() => TextFormField(
+    initialValue: '- Нажми на меня ' + _value + ' раз',
+    textAlign: TextAlign.center,
+    onChanged: (value) {
+      setValue(value);
+    },
+    style: Theme.of(context).textTheme.headline2!.apply(
+          color: Theme.of(context).colorScheme.onBackground,
         ),
-      );
+    decoration: const InputDecoration(
+      border: InputBorder.none,
+    ),
+    cursorColor: Theme.of(context).colorScheme.onBackground,
+  );
 
   _drawMainButton() => Padding(
         padding: EdgeInsets.symmetric(vertical: _pressed ? 10 : 0),

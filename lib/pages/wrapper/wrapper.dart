@@ -16,7 +16,7 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null && !user.emailVerified) {
-      return const VerifyEmailDialog();
+      return const VerifyEmailDialog(isInitPage: true);
     } else if (user != null &&
         user.emailVerified &&
         (user.displayName == null || user.displayName?.isEmpty == true)) {
