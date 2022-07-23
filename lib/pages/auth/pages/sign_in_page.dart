@@ -1,9 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:frontend/pages/tabs_page/tabs_page.dart';
+import 'package:frontend/pages/auth/pages/reset_password_page.dart';
 import 'package:frontend/pages/wrapper/wrapper.dart';
 import 'package:frontend/services/user/auth_service.dart';
+import 'package:frontend/utils/indents.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
 import 'package:frontend/widgets/text_buttons.dart';
 import 'package:frontend/widgets/label.dart';
@@ -13,9 +14,10 @@ import 'package:frontend/widgets/statuses/types.dart';
 import 'package:frontend/widgets/text_field/text_field.dart';
 import 'package:frontend/widgets/text_field/types.dart';
 import 'package:frontend/widgets/text_field/validators.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInPage extends StatefulWidget {
-  final Function? toggleAuthView;
+  final Function toggleAuthView;
 
   const SignInPage({required this.toggleAuthView, Key? key}) : super(key: key);
 
@@ -35,18 +37,32 @@ class _SignInPageState extends State<SignInPage> {
     SignInFieldType.password: ''
   };
   late FToast fToast;
-  bool disabled = true;
+  bool _disabled = true;
+  bool _prefsEmailLoading = true;
 
   @override
   void initState() {
     super.initState();
     fToast = FToast();
     fToast.init(context);
+    _initPrefs().then((value) {
+      _onFieldChanged(value.getString('email') ?? '', SignInFieldType.email);
+      setState(() {
+        _prefsEmailLoading = false;
+      });
+    });
   }
 
-  _onFieldChanged(String value, SignInFieldType type) => setState(() {
-        _fieldsValues[type] = value;
-      });
+  Future<SharedPreferences> _initPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs;
+  }
+
+  _onFieldChanged(String value, SignInFieldType type) {
+    setState(() {
+      _fieldsValues[type] = value;
+    });
+  }
 
   _toggleStatuses(bool value, StatusesTypes type) {
     setState(() {
@@ -64,6 +80,9 @@ class _SignInPageState extends State<SignInPage> {
         _toggleStatuses(true, StatusesTypes.error);
         AppToast.showError(res, context);
       } else {
+        await SharedPreferences.getInstance().then((value) {
+          value.setString('email', _fieldsValues[SignInFieldType.email]!);
+        });
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) {
@@ -83,11 +102,11 @@ class _SignInPageState extends State<SignInPage> {
     if (_fieldsValues[SignInFieldType.email] != '' &&
         _fieldsValues[SignInFieldType.password] != '') {
       setState(() {
-        disabled = false;
+        _disabled = false;
       });
     } else {
       setState(() {
-        disabled = true;
+        _disabled = true;
       });
     }
     return Scaffold(
@@ -101,18 +120,22 @@ class _SignInPageState extends State<SignInPage> {
                 buttonText: 'Нет аккаунта? Зарегистрируйтесь!',
                 type: AppTextButtonType.primary,
                 onPressed: () {
-                  widget.toggleAuthView!();
+                  widget.toggleAuthView();
                 }),
             const AppLabel(
               text: 'почта',
             ),
-            _drawTextField('crow@example.com', false, SignInFieldType.email),
+            _prefsEmailLoading
+                ? Container()
+                : _drawTextField(
+                    'crow@example.com', false, SignInFieldType.email),
             const AppLabel(
               text: 'пароль',
               textAlign: TextAlign.end,
             ),
-            _drawTextField('петя1234', true, SignInFieldType.password),
+            _drawTextField('петр1234', true, SignInFieldType.password),
             _drawSignInButton(),
+            _drawForgetPasswordLink()
           ]),
         ),
       ),
@@ -120,13 +143,15 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   _drawTextField(
-          String hintText, bool obscuringCharacter, SignInFieldType type) =>
-      AppTextField(
-          hintText: hintText,
-          obscuringCharacter: obscuringCharacter,
-          onChanged: (value) {
-            _onFieldChanged(value, type);
-          });
+      String hintText, bool obscuringCharacter, SignInFieldType type) {
+    return AppTextField(
+        hintText: hintText,
+        obscuringCharacter: obscuringCharacter,
+        initialValue: _fieldsValues[type],
+        onChanged: (value) {
+          _onFieldChanged(value, type);
+        });
+  }
 
   SizedBox _drawSignInButton() => SizedBox(
         height: 80,
@@ -137,7 +162,7 @@ class _SignInPageState extends State<SignInPage> {
               type: AppTextButtonType.primary,
               size: AppTextButtonSize.medium,
               onPressed: _signIn,
-              disabled: disabled,
+              disabled: _disabled,
             ),
             if (_statusesValues[StatusesTypes.loading] == true)
               const Center(
@@ -147,6 +172,27 @@ class _SignInPageState extends State<SignInPage> {
                 ),
               )
           ],
+        ),
+      );
+
+  _drawForgetPasswordLink() => Padding(
+        padding: AppIndents.vertical15,
+        child: InkWell(
+          child: Text(
+            'Забыли пароль?',
+            textAlign: TextAlign.center,
+            style: Theme.of(context)
+                .textTheme
+                .subtitle1!
+                .apply(color: Theme.of(context).colorScheme.onBackground),
+          ),
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ResetPasswordPage(
+                        email: _fieldsValues[SignInFieldType.email]!)));
+          },
         ),
       );
 

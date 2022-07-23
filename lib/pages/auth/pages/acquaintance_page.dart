@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:frontend/models/auth_model.dart';
-import 'package:frontend/pages/tabs_page/tabs_page.dart';
 import 'package:frontend/pages/wrapper/wrapper.dart';
 import 'package:frontend/services/user/auth_service.dart';
 import 'package:frontend/services/user/user_database.dart';

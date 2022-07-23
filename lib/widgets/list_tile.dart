@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AppListTile extends StatelessWidget {
@@ -10,6 +11,7 @@ class AppListTile extends StatelessWidget {
   final bool softWrap;
   final TextOverflow overflow;
   final Widget? trailing;
+  final double? maxHeight;
 
   const AppListTile(
       {Key? key,
@@ -21,7 +23,8 @@ class AppListTile extends StatelessWidget {
       this.softWrap = true,
       this.overflow = TextOverflow.fade,
       this.padding = 0.0,
-      this.trailing})
+      this.trailing,
+      this.maxHeight})
       : super(key: key);
 
   @override
@@ -31,16 +34,19 @@ class AppListTile extends StatelessWidget {
       color: color,
       padding: EdgeInsets.all(padding),
       child: Center(
-        child: ListTile(
-          title: headline2 != null
-              ? _drawListTileText(
-                  context, headline2, Theme.of(context).textTheme.subtitle1!)
-              : null,
-          subtitle: bodyText != null
-              ? _drawListTileText(
-                  context, bodyText, Theme.of(context).textTheme.bodyText1!)
-              : null,
-          trailing: trailing,
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxHeight: maxHeight ?? 100),
+          child: ListTile(
+            title: headline2 != null
+                ? _drawListTileText(
+                    context, headline2, Theme.of(context).textTheme.subtitle1!)
+                : null,
+            subtitle: bodyText != null
+                ? _drawListTileText(
+                    context, bodyText, Theme.of(context).textTheme.bodyText1!)
+                : null,
+            trailing: trailing,
+          ),
         ),
       ),
     );

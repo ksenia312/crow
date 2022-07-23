@@ -2,24 +2,27 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:frontend/pages/auth_page/pages/acquaintance_page.dart';
+import 'package:frontend/widgets/support_dialog.dart';
+import 'package:frontend/utils/indents.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
 import 'package:frontend/widgets/cards/announcement_card.dart';
+import 'package:frontend/widgets/statuses/dialog.dart';
 import 'package:frontend/widgets/statuses/loading.dart';
 import 'package:frontend/widgets/statuses/toast.dart';
 import 'package:frontend/widgets/text_buttons.dart';
 
-class VerifyEmailDialog extends StatefulWidget {
+import '../../wrapper/wrapper.dart';
+
+class VerifyEmailPage extends StatefulWidget {
   final bool isInitPage;
 
-  const VerifyEmailDialog({this.isInitPage = false, Key? key})
-      : super(key: key);
+  const VerifyEmailPage({this.isInitPage = false, Key? key}) : super(key: key);
 
   @override
-  State<VerifyEmailDialog> createState() => _VerifyEmailDialogState();
+  State<VerifyEmailPage> createState() => _VerifyEmailPageState();
 }
 
-class _VerifyEmailDialogState extends State<VerifyEmailDialog> {
+class _VerifyEmailPageState extends State<VerifyEmailPage> {
   late User? _user;
   late Timer _checkVerificationTimer;
   late Timer _showTicksTimer;
@@ -71,8 +74,9 @@ class _VerifyEmailDialogState extends State<VerifyEmailDialog> {
     if (user?.emailVerified == true) {
       _checkVerificationTimer.cancel();
       _showTicksTimer.cancel();
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const AcquaintancePage()));
+      AppToast.showSuccess('Почта подтверждена', context);
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const Wrapper()));
     }
   }
 
@@ -132,7 +136,27 @@ class _VerifyEmailDialogState extends State<VerifyEmailDialog> {
                         ? Navigator.pushNamed(context, '/home')
                         : Navigator.pop(context);
                   },
-                )
+                ),
+                Padding(
+                  padding: AppIndents.vertical15,
+                  child: InkWell(
+                    child: Text(
+                      'Не приходит письмо или какие-то проблемы?',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.subtitle1!.apply(
+                          color: Theme.of(context).colorScheme.onBackground),
+                    ),
+                    onTap: () {
+                      AppDialog.showCustomDialog(context,
+                          child: SupportDialog(
+                            isVerifyEmail: true,
+                            email: _user?.email,
+                            text:
+                                '1. Проверьте корректность введенного электронного адреса \n(Если почта неверная, нажмите на "Изменить почту" или создайте новый аккаунт с другой почтой). \n2. Проверьте папку "Спам". \n3. Попробуйте отправить письмо заново.  \n\nВ ином случае - обратитесь в поддержку.',
+                          ));
+                    },
+                  ),
+                ),
               ],
             ),
           )),

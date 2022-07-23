@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/pages/auth/pages/change_email_page.dart';
 import 'package:frontend/pages/settings_page/widgets/color_choice_panel.dart';
+import 'package:frontend/pages/settings_page/widgets/email_block.dart';
+import 'package:frontend/pages/settings_page/widgets/support_developer.dart';
 import 'package:frontend/services/user/auth_service.dart';
 import 'package:frontend/services/user/user_stream_builder.dart';
-import 'package:frontend/utils/indents.dart';
 import 'package:frontend/utils/theme.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
+import 'package:frontend/widgets/support_dialog.dart';
+import 'package:frontend/widgets/statuses/dialog.dart';
 import 'package:frontend/widgets/text_buttons.dart';
-import 'package:frontend/widgets/list_tile.dart';
 import 'package:frontend/widgets/statuses/loading.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -50,9 +53,26 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           body: ListView(
             children: <Widget>[
-              _drawEmailEdit(email),
+              const SupportDeveloper(),
+             EmailBlock(text: '$email'),
               _drawButtons(),
               ColorChoicePanel(pressed: _pressed, toggle: _toggleColorChoice),
+              AppTextButton(
+                buttonText: 'изменить почту',
+                type: AppTextButtonType.tertiary,
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) =>  ChangeEmailPage(email: email)));
+                },
+              ),
+              AppTextButton(
+                buttonText: 'задать вопрос',
+                type: AppTextButtonType.tertiary,
+                onPressed: () {
+                  AppDialog.showCustomDialog(context,
+                      child: const SupportDialog(text: 'Как с нами связаться?'));
+                },
+              ),
               _loading == true
                   ? const SizedBox(height: 60, child: AppLoading())
                   : AppTextButton(
@@ -88,25 +108,4 @@ class _SettingsPageState extends State<SettingsPage> {
                   onPressed: _toggleColorChoice))
         ],
       );
-
-  _drawEmailEdit(email) {
-    return Container(
-      margin: AppIndents.all5ExceptBottom,
-      child: email != null
-          ? AppListTile(
-              headline2: '$email',
-              bodyText: null,
-              height: 60,
-              textColor: Theme.of(context).colorScheme.onPrimary,
-              color: Theme.of(context).colorScheme.primary,
-              trailing: Icon(
-                Icons.edit,
-                color: Theme.of(context).colorScheme.onPrimary,
-              ),
-            )
-          : const AppLoading(
-              height: 60,
-            ),
-    );
-  }
 }

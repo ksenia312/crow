@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/pages/auth_page/auth_page.dart';
+import 'package:frontend/pages/auth/auth_wrapper.dart';
 import 'package:frontend/utils/assets_variables.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
 import 'package:frontend/widgets/text_buttons.dart';
@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) {
-                      return const AuthPage();
+                      return const AuthWrapper();
                     }),
                   );
                 },

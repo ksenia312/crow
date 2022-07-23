@@ -62,6 +62,31 @@ class AuthService {
     }
   }
 
+  Future updateEmail(String email, String password, String newEmail) async {
+    try {
+      User? user = _auth.currentUser;
+      AuthCredential credentials =
+          EmailAuthProvider.credential(email: email, password: password);
+      await user?.reauthenticateWithCredential(credentials).then((res) async {
+        await user.updateEmail(newEmail);
+        await UserDatabase(uid: user.uid).updateUserEmail(email: newEmail);
+        return null;
+      });
+      return true;
+    } catch (e) {
+      return e;
+    }
+  }
+
+  Future resetPassword(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      return true;
+    } catch (e) {
+      return e;
+    }
+  }
+
   Future signOut() async {
     try {
       return await _auth.signOut();

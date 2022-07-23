@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/pages/auth_page/pages/sign_in_page.dart';
-import 'package:frontend/pages/auth_page/pages/sign_up_page.dart';
+import 'package:frontend/pages/auth/pages/sign_in_page.dart';
+import 'package:frontend/pages/auth/pages/sign_up_page.dart';
 
-class AuthPage extends StatefulWidget {
-  const AuthPage({Key? key}) : super(key: key);
+class AuthWrapper extends StatefulWidget {
+  const AuthWrapper({Key? key}) : super(key: key);
 
   @override
-  State<AuthPage> createState() => _AuthPageState();
+  State<AuthWrapper> createState() => _AuthWrapperState();
 }
 
-class _AuthPageState extends State<AuthPage> {
+class _AuthWrapperState extends State<AuthWrapper> {
   bool _registered = true;
 
   void toggleAuthView() {

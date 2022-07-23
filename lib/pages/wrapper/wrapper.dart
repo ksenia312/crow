@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/pages/auth_page/pages/acquaintance_page.dart';
-import 'package:frontend/pages/auth_page/pages/verify_email_page.dart';
+import 'package:frontend/pages/auth/pages/acquaintance_page.dart';
+import 'package:frontend/pages/auth/pages/verify_email_page.dart';
 import 'package:frontend/pages/home_page.dart';
 import 'package:frontend/pages/tabs_page/tabs_page.dart';
 
-class Wrapper extends StatelessWidget {
+class Wrapper extends StatefulWidget {
   final bool showInitDialog;
   final String dialogTitle;
 
@@ -13,10 +13,21 @@ class Wrapper extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<Wrapper> createState() => _WrapperState();
+}
+
+class _WrapperState extends State<Wrapper> {
+  @override
+  void didUpdateWidget(covariant Wrapper oldWidget) {
+    setState(() {});
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null && !user.emailVerified) {
-      return const VerifyEmailDialog(isInitPage: true);
+      return const VerifyEmailPage(isInitPage: true);
     } else if (user != null &&
         user.emailVerified &&
         (user.displayName == null || user.displayName?.isEmpty == true)) {
@@ -24,10 +35,10 @@ class Wrapper extends StatelessWidget {
     } else if (user != null &&
         user.emailVerified &&
         user.displayName?.isNotEmpty == true) {
-      return showInitDialog
+      return widget.showInitDialog
           ? TabsPage(
-              showInitDialog: showInitDialog,
-              dialogTitle: dialogTitle,
+              showInitDialog: widget.showInitDialog,
+              dialogTitle: widget.dialogTitle,
             )
           : const TabsPage();
     } else {

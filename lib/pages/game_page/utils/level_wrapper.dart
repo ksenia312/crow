@@ -3,14 +3,14 @@ import 'package:frontend/services/user/user_stream_builder.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
 import 'level_utils.dart';
 
-class LevelSwitch extends StatefulWidget {
-  const LevelSwitch({Key? key}) : super(key: key);
+class LevelWrapper extends StatefulWidget {
+  const LevelWrapper({Key? key}) : super(key: key);
 
   @override
-  State<LevelSwitch> createState() => _LevelSwitchState();
+  State<LevelWrapper> createState() => _LevelWrapperState();
 }
 
-class _LevelSwitchState extends State<LevelSwitch> {
+class _LevelWrapperState extends State<LevelWrapper> {
   bool lastAvailable = false;
   final List<int> _hardLevels = [5];
   late List<Widget> levels;

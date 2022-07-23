@@ -1,10 +1,11 @@
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/config/config.dart';
 import 'package:frontend/models/auth_model.dart';
 import 'package:frontend/pages/game_page/pages/levels_preview_page.dart';
-import 'package:frontend/pages/game_page/utils/level_switch.dart';
+import 'package:frontend/pages/game_page/utils/level_wrapper.dart';
 import 'package:frontend/pages/game_page/pages/pass_page.dart';
 import 'package:frontend/pages/home_page.dart';
 import 'package:frontend/pages/splash_page/splash_page.dart';
@@ -30,7 +31,9 @@ void main() async {
   } else {
     await Firebase.initializeApp();
   }
-
+/*  await FirebaseAppCheck.instance.activate(
+    webRecaptchaSiteKey: 'recaptcha-v3-site-key',
+  );*/
   final SharedPreferences _prefs = await SharedPreferences.getInstance();
   AppTheme.setTheme(
       isDark: _prefs.getBool('isDarkTheme') ?? true,
@@ -70,7 +73,7 @@ class _MyAppState extends State<MyApp> {
         '/': (context) => const SplashPage(),
         '/home': (context) => HomePage(),
         '/tabs': (context) => const TabsPage(),
-        '/level': (context) => const LevelSwitch(),
+        '/level': (context) => const LevelWrapper(),
         '/pass-page': (context) => const PassPage(),
         '/levels-preview-page': (context) => const LevelsPreviewPage()
       },

@@ -103,7 +103,9 @@ class _AppTextButtonState extends State<AppTextButton> {
       case AppTextButtonType.warning:
         return ButtonStyle(
           backgroundColor:
-              overrideButtonStyle<Color?>(Theme.of(context).colorScheme.error),
+              overrideButtonStyle<Color?>(widget.disabled
+                  ? Theme.of(context).colorScheme.error.withOpacity(0.4)
+                  : Theme.of(context).colorScheme.error),
           foregroundColor: overrideButtonStyle<Color?>(
               Theme.of(context).colorScheme.onError),
         );
