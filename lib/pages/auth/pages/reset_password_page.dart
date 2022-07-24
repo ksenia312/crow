@@ -38,7 +38,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage>
     super.initState();
   }
 
-  _onFieldChanged(String value, ResetPasswordFieldType type) => setState(() {
+  _onFieldChanged(String value, ResetPasswordFieldType type) =>
+      setState(() {
         _fieldsValues[type] = value;
       });
 
@@ -47,20 +48,18 @@ class _ResetPasswordPageState extends State<ResetPasswordPage>
     if (validateFields() == null) {
       AuthService()
           .resetPassword(_fieldsValues[ResetPasswordFieldType.email]!)
-          .then((res) {
+          .then((res) async {
         if (res is FirebaseAuthException) {
           AppToast.showError(res, context);
         } else {
           AppToast.showSuccess(
-              'Ссылка для сброса пароля отправлена на почту ${_fieldsValues[ResetPasswordFieldType.email]!}',
+              'Ссылка для сброса пароля отправлена на почту ${_fieldsValues[ResetPasswordFieldType
+                  .email]!}',
               context);
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const Wrapper(
-                        showInitDialog: true,
-                        dialogTitle: 'Добро пожаловать!',
-                      )));
+          final AuthService _auth = AuthService();
+          await _auth.signOut();
+          Navigator.pushNamedAndRemoveUntil(
+              context, '/home', (Route<dynamic> route) => false);
         }
       });
     }
@@ -92,7 +91,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage>
   }
 
   _drawTextField(String hintText, bool obscuringCharacter,
-          ResetPasswordFieldType type) =>
+      ResetPasswordFieldType type) =>
       AppTextField(
           hintText: hintText,
           obscuringCharacter: obscuringCharacter,
@@ -101,7 +100,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage>
             _onFieldChanged(value, type);
           });
 
-  Column _drawPasswordResetButton() => Column(
+  Column _drawPasswordResetButton() =>
+      Column(
         children: [
           AppTextButton(
             buttonText: 'Восстановить пароль',
@@ -116,7 +116,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage>
 
   String? validateFields() {
     var _validateEmail =
-        emailTextFieldValidator(_fieldsValues[ResetPasswordFieldType.email]!);
+    emailTextFieldValidator(_fieldsValues[ResetPasswordFieldType.email]!);
 
     if (_validateEmail == null) {
       return null;
