@@ -7,10 +7,9 @@ import 'package:frontend/services/user/auth_service.dart';
 import 'package:frontend/services/user/user_stream_builder.dart';
 import 'package:frontend/utils/theme.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
-import 'package:frontend/widgets/support_dialog.dart';
-import 'package:frontend/widgets/statuses/dialog.dart';
+import 'package:frontend/widgets/dialogs/support_dialog.dart';
+import 'package:frontend/utils/dialog.dart';
 import 'package:frontend/widgets/text_buttons.dart';
-import 'package:frontend/widgets/statuses/loading.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -21,7 +20,6 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   bool _pressed = false;
-  bool _loading = false;
   final AuthService _auth = AuthService();
 
   void _toggleColorChoice() {
@@ -31,15 +29,9 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   void _signOut() async {
-    setState(() {
-      _loading = true;
-    });
     await _auth.signOut();
     Navigator.pushNamedAndRemoveUntil(
         context, '/home', (Route<dynamic> route) => false);
-    setState(() {
-      _loading = false;
-    });
   }
 
   @override
@@ -49,12 +41,12 @@ class _SettingsPageState extends State<SettingsPage> {
       return Scaffold(
           appBar: AppBar(
             title: const AppBarTitle(text: 'Настройки'),
-            leading: AppBarLeading(iconBack: true),
+            leading: const AppBarLeading(iconBack: true),
           ),
           body: ListView(
             children: <Widget>[
               const SupportDeveloper(),
-             EmailBlock(text: '$email'),
+              EmailBlock(text: '$email'),
               _drawButtons(),
               ColorChoicePanel(pressed: _pressed, toggle: _toggleColorChoice),
               AppTextButton(
@@ -62,7 +54,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 type: AppTextButtonType.tertiary,
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) =>  ChangeEmailPage(email: email)));
+                      builder: (context) => ChangeEmailPage(email: email)));
                 },
               ),
               AppTextButton(
@@ -70,15 +62,15 @@ class _SettingsPageState extends State<SettingsPage> {
                 type: AppTextButtonType.tertiary,
                 onPressed: () {
                   AppDialog.showCustomDialog(context,
-                      child: const SupportDialog(text: 'Как с нами связаться?'));
+                      child:
+                          const SupportDialog(text: 'Как с нами связаться?'));
                 },
               ),
-              _loading == true
-                  ? const SizedBox(height: 60, child: AppLoading())
-                  : AppTextButton(
-                      buttonText: 'выйти из аккаунта',
-                      type: AppTextButtonType.warning,
-                      onPressed: _signOut),
+              AppTextButton(
+                  buttonText: 'выйти из аккаунта',
+                  type: AppTextButtonType.warning,
+                  showLoading: true,
+                  onPressed: _signOut),
             ],
           ));
     });

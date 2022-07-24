@@ -4,15 +4,13 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:frontend/pages/auth/pages/reset_password_page.dart';
 import 'package:frontend/pages/wrapper/wrapper.dart';
 import 'package:frontend/services/user/auth_service.dart';
-import 'package:frontend/utils/indents.dart';
+import 'package:frontend/utils/styles.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
 import 'package:frontend/widgets/text_buttons.dart';
-import 'package:frontend/widgets/label.dart';
+import 'package:frontend/widgets/text_field/label.dart';
 import 'package:frontend/widgets/statuses/toast.dart';
-import 'package:frontend/widgets/statuses/loading.dart';
-import 'package:frontend/widgets/statuses/types.dart';
+import 'package:frontend/utils/types.dart';
 import 'package:frontend/widgets/text_field/text_field.dart';
-import 'package:frontend/widgets/text_field/types.dart';
 import 'package:frontend/widgets/text_field/validators.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -28,10 +26,6 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   final AuthService _authService = AuthService();
   final _formKey = GlobalKey<FormState>();
-  final Map<StatusesTypes, bool> _statusesValues = {
-    StatusesTypes.error: false,
-    StatusesTypes.loading: false,
-  };
   final Map<SignInFieldType, String> _fieldsValues = {
     SignInFieldType.email: '',
     SignInFieldType.password: ''
@@ -64,20 +58,12 @@ class _SignInPageState extends State<SignInPage> {
     });
   }
 
-  _toggleStatuses(bool value, StatusesTypes type) {
-    setState(() {
-      _statusesValues[type] = value;
-    });
-  }
-
   void _signIn() async {
-    _toggleStatuses(true, StatusesTypes.loading);
     if (validateFields() == null) {
       var res = await _authService.signInWithEmailAndPassword(
           _fieldsValues[SignInFieldType.email]!,
           _fieldsValues[SignInFieldType.password]!);
       if (res is FirebaseAuthException) {
-        _toggleStatuses(true, StatusesTypes.error);
         AppToast.showError(res, context);
       } else {
         await SharedPreferences.getInstance().then((value) {
@@ -94,7 +80,6 @@ class _SignInPageState extends State<SignInPage> {
         );
       }
     }
-    _toggleStatuses(false, StatusesTypes.loading);
   }
 
   @override
@@ -158,19 +143,12 @@ class _SignInPageState extends State<SignInPage> {
         child: Row(
           children: [
             AppTextButton(
-              buttonText: 'Войти',
-              type: AppTextButtonType.primary,
-              size: AppTextButtonSize.medium,
-              onPressed: _signIn,
-              disabled: _disabled,
-            ),
-            if (_statusesValues[StatusesTypes.loading] == true)
-              const Center(
-                child: Padding(
-                  padding: EdgeInsets.only(left: 20),
-                  child: AppLoading(),
-                ),
-              )
+                buttonText: 'Войти',
+                type: AppTextButtonType.primary,
+                size: AppTextButtonSize.medium,
+                showLoading: true,
+                onPressed: _signIn,
+                disabled: _disabled)
           ],
         ),
       );

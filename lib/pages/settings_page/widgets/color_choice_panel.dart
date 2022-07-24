@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/utils/color_schemes.dart';
-import 'package:frontend/utils/indents.dart';
+import 'package:frontend/utils/styles.dart';
 import 'package:frontend/utils/theme.dart';
 
 class ColorChoicePanel extends StatefulWidget {

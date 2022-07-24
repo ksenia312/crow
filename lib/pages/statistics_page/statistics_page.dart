@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
-import 'package:frontend/utils/count_wrapper.dart';
-import 'package:frontend/utils/indents.dart';
+import 'package:frontend/utils/functions.dart';
+import 'package:frontend/utils/styles.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
 import 'package:frontend/widgets/cards/announcement_card.dart';
 
@@ -56,7 +56,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
     return Scaffold(
         appBar: AppBar(
           title: const AppBarTitle(text: 'Статистика'),
-          leading: AppBarLeading(iconBack: true),
+          leading: const AppBarLeading(iconBack: true),
         ),
         body: ListView(
           children: [

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:frontend/utils/indents.dart';
+import 'package:frontend/utils/styles.dart';
 import 'package:frontend/widgets/list_tile.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import '../pages/auth/pages/change_email_page.dart';
+import '../../pages/auth/pages/change_email_page.dart';
 
 class SupportDialog extends StatefulWidget {
   final String text;

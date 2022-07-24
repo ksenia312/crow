@@ -1,16 +1,13 @@
 import 'dart:math';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/models/user_statuses_model.dart';
-import 'package:frontend/pages/user_page/widgets/refresh_email_dialog.dart';
 import 'package:frontend/services/user/user_stream_builder.dart';
 import 'package:frontend/services/user_statuses/user_statuses_service.dart';
-import 'package:frontend/utils/assets_variables.dart';
-import 'package:frontend/utils/count_wrapper.dart';
-import 'package:frontend/utils/indents.dart';
+import 'package:frontend/utils/functions.dart';
+import 'package:frontend/utils/styles.dart';
+import 'package:frontend/utils/types.dart';
 import 'package:frontend/widgets/cards/image_card.dart';
 import 'package:frontend/widgets/list_tile.dart';
-import 'package:frontend/widgets/statuses/dialog.dart';
 import 'package:frontend/widgets/statuses/loading.dart';
 import 'widgets/statistics_card.dart';
 
@@ -29,17 +26,8 @@ class _UserPageState extends State<UserPage> {
 
   @override
   Widget build(BuildContext context) {
-    var firebaseUser = FirebaseAuth.instance.currentUser;
     return UserStreamBuilder(
       builder: (context, userSnapshot) {
-       /* if (firebaseUser?.email != null &&
-            userSnapshot.data?.email != null &&
-            firebaseUser?.email != userSnapshot.data?.email && !refreshOpened) {
-          AppDialog.showCustomDialog(context,
-              child: RefreshEmailDialog(
-                  authEmail: firebaseUser?.email,
-                  databaseEmail: userSnapshot.data?.email));
-        }*/
         return StreamBuilder<UserStatusesModel>(
             stream: UserStatusesService().userStatuses,
             builder: (context, statusesSnapshot) {
@@ -60,9 +48,12 @@ class _UserPageState extends State<UserPage> {
                       )
                     : Container(
                         color: Theme.of(context).colorScheme.tertiary,
-                        height: 200,
-                        child: const Center(
-                          child: AppLoading(),
+                        height: 230,
+                        child: Center(
+                          child: AppLoading(
+                            color: Theme.of(context).colorScheme.onTertiary,
+                            height: 40,
+                          ),
                         ),
                       ),
                 StatisticsCard(startDate: userSnapshot.data?.startDate),

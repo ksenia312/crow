@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/utils/indents.dart';
-import 'package:frontend/widgets/statuses/dialog.dart';
+import 'package:frontend/utils/styles.dart';
+import 'package:frontend/utils/dialog.dart';
 
-import 'hint_dialog.dart';
+import '../../../widgets/dialogs/hint_dialog.dart';
 
 class LevelTitle extends StatefulWidget {
   final String text;

@@ -71,7 +71,7 @@ class _MyAppState extends State<MyApp> {
       themeMode: appTheme.currentTheme,
       routes: {
         '/': (context) => const SplashPage(),
-        '/home': (context) => HomePage(),
+        '/home': (context) => const HomePage(),
         '/tabs': (context) => const TabsPage(),
         '/level': (context) => const LevelWrapper(),
         '/pass-page': (context) => const PassPage(),

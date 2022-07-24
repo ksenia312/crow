@@ -27,7 +27,7 @@ class _WrapperState extends State<Wrapper> {
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null && !user.emailVerified) {
-      return const VerifyEmailPage(isInitPage: true);
+      return const VerifyEmailPage();
     } else if (user != null &&
         user.emailVerified &&
         (user.displayName == null || user.displayName?.isEmpty == true)) {
@@ -42,7 +42,7 @@ class _WrapperState extends State<Wrapper> {
             )
           : const TabsPage();
     } else {
-      return HomePage();
+      return const HomePage();
     }
   }
 }

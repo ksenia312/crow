@@ -3,10 +3,11 @@ import 'package:frontend/pages/game_page/game_page.dart';
 import 'package:frontend/pages/questions_page/questions_page.dart';
 import 'package:frontend/pages/randomizer_page/randomizer_page.dart';
 import 'package:frontend/pages/settings_page/settings_page.dart';
+import 'package:frontend/widgets/dialogs/exit_dialog.dart';
 import 'package:frontend/pages/tabs_page/widgets/init_dialog.dart';
 import 'package:frontend/pages/user_page/user_page.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
-import 'package:frontend/widgets/statuses/dialog.dart';
+import 'package:frontend/utils/dialog.dart';
 
 class TabsPage extends StatefulWidget {
   final bool showInitDialog;
@@ -62,43 +63,54 @@ class _TabsPageState extends State<TabsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: AppBarTitle(text: _getTitle()),
-        leading: AppBarLeading(onPressed: () {
-          setCurrent(0);
-        }),
-        actions: [
-          IconButton(
-            icon: Icon(
-              Icons.keyboard_double_arrow_down,
-              color: Theme.of(context).colorScheme.onSurface,
+    return WillPopScope(
+      onWillPop: () async {
+        if (_current == 0) {
+          AppDialog.showCustomDialog(context,
+              child: const ExitDialog(
+                  text: 'Вы уверены, что хотите выйти из аккаунта?'));
+          setState(() {});
+        }
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: AppBarTitle(text: _getTitle()),
+          leading: AppBarLeading(onPressed: () {
+            setCurrent(0);
+          }),
+          actions: [
+            IconButton(
+              icon: Icon(
+                Icons.keyboard_double_arrow_down,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+              onPressed: () {
+                AppDialog.showCustomDialog(context,
+                    child: InitDialog(
+                        title: 'Что вы хотите?', setCurrent: setCurrent));
+              },
             ),
-            onPressed: () {
-              AppDialog.showCustomDialog(context,
-                  child: InitDialog(
-                      title: 'Что вы хотите?', setCurrent: setCurrent));
-            },
-          ),
-          IconButton(
-            icon: Icon(
-              Icons.settings,
-              color: Theme.of(context).colorScheme.onSurface,
+            IconButton(
+              icon: Icon(
+                Icons.settings,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) {
+                    return const SettingsPage();
+                  }),
+                );
+              },
             ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) {
-                  return const SettingsPage();
-                }),
-              );
-            },
-          ),
-        ],
-      ),
-      bottomNavigationBar: _bar(),
-      body: Center(
-        child: _screens.elementAt(_current),
+          ],
+        ),
+        bottomNavigationBar: _bar(),
+        body: Center(
+          child: _screens.elementAt(_current),
+        ),
       ),
     );
   }

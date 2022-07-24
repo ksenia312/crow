@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/utils/button_style.dart';
 import 'package:frontend/utils/color_schemes.dart';
-import 'package:frontend/utils/text_style.dart';
+import 'package:frontend/utils/styles.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'functions.dart';
 
 enum ColorfulThemeType { grey, blue, pink, green, orange }
 

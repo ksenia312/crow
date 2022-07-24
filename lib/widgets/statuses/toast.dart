@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:frontend/widgets/statuses/types.dart';
+import 'package:frontend/utils/types.dart';
 
 class AppToast {
   static showError(e, context) {

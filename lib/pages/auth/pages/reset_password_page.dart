@@ -6,12 +6,10 @@ import 'package:frontend/pages/wrapper/wrapper.dart';
 import 'package:frontend/services/user/auth_service.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
 import 'package:frontend/widgets/text_buttons.dart';
-import 'package:frontend/widgets/label.dart';
+import 'package:frontend/widgets/text_field/label.dart';
 import 'package:frontend/widgets/statuses/toast.dart';
-import 'package:frontend/widgets/statuses/loading.dart';
-import 'package:frontend/widgets/statuses/types.dart';
+import 'package:frontend/utils/types.dart';
 import 'package:frontend/widgets/text_field/text_field.dart';
-import 'package:frontend/widgets/text_field/types.dart';
 import 'package:frontend/widgets/text_field/validators.dart';
 
 class ResetPasswordPage extends StatefulWidget {
@@ -26,10 +24,6 @@ class ResetPasswordPage extends StatefulWidget {
 class _ResetPasswordPageState extends State<ResetPasswordPage>
     with TickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
-  final Map<StatusesTypes, bool> _statusesValues = {
-    StatusesTypes.error: false,
-    StatusesTypes.loading: false,
-  };
   final Map<ResetPasswordFieldType, String> _fieldsValues = {
     ResetPasswordFieldType.email: '',
   };
@@ -48,24 +42,15 @@ class _ResetPasswordPageState extends State<ResetPasswordPage>
         _fieldsValues[type] = value;
       });
 
-  _toggleStatuses(bool value, StatusesTypes type) {
-    setState(() {
-      _statusesValues[type] = value;
-    });
-  }
 
   void _updateEmail() async {
-    _toggleStatuses(true, StatusesTypes.loading);
     if (validateFields() == null) {
       AuthService()
           .resetPassword(_fieldsValues[ResetPasswordFieldType.email]!)
           .then((res) {
         if (res is FirebaseAuthException) {
-          _toggleStatuses(true, StatusesTypes.error);
-          _toggleStatuses(false, StatusesTypes.loading);
           AppToast.showError(res, context);
         } else {
-          _toggleStatuses(false, StatusesTypes.loading);
           AppToast.showSuccess(
               'Ссылка для сброса пароля отправлена на почту ${_fieldsValues[ResetPasswordFieldType.email]!}',
               context);
@@ -124,12 +109,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage>
             size: AppTextButtonSize.large,
             onPressed: _updateEmail,
             disabled: disabled,
-          ),
-          if (_statusesValues[StatusesTypes.loading] == true)
-            const Padding(
-              padding: EdgeInsets.only(top: 10),
-              child: SizedBox(height: 50, child: AppLoading()),
-            ),
+            showLoading: true,
+          )
         ],
       );
 
@@ -144,7 +125,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage>
 
       _warning += _validateEmail;
       AppToast.showWarning(_warning, context);
-      _toggleStatuses(false, StatusesTypes.loading);
     }
     return '';
   }

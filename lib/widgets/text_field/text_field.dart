@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/utils/indents.dart';
+import 'package:frontend/utils/styles.dart';
 
 class AppTextField extends StatefulWidget {
   final String? hintText;

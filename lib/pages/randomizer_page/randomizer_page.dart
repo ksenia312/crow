@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/widgets/statuses/loading.dart';
 
 class RandomizerPage extends StatefulWidget {
   const RandomizerPage({Key? key}) : super(key: key);
@@ -11,6 +10,6 @@ class RandomizerPage extends StatefulWidget {
 class _RandomizerPageState extends State<RandomizerPage> {
   @override
   Widget build(BuildContext context) {
-    return const Center(child: AppLoading());
+    return const Center(/*child: AppLoading()*/);
   }
 }

@@ -1,8 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:frontend/utils/assets_variables.dart';
-import '../../utils/indents.dart';
+import 'package:frontend/utils/types.dart';
+import '../../utils/styles.dart';
 import '../list_tile.dart';
 import 'dart:async';
 

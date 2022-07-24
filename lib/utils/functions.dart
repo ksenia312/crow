@@ -1,3 +1,11 @@
+import 'package:flutter/material.dart';
+
+
+overrideButtonStyle<T>(property) {
+  return MaterialStateProperty.all<T>(property);
+}
+
+
 String countSuffixWrapper({required int count, required List variants}) {
   var endNum = count % 10;
   if (endNum == 0 ||

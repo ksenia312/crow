@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:frontend/pages/game_page/utils/level_utils.dart';
 import 'package:frontend/pages/game_page/widgets/level_title.dart';
-import 'package:frontend/utils/indents.dart';
+import 'package:frontend/utils/styles.dart';
 import 'package:frontend/widgets/text_buttons.dart';
 
 import '../../widgets/level_painters.dart';

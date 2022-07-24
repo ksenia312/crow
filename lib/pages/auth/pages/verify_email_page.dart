@@ -2,21 +2,18 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:frontend/widgets/support_dialog.dart';
-import 'package:frontend/utils/indents.dart';
+import 'package:frontend/services/user/auth_service.dart';
+import 'package:frontend/widgets/dialogs/support_dialog.dart';
+import 'package:frontend/utils/styles.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
-import 'package:frontend/widgets/cards/announcement_card.dart';
-import 'package:frontend/widgets/statuses/dialog.dart';
-import 'package:frontend/widgets/statuses/loading.dart';
+import 'package:frontend/utils/dialog.dart';
 import 'package:frontend/widgets/statuses/toast.dart';
 import 'package:frontend/widgets/text_buttons.dart';
 
 import '../../wrapper/wrapper.dart';
 
 class VerifyEmailPage extends StatefulWidget {
-  final bool isInitPage;
-
-  const VerifyEmailPage({this.isInitPage = false, Key? key}) : super(key: key);
+  const VerifyEmailPage({Key? key}) : super(key: key);
 
   @override
   State<VerifyEmailPage> createState() => _VerifyEmailPageState();
@@ -75,8 +72,22 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
       _checkVerificationTimer.cancel();
       _showTicksTimer.cancel();
       AppToast.showSuccess('Почта подтверждена', context);
-      Navigator.push(
+      Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => const Wrapper()));
+    }
+  }
+
+  _getButtonText() {
+    if (_timerTicks < 60 && _emailSent) {
+      return 'Отправить заново через ${60 - _timerTicks}';
+    } else {
+      if (_emailSent) {
+        return 'Отправить заново';
+      } else if (_timerTicks < 60) {
+        return 'Попробовать еще раз через ${60 - _timerTicks}';
+      } else {
+        return 'Попробовать еще раз';
+      }
     }
   }
 
@@ -89,77 +100,68 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        Navigator.pop(context);
-        return true;
-      },
-      child: Scaffold(
-          appBar: AppBar(
-            title: const AppBarTitle(text: 'Подтвердите email'),
-            automaticallyImplyLeading: false,
-          ),
-          backgroundColor: Theme.of(context).colorScheme.background,
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _loading
-                    ? const AppLoading()
-                    : AnnouncementCard(
-                        headline2: _emailSent
-                            ? 'Сообщение отправлено на почту ${_user?.email}'
-                            : 'Не получилось отправить письмо',
-                        bodyText: null,
-                        showCloseButton: false,
-                        height: null,
-                      ),
-                _emailSent
-                    ? AppTextButton(
-                        buttonText: _timerTicks < 60
-                            ? 'Отправить заново через ${60 - _timerTicks}'
-                            : 'Отправить заново',
-                        type: AppTextButtonType.secondary,
-                        disabled: _timerTicks < 60,
-                        onPressed: () {
-                          if (_timerTicks >= 60) {
-                            _sendEmailVerification();
-                          }
-                        },
-                      )
-                    : Container(),
-                AppTextButton(
-                  buttonText: 'Назад',
-                  type: AppTextButtonType.tertiary,
-                  onPressed: () {
-                    widget.isInitPage
-                        ? Navigator.pushNamed(context, '/home')
-                        : Navigator.pop(context);
+    final AuthService _auth = AuthService();
+    return Scaffold(
+        appBar: AppBar(
+          title: const AppBarTitle(text: 'Подтвердите email'),
+          automaticallyImplyLeading: false,
+        ),
+        backgroundColor: Theme.of(context).colorScheme.background,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AppTextButton(
+                  disabled: true,
+                  loading: _loading,
+                  showLoading: true,
+                  buttonText: _emailSent
+                      ? 'Сообщение отправлено на почту ${_user?.email}'
+                      : 'Сообщение не отправлено'),
+              AppTextButton(
+                buttonText: _getButtonText(),
+                type: AppTextButtonType.secondary,
+                disabled: _timerTicks < 60,
+                loading: _loading,
+                showLoading: true,
+                onPressed: () {
+                  if (_timerTicks >= 60) {
+                    _sendEmailVerification();
+                  }
+                },
+              ),
+              AppTextButton(
+                buttonText: 'Домой',
+                type: AppTextButtonType.tertiary,
+                showLoading: true,
+                onPressed: () async {
+                  await _auth.signOut();
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, '/home', (Route<dynamic> route) => false);
+                },
+              ),
+              Padding(
+                padding: AppIndents.vertical15,
+                child: InkWell(
+                  child: Text(
+                    'Не приходит письмо или какие-то проблемы?',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.subtitle1!.apply(
+                        color: Theme.of(context).colorScheme.onBackground),
+                  ),
+                  onTap: () {
+                    AppDialog.showCustomDialog(context,
+                        child: SupportDialog(
+                          isVerifyEmail: true,
+                          email: _user?.email,
+                          text:
+                              '1. Проверьте корректность введенного электронного адреса \n(Если почта неверная, нажмите на "Изменить почту" или создайте новый аккаунт с другой почтой). \n2. Проверьте папку "Спам". \n3. Попробуйте отправить письмо заново.  \n\nВ ином случае - обратитесь в поддержку.',
+                        ));
                   },
                 ),
-                Padding(
-                  padding: AppIndents.vertical15,
-                  child: InkWell(
-                    child: Text(
-                      'Не приходит письмо или какие-то проблемы?',
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.subtitle1!.apply(
-                          color: Theme.of(context).colorScheme.onBackground),
-                    ),
-                    onTap: () {
-                      AppDialog.showCustomDialog(context,
-                          child: SupportDialog(
-                            isVerifyEmail: true,
-                            email: _user?.email,
-                            text:
-                                '1. Проверьте корректность введенного электронного адреса \n(Если почта неверная, нажмите на "Изменить почту" или создайте новый аккаунт с другой почтой). \n2. Проверьте папку "Спам". \n3. Попробуйте отправить письмо заново.  \n\nВ ином случае - обратитесь в поддержку.',
-                          ));
-                    },
-                  ),
-                ),
-              ],
-            ),
-          )),
-    );
+              ),
+            ],
+          ),
+        ));
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/widgets/list_tile.dart';
-import '../../../utils/indents.dart';
+import '../../../utils/styles.dart';
 
 class Question extends StatefulWidget {
   final String headline2;

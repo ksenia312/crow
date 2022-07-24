@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 import 'package:frontend/pages/statistics_page/statistics_page.dart';
-import 'package:frontend/utils/button_style.dart';
-import 'package:frontend/utils/indents.dart';
+import 'package:frontend/utils/functions.dart';
+import 'package:frontend/utils/styles.dart';
 
 class StatisticsCard extends StatefulWidget {
   final DateTime? startDate;

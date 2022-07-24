@@ -3,9 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frontend/models/user_model.dart';
 import 'package:frontend/pages/game_page/widgets/level_introduction_dialog.dart';
 import 'package:frontend/services/user/user_stream_builder.dart';
-import 'package:frontend/utils/assets_variables.dart';
-import 'package:frontend/widgets/statuses/dialog.dart';
-import 'package:frontend/widgets/statuses/loading.dart';
+import 'package:frontend/utils/dialog.dart';
+import 'package:frontend/utils/types.dart';
 import 'package:frontend/widgets/text_buttons.dart';
 import 'package:frontend/widgets/cards/announcement_card.dart';
 
@@ -104,7 +103,7 @@ class _LevelsPreviewPageState extends State<LevelsPreviewPage>
                         : 'Вы прошли все уровни!',
                     showCloseButton: false,
                   )
-                : const AppLoading()
+                : Container()
           ]))
     ];
     _list.addAll(List.generate(maxLevel, (int n) => n + 1).map(

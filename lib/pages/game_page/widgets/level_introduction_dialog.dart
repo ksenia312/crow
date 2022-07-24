@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/utils/indents.dart';
+import 'package:frontend/utils/styles.dart';
 import 'package:frontend/widgets/list_tile.dart';
 
 class LevelIntroductionDialog extends StatefulWidget {

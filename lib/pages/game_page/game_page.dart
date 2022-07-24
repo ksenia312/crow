@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frontend/pages/game_page/pages/levels_preview_page.dart';
-import 'package:frontend/utils/assets_variables.dart';
+import 'package:frontend/utils/types.dart';
 import 'package:frontend/widgets/text_buttons.dart';
 
 class GamePage extends StatefulWidget {

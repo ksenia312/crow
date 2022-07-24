@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:frontend/pages/auth/pages/verify_email_page.dart';
 import 'package:frontend/services/user/auth_service.dart';
+import 'package:frontend/utils/types.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
-import 'package:frontend/widgets/statuses/loading.dart';
 import 'package:frontend/widgets/text_buttons.dart';
-import 'package:frontend/widgets/label.dart';
+import 'package:frontend/widgets/text_field/label.dart';
 import 'package:frontend/widgets/statuses/toast.dart';
 import 'package:frontend/widgets/text_field/text_field.dart';
-import 'package:frontend/widgets/text_field/types.dart';
 import 'package:frontend/widgets/text_field/validators.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -26,7 +25,6 @@ class _SignUpPageState extends State<SignUpPage> {
   final AuthService _authService = AuthService();
   final _formKey = GlobalKey<FormState>();
   bool disabled = true;
-  bool _loading = false;
   late FToast fToast;
 
   final Map<SignUpFieldType, String> _fieldsValues = {
@@ -49,18 +47,11 @@ class _SignUpPageState extends State<SignUpPage> {
     return prefs;
   }
 
-  _toggleLoading() {
-    setState(() {
-      _loading = !_loading;
-    });
-  }
-
   _onFieldChanged(String value, SignUpFieldType type) => setState(() {
         _fieldsValues[type] = value.trim();
       });
 
   void _continue() async {
-    _toggleLoading();
     if (validateFields() == null) {
       var res = await _authService.signUpWithEmailAndPassword(
         _fieldsValues[SignUpFieldType.email]!,
@@ -70,13 +61,12 @@ class _SignUpPageState extends State<SignUpPage> {
         AppToast.showError(res, context);
       } else {
         _initPrefs().then((value) {
-          value.setString('email', _fieldsValues[SignInFieldType.email]!);
+          value.setString('email', _fieldsValues[SignUpFieldType.email]!);
         });
-        Navigator.push(context,
+        Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => const VerifyEmailPage()));
       }
     }
-    _toggleLoading();
   }
 
   @override
@@ -148,8 +138,8 @@ class _SignUpPageState extends State<SignUpPage> {
             size: AppTextButtonSize.large,
             onPressed: _continue,
             disabled: disabled,
-          ),
-          if (_loading) const SizedBox(height: 50, child: AppLoading()),
+            showLoading: true,
+          )
         ],
       );
 

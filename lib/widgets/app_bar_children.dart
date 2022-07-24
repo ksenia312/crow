@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:frontend/utils/assets_variables.dart';
-import 'package:frontend/utils/button_style.dart';
+import 'package:frontend/utils/functions.dart';
+import 'package:frontend/utils/types.dart';
 
 class AppBarLeading extends StatefulWidget {
   final bool iconBack;
   final Function? onPressed;
 
-  AppBarLeading({
+  const AppBarLeading({
     Key? key,
     this.iconBack = false,
     this.onPressed()?,

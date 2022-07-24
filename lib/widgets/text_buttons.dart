@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/utils/button_style.dart';
-import 'package:frontend/utils/indents.dart';
+import 'package:frontend/utils/functions.dart';
+import 'package:frontend/utils/styles.dart';
+import 'package:frontend/widgets/statuses/loading.dart';
 
 enum AppTextButtonType { primary, secondary, tertiary, custom, warning }
 enum AppTextButtonSize { large, medium }
@@ -15,6 +16,8 @@ class AppTextButton extends StatefulWidget {
   final Color customBackgroundColor;
   final Color customForegroundColor;
   final bool disabled;
+  final bool? loading;
+  final bool showLoading;
   final EdgeInsets? margin;
 
   const AppTextButton(
@@ -27,6 +30,8 @@ class AppTextButton extends StatefulWidget {
       this.customBackgroundColor = const Color(0xFFFFFFFF),
       this.customForegroundColor = const Color(0xFFFFFFFF),
       this.disabled = false,
+      this.loading,
+      this.showLoading = false,
       this.margin})
       : super(key: key);
 
@@ -36,16 +41,49 @@ class AppTextButton extends StatefulWidget {
 
 class _AppTextButtonState extends State<AppTextButton> {
   bool _isCurrentMedium() => widget.size == AppTextButtonSize.medium;
+  bool _loading = false;
+  Size? buttonSize;
+  final _key = GlobalKey();
+
+  _onPressed() async {
+    setState(() {
+      _loading = true;
+      buttonSize = _key.currentContext?.size;
+    });
+
+    if (!widget.disabled && widget.onPressed != null) {
+      widget.onPressed!();
+    }
+
+    await Future.delayed(const Duration(seconds: 3));
+    if (mounted) {
+      setState(() {
+        _loading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: _isCurrentMedium() ? 200 : double.infinity,
-      decoration: widget.disabled ? const BoxDecoration() : _activeDecoration(),
+      decoration:
+          widget.disabled || (widget.loading ?? _loading) && widget.showLoading
+              ? const BoxDecoration()
+              : _activeDecoration(),
       margin: widget.margin ?? AppIndents.all5ExceptBottom,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(5),
-        child: _drawTextButton(),
+        child: (widget.loading ?? _loading) && widget.showLoading
+            ? Container(
+                height: buttonSize?.height ?? 50,
+                width: buttonSize?.width ?? 200,
+                color: getColors().backgroundColor?.resolve({}),
+                child: AppLoading(
+                    height: 26,
+                    color: getColors().foregroundColor?.resolve({}) ??
+                        Theme.of(context).colorScheme.onBackground))
+            : _drawTextButton(),
       ),
     );
   }
@@ -58,13 +96,20 @@ class _AppTextButtonState extends State<AppTextButton> {
             blurRadius: 3),
       ]);
 
-  TextButton _drawTextButton() => TextButton(
-      onPressed: widget.disabled ? null : widget.onPressed,
-      style: AppButtonStyle.basic.merge(getColors()),
-      child: Text(
-        widget.buttonText,
-        textAlign: TextAlign.center,
-      ));
+  TextButton _drawTextButton() {
+    TextButton _button = TextButton(
+        key: _key as LabeledGlobalKey<State<StatefulWidget>>,
+        onPressed: _onPressed,
+        style: ButtonStyle(
+          padding: overrideButtonStyle<EdgeInsetsGeometry?>(
+              const EdgeInsets.all(15)),
+        ).merge(getColors()),
+        child: Text(
+          widget.buttonText,
+          textAlign: TextAlign.center,
+        ));
+    return _button;
+  }
 
   ButtonStyle getColors() {
     switch (widget.type) {
@@ -94,18 +139,16 @@ class _AppTextButtonState extends State<AppTextButton> {
         );
       case AppTextButtonType.custom:
         return ButtonStyle(
-          backgroundColor: overrideButtonStyle<Color?>(widget.disabled
-              ? widget.customBackgroundColor.withOpacity(0.4)
-              : widget.customBackgroundColor),
-          foregroundColor: overrideButtonStyle<Color?>(
-              widget.customForegroundColor)
-        );
+            backgroundColor: overrideButtonStyle<Color?>(widget.disabled
+                ? widget.customBackgroundColor.withOpacity(0.4)
+                : widget.customBackgroundColor),
+            foregroundColor:
+                overrideButtonStyle<Color?>(widget.customForegroundColor));
       case AppTextButtonType.warning:
         return ButtonStyle(
-          backgroundColor:
-              overrideButtonStyle<Color?>(widget.disabled
-                  ? Theme.of(context).colorScheme.error.withOpacity(0.4)
-                  : Theme.of(context).colorScheme.error),
+          backgroundColor: overrideButtonStyle<Color?>(widget.disabled
+              ? Theme.of(context).colorScheme.error.withOpacity(0.4)
+              : Theme.of(context).colorScheme.error),
           foregroundColor: overrideButtonStyle<Color?>(
               Theme.of(context).colorScheme.onError),
         );

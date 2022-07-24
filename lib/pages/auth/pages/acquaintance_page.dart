@@ -5,13 +5,13 @@ import 'package:frontend/models/auth_model.dart';
 import 'package:frontend/pages/wrapper/wrapper.dart';
 import 'package:frontend/services/user/auth_service.dart';
 import 'package:frontend/services/user/user_database.dart';
+import 'package:frontend/utils/types.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
-import 'package:frontend/widgets/label.dart';
-import 'package:frontend/widgets/statuses/loading.dart';
+import 'package:frontend/widgets/text_field/label.dart';
+
 import 'package:frontend/widgets/statuses/toast.dart';
 import 'package:frontend/widgets/text_buttons.dart';
 import 'package:frontend/widgets/text_field/text_field.dart';
-import 'package:frontend/widgets/text_field/types.dart';
 import 'package:frontend/widgets/text_field/validators.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +24,6 @@ class AcquaintancePage extends StatefulWidget {
 
 class _AcquaintancePageState extends State<AcquaintancePage> {
   final _formKey = GlobalKey<FormState>();
-  bool _loading = false;
   bool disabled = true;
   late FToast fToast;
 
@@ -44,15 +43,8 @@ class _AcquaintancePageState extends State<AcquaintancePage> {
     fToast.init(context);
   }
 
-  _toggleLoading() {
-    setState(() {
-      _loading = !_loading;
-    });
-  }
-
   void _updateUserNameAndAge(
       AuthService authService, UserDatabase userDatabase) async {
-    _toggleLoading();
     if (validateFields() == null) {
       var nameRes = await authService
           .updateUserDisplayName(_fieldsValues[SignUpFieldType.name]!);
@@ -64,15 +56,13 @@ class _AcquaintancePageState extends State<AcquaintancePage> {
             AppToast.showError(nameRes, context);
         ageRes is FirebaseAuthException && AppToast.showError(ageRes, context);
       } else {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) {
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
           return const Wrapper(
               showInitDialog: true,
               dialogTitle: 'Вы создали аккаунт! Чем теперь займемся?');
         }));
       }
     }
-    _toggleLoading();
   }
 
   @override
@@ -122,17 +112,16 @@ class _AcquaintancePageState extends State<AcquaintancePage> {
                 padding: const EdgeInsets.only(top: 50),
                 child: Column(
                   children: [
-                    _loading
-                        ? const SizedBox(height: 61, child: AppLoading())
-                        : AppTextButton(
-                            buttonText: 'Продолжить',
-                            type: AppTextButtonType.primary,
-                            size: AppTextButtonSize.large,
-                            onPressed: () {
-                              _updateUserNameAndAge(authService, userDatabase);
-                            },
-                            disabled: disabled,
-                          ),
+                    AppTextButton(
+                      buttonText: 'Продолжить',
+                      type: AppTextButtonType.primary,
+                      size: AppTextButtonSize.large,
+                      onPressed: () {
+                        _updateUserNameAndAge(authService, userDatabase);
+                      },
+                      disabled: disabled,
+                      showLoading: true,
+                    ),
                   ],
                 ),
               ),

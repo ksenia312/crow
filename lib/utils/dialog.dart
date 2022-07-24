@@ -5,9 +5,9 @@ class AppDialog {
   static showCustomDialog(context,
       {required Widget child, barrierDismissible = true}) {
     return SchedulerBinding.instance?.addPostFrameCallback((_) => showDialog(
-          context: context,
-          builder: (BuildContext context) => child,
-          barrierDismissible: barrierDismissible,
-        ));
+      context: context,
+      builder: (BuildContext context) => child,
+      barrierDismissible: barrierDismissible,
+    ));
   }
 }

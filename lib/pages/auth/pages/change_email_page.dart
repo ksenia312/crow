@@ -1,21 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:frontend/pages/auth/pages/verify_email_page.dart';
-import 'package:frontend/pages/game_page/widgets/hint_dialog.dart';
+import 'package:frontend/widgets/dialogs/hint_dialog.dart';
 import 'package:frontend/pages/settings_page/widgets/email_block.dart';
 import 'package:frontend/services/user/auth_service.dart';
-import 'package:frontend/utils/indents.dart';
+import 'package:frontend/utils/styles.dart';
+import 'package:frontend/utils/types.dart';
 import 'package:frontend/widgets/app_bar_children.dart';
 import 'package:frontend/widgets/list_tile.dart';
-import 'package:frontend/widgets/statuses/dialog.dart';
+import 'package:frontend/utils/dialog.dart';
 import 'package:frontend/widgets/text_buttons.dart';
-import 'package:frontend/widgets/label.dart';
+import 'package:frontend/widgets/text_field/label.dart';
 import 'package:frontend/widgets/statuses/toast.dart';
-import 'package:frontend/widgets/statuses/loading.dart';
-import 'package:frontend/widgets/statuses/types.dart';
 import 'package:frontend/widgets/text_field/text_field.dart';
-import 'package:frontend/widgets/text_field/types.dart';
 import 'package:frontend/widgets/text_field/validators.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -31,10 +28,6 @@ class ChangeEmailPage extends StatefulWidget {
 class _ChangeEmailPageState extends State<ChangeEmailPage>
     with TickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
-  final Map<StatusesTypes, bool> _statusesValues = {
-    StatusesTypes.error: false,
-    StatusesTypes.loading: false,
-  };
   final Map<ChangeEmailFieldType, String> _fieldsValues = {
     ChangeEmailFieldType.email: '',
     ChangeEmailFieldType.password: ''
@@ -67,13 +60,10 @@ class _ChangeEmailPageState extends State<ChangeEmailPage>
     });
   }
 
-  _onFieldChanged(String value, ChangeEmailFieldType type) => setState(() {
-        _fieldsValues[type] = value;
-      });
-
-  _toggleStatuses(bool value, StatusesTypes type) {
+  _onFieldChanged(String value, ChangeEmailFieldType type) {
     setState(() {
-      _statusesValues[type] = value;
+      _fieldsValues[type] = value;
+      accepted = false;
     });
   }
 
@@ -85,7 +75,6 @@ class _ChangeEmailPageState extends State<ChangeEmailPage>
       _animateAcceptButton();
       return;
     }
-    _toggleStatuses(true, StatusesTypes.loading);
     if (validateFields() == null) {
       User? _user = FirebaseAuth.instance.currentUser;
       AuthService()
@@ -95,23 +84,20 @@ class _ChangeEmailPageState extends State<ChangeEmailPage>
               _fieldsValues[ChangeEmailFieldType.email]!)
           .then((res) async {
         if (res is FirebaseAuthException) {
-          _toggleStatuses(true, StatusesTypes.error);
-          _toggleStatuses(false, StatusesTypes.loading);
           AppToast.showError(res, context);
         } else {
-          _toggleStatuses(false, StatusesTypes.loading);
           AppToast.showSuccess(
               'Почта изменена на ${_fieldsValues[ChangeEmailFieldType.email]!}',
               context);
           await SharedPreferences.getInstance().then((value) {
-            value.setString('email', _fieldsValues[ChangeEmailFieldType.email]!);
+            value.setString(
+                'email', _fieldsValues[ChangeEmailFieldType.email]!);
           });
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const VerifyEmailPage(
-                        isInitPage: true,
-                      )));
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            '/home',
+            (Route<dynamic> route) => false,
+          );
         }
       });
     }
@@ -183,21 +169,13 @@ class _ChangeEmailPageState extends State<ChangeEmailPage>
             _onFieldChanged(value, type);
           });
 
-  Column _drawEmailSendingButton() => Column(
-        children: [
-          AppTextButton(
-            buttonText: 'Подтвердить новую почту',
-            type: AppTextButtonType.primary,
-            size: AppTextButtonSize.large,
-            onPressed: _updateEmail,
-            disabled: disabled,
-          ),
-          if (_statusesValues[StatusesTypes.loading] == true)
-            const Padding(
-              padding: EdgeInsets.only(top: 10),
-              child: SizedBox(height: 50, child: AppLoading()),
-            ),
-        ],
+  AppTextButton _drawEmailSendingButton() => AppTextButton(
+        buttonText: 'Подтвердить новую почту',
+        type: AppTextButtonType.primary,
+        size: AppTextButtonSize.large,
+        onPressed: _updateEmail,
+        disabled: disabled,
+        showLoading: accepted,
       );
 
   _drawAcceptButton() => ScaleTransition(
@@ -249,7 +227,6 @@ class _ChangeEmailPageState extends State<ChangeEmailPage>
         _warning += _validatePassword;
       }
       AppToast.showWarning(_warning, context);
-      _toggleStatuses(false, StatusesTypes.loading);
       setState(() {
         accepted = false;
       });

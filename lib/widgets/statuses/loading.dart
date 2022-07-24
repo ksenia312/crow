@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:frontend/utils/assets_variables.dart';
+import 'package:frontend/utils/types.dart';
 
 class AppLoading extends StatefulWidget {
   final double height;
+  final Color color;
 
-  const AppLoading({Key? key, this.height = 70.0}) : super(key: key);
+  const AppLoading({Key? key, this.height = 70.0, required this.color})
+      : super(key: key);
 
   @override
   State<AppLoading> createState() => _AppLoadingState();
@@ -22,6 +24,7 @@ class _AppLoadingState extends State<AppLoading> with TickerProviderStateMixin {
 
   @override
   void initState() {
+    _pic = getAsset(AppAssets.loading);
     super.initState();
     _controller = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 800));
@@ -47,9 +50,6 @@ class _AppLoadingState extends State<AppLoading> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    setState(() {
-      _pic = getAsset(AppAssets.loading);
-    });
     return Center(child: _buildAnimation());
   }
 
@@ -60,6 +60,6 @@ class _AppLoadingState extends State<AppLoading> with TickerProviderStateMixin {
           child: SizedBox(
             height: widget.height,
             width: widget.height / 1.43,
-            child: SvgPicture.asset(_pic),
+            child: SvgPicture.asset(_pic, color: widget.color),
           )));
 }

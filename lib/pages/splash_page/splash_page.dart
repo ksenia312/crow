@@ -31,17 +31,15 @@ class _SplashPageState extends State<SplashPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              'crow',
-              style: Theme.of(context).textTheme.headline1!.apply(
-                  color: Theme.of(context).brightness == Brightness.light
-                      ? const Color(0xFF111111)
-                      : const Color(0xFFDDDCFF)),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(top: 30),
+            Text('crow',
+                style: Theme.of(context).textTheme.headline1!.apply(
+                      color: Theme.of(context).colorScheme.onBackground,
+                    )),
+            Padding(
+              padding: const EdgeInsets.only(top: 30),
               child: AppLoading(
                 height: 100,
+                color: Theme.of(context).colorScheme.onBackground,
               ),
             ),
           ],

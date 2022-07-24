@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frontend/pages/game_page/widgets/level_painters.dart';
-import 'package:frontend/utils/assets_variables.dart';
+import 'package:frontend/utils/types.dart';
 
 class PassAnimation1 extends StatefulWidget {
   const PassAnimation1({Key? key}) : super(key: key);
