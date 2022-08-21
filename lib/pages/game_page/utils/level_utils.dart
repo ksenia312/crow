@@ -8,7 +8,6 @@ import '../pages/levels/level2.dart';
 import '../pages/levels/level3.dart';
 import '../pages/levels/level4.dart';
 import '../pages/levels/level5.dart';
-import '../pages/levels/level6.dart';
 
 class LevelUtils {
   static int _availableLevelsCount = 1;
@@ -23,7 +22,6 @@ class LevelUtils {
     const Level3(),
     const Level4(),
     const Level5(),
-    const Level6()
   ];
 
   static int get maxLevel => levels.length;

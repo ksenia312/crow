@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-      AppDialog.showCustomDialog(context,
+        AppDialog.showCustomDialog(context,
             child: const ExitDialog(
               text: 'Вы уверены, что хотите выйти из приложения?',
               exitFromApp: true,
@@ -61,10 +61,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   final List<List<String>> _items = [
-    ['Развлекайтесь каждый день', 'Ну или не каждый, как хотите'],
+    ['Приложение для отдыха', 'Посмотрите, что у нас есть!'],
     ['Игра, которая сломает тебе мозг', 'Попробуй пройти (:'],
-    ['Уникальный раздел “Рандомайзер', 'От него неизвестно, что ожидать'],
-    ['Ответы на самые странные вопросы', 'Вы не ждали, а мы пришла'],
+    ['Уникальный раздел "Медитация"', 'Расслабляйтесь с удовольствем']
   ];
 
   CarouselSlider _drawCarousel() => CarouselSlider(

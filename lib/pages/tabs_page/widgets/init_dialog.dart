@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/widgets/list_tile.dart';
 
@@ -28,8 +27,7 @@ class InitDialog extends StatelessWidget {
 
   List<Widget> _drawChildren(context, color, textColor) => [
         _drawItem(context, 'Хочу играть', textColor, 1),
-        _drawItem(context, 'Хочу почитать', textColor, 3),
-        _drawItem(context, 'Я не знаю..', textColor, 2),
+        _drawItem(context, 'Хочу расслабиться', textColor, 2),
       ];
 
   GestureDetector _drawItem(

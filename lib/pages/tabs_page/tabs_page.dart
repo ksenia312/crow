@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/pages/game_page/game_page.dart';
+import 'package:frontend/pages/meditation_page/meditation_page.dart';
 import 'package:frontend/pages/questions_page/questions_page.dart';
-import 'package:frontend/pages/randomizer_page/randomizer_page.dart';
 import 'package:frontend/pages/settings_page/settings_page.dart';
 import 'package:frontend/widgets/dialogs/exit_dialog.dart';
 import 'package:frontend/pages/tabs_page/widgets/init_dialog.dart';
@@ -29,8 +29,7 @@ class _TabsPageState extends State<TabsPage> {
   final List<Widget> _screens = const [
     UserPage(),
     GamePage(),
-    RandomizerPage(),
-    QuestionsPage()
+    MeditationPage()
   ];
 
   void setCurrent(current) {
@@ -46,9 +45,7 @@ class _TabsPageState extends State<TabsPage> {
       case 1:
         return 'Сломай мозг';
       case 2:
-        return 'Рандомайзер';
-      case 3:
-        return 'Вопрос';
+        return 'Медитация';
     }
   }
 
@@ -120,7 +117,7 @@ class _TabsPageState extends State<TabsPage> {
         child: Row(mainAxisSize: MainAxisSize.max, children: _generateItems()),
       );
 
-  List<Widget> _generateItems() => List.generate(4, (int n) => n)
+  List<Widget> _generateItems() => List.generate(3, (int n) => n)
       .map((n) => Expanded(
             child: GestureDetector(
               onTap: () {
@@ -137,19 +134,17 @@ class _TabsPageState extends State<TabsPage> {
   List _iconNames() => [
         Icons.person_outline,
         Icons.play_circle_outline,
-        Icons.burst_mode_outlined,
-        Icons.question_mark_outlined,
+        Icons.emoji_emotions_outlined
       ];
 
   List _selectedIconNames() => [
         Icons.person,
         Icons.play_circle,
-        Icons.burst_mode,
-        Icons.question_mark,
+        Icons.emoji_emotions,
       ];
 
   List<Icon> _icons() => List.generate(
-      4,
+      3,
       (index) => Icon(
             _current == index
                 ? _selectedIconNames()[index]
