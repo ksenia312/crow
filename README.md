@@ -1,7 +1,8 @@
 # crow 
-<img src="https://github.com/ksenia312/crow/blob/6a7028b47f1b55cc602aa39adaa7a093257e45e5/assets/svg/icons/icon_dark.svg" alt="drawing" width="100"/>
-A new Flutter project.
+<img src="https://github.com/ksenia312/crow/blob/main/preview/splash.jpg" alt="drawing" width="300"/> <img src="https://github.com/ksenia312/crow/blob/main/preview/home.jpg" alt="drawing" width="300"/> <img src="https://github.com/ksenia312/crow/blob/main/preview/menu.jpg" alt="drawing" width="300"/> <img src="https://github.com/ksenia312/crow/blob/main/preview/game.jpg" alt="drawing" width="300"/> <img src="https://github.com/ksenia312/crow/blob/main/preview/settings.jpg" alt="drawing" width="300"/> <img src="https://github.com/ksenia312/crow/blob/main/preview/meditation.jpg" alt="drawing" width="300"/>
 
+
+A new Flutter project.
 ## Getting Started
 
 This project is a starting point for a Flutter application.
